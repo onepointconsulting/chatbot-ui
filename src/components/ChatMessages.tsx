@@ -1,0 +1,78 @@
+import {Message} from "../lib/model.ts";
+import Markdown from "react-markdown";
+import remarkGfm from "remark-gfm";
+import type {Position} from 'unist'
+import type {ReactNode} from 'react'
+import {PrismAsync as SyntaxHighlighter} from 'react-syntax-highlighter';
+import {dracula} from 'react-syntax-highlighter/dist/esm/styles/prism';
+
+type MessagesProps = { data: Message[] };
+
+export type ComponentPropsWithoutRef<T extends React.ElementType<any>> =
+  import('react').ComponentPropsWithoutRef<T>
+
+export type ReactMarkdownProps = {
+  node: Element
+  children: ReactNode[]
+  /**
+   * Passed when `options.rawSourcePos` is given
+   */
+  sourcePosition?: Position
+  /**
+   * Passed when `options.includeElementIndex` is given
+   */
+  index?: number
+  /**
+   * Passed when `options.includeElementIndex` is given
+   */
+  siblingCount?: number
+}
+
+export type CodeProps = ComponentPropsWithoutRef<'code'> &
+  ReactMarkdownProps & {
+  inline?: boolean
+}
+
+function Code({inline, children, ...props}: CodeProps) {
+  const match = /language-(\w+)/.exec(props.className || '') || "Python"
+  return (
+    <SyntaxHighlighter
+      {...props}
+      children={String(children).replace(/\n$/, '')}
+      style={dracula}
+      customStyle={{paddingRight: '2.5em'}}
+      wrapLongLines
+      language={match[1]}
+      PreTag="div"
+    />
+  );
+}
+
+/**
+ * Displays the messages in the chat window
+ * @param data The data with all messagess
+ * @constructor
+ */
+export default function Messages({data}: MessagesProps) {
+  return (
+    <>
+      {
+        data.map((message: Message, index: number) => (
+          <div key={index} className={`chat-message flex flex-row ${message.isUser ? 'bg-white' : ''}`}>
+            <span className="text-sm text-gray-500 ml-4 my-3">{message.isUser ? "You" : "Bot"}</span>
+            <Markdown
+              className="text-gray-900 mx-3 my-3 markdown-body"
+              remarkPlugins={[remarkGfm]}
+              components={{
+                code({...props}) {
+                  // @ts-ignore
+                  return <Code {...props} />;
+                }
+              }}
+            >{message.text}</Markdown>
+          </div>
+        ))
+      }
+    </>
+  )
+}

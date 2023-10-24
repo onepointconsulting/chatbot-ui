@@ -5,6 +5,8 @@ import {io, Socket} from "socket.io-client";
 import WEBSOCKET_URL from "./lib/apiConstants.ts";
 import {Message, State} from "./lib/model.ts";
 import Messages from "./components/ChatMessages.tsx";
+import ErrorMessage from "./components/ErrorMessage.tsx";
+import { Comment } from  'react-loader-spinner'
 
 type Action =
   | { type: 'request', message: Message }
@@ -12,7 +14,7 @@ type Action =
   | { type: 'failure', error: string }
   | { type: 'connect' }
   | { type: 'disconnect' }
-  | { type: 'clear', error: string }
+  | { type: 'clear' }
   | { type: 'text', text: string }
 
 const request = 'request';
@@ -41,6 +43,8 @@ function scrollToBottom() {
     objDiv.scrollTop = objDiv.scrollHeight
   }
 }
+
+const SPINNER_SIZE = 60
 
 function App() {
 
@@ -93,6 +97,10 @@ function App() {
     sendWSMessage(text, socket.current)
   }
 
+  function clear() {
+    dispatch({type: 'clear'})
+  }
+
   return (
     <>
       <section className="chat-main flex flex-col h-screen">
@@ -100,10 +108,20 @@ function App() {
           <h2 className="text-3xl md:text-4xl font-bold">Chat</h2>
           {<div className="mt-auto">{connected ? "connected" : "disconnected"}</div>}
         </div>
+        {!!error && <ErrorMessage message={error}/>}
         <div className="chat-container grow bg-gray-100 mt-14 overflow-auto">
           <Messages data={data}/>
-          {isLoading && <div className="chat-message flex flex-col">
-            <span className="text-sm text-gray-500 mx-3 my-3">Please wait ...</span>
+          {isLoading && <div className="chat-message flex flex-col mx-auto">
+            <span className="text-sm text-gray-500 my-3 mx-auto"><Comment
+              visible={true}
+              height={SPINNER_SIZE}
+              width={SPINNER_SIZE}
+              ariaLabel="comment-loading"
+              wrapperStyle={{}}
+              wrapperClass="comment-wrapper"
+              color="#fff"
+              backgroundColor="#F4442E"
+            /></span>
           </div>}
         </div>
         <div className="chat-input flex">
@@ -117,11 +135,17 @@ function App() {
                  }}
                  placeholder="Type your message here ..."
                  disabled={isLoading || !connected}
-                 className="m-3 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"/>
+                 className="m-3 text-gray-900 text-sm rounded-lg block w-full p-2.5
+                  outline outline-offset-2 outline-1 focus:outline-offset-2 focus:outline-2 outline-gray-400"/>
           <button
             className="flex-none ml-1 mr-2 my-auto bg-sky-500 hover:bg-sky-700 px-5 text-sm font-semibold text-white h-10 rounded-2xl"
             disabled={isLoading || !text || !connected}
             onClick={sendMessage}>Send
+          </button>
+          <button
+          className="flex-none ml-1 mr-2 my-auto bg-amber-500 hover:bg-amber-700 px-5 text-sm font-semibold text-white h-10 rounded-2xl"
+          onClick={clear}>
+            Clear
           </button>
         </div>
       </section>

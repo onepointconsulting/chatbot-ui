@@ -64,6 +64,8 @@ export default function Messages({data}: MessagesProps) {
               className="text-gray-900 mx-3 my-3 markdown-body"
               remarkPlugins={[remarkGfm]}
               components={{
+                ul: ({ ...props }) => <ul className="space-y-1 text-gray-500 list-disc dark:text-gray-400" {...props} />,
+                ol: ({ ...props }) => <ol className="space-y-3 text-gray-500 list-decimal dark:text-gray-400 my-3" {...props} />,
                 code({...props}) {
                   // @ts-ignore
                   return <Code {...props} />;

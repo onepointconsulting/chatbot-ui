@@ -1,7 +1,5 @@
-import {io, Socket} from "socket.io-client";
-import WEBSOCKET_URL from "./apiConstants.ts";
+import {Socket} from "socket.io-client";
 
-export const socket = io(WEBSOCKET_URL);
 export const WEBSOCKET_MESSAGE = 'question';
 export const WEBSOCKET_RESPONSE = 'response';
 

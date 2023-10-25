@@ -2,6 +2,7 @@
 export type Message = {
   text: string;
   isUser: boolean;
+  timestamp: Date;
 };
 
 export type State = {

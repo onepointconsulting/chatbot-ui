@@ -5,6 +5,8 @@ import type {Position} from 'unist'
 import type {ReactNode} from 'react'
 import {PrismAsync as SyntaxHighlighter} from 'react-syntax-highlighter';
 import {dracula} from 'react-syntax-highlighter/dist/esm/styles/prism';
+import {useContext} from "react";
+import {ChatContext} from "../context/ChatbotContext.tsx";
 
 type MessagesProps = { data: Message[] };
 
@@ -54,18 +56,24 @@ function Code({inline, children, ...props}: CodeProps) {
  * @constructor
  */
 export default function Messages({data}: MessagesProps) {
+  const { botName } = useContext(ChatContext)
   return (
     <>
       {
         data.map((message: Message, index: number) => (
           <div key={index} className={`chat-message flex flex-row ${message.isUser ? 'bg-white' : ''}`}>
-            <span className="text-sm text-gray-500 ml-4 my-3">{message.isUser ? "You" : "Bot"}</span>
+            <div className="flex flex-col w-20 md:w-24">
+              <span className="text-sm text-gray-500 text-center ml-4 mt-1 ">{message.isUser ? "You" : botName}</span>
+              <span className="text-sm text-gray-400 text-center ml-4 my-1">{message.timestamp.toLocaleTimeString()}</span>
+            </div>
             <Markdown
               className="text-gray-900 mx-3 my-3 markdown-body"
               remarkPlugins={[remarkGfm]}
               components={{
-                ul: ({ ...props }) => <ul className="space-y-1 text-gray-500 list-disc dark:text-gray-400" {...props} />,
-                ol: ({ ...props }) => <ol className="space-y-3 text-gray-500 list-decimal dark:text-gray-400 my-3" {...props} />,
+                ul: ({...props}) => <ul className="space-y-1 text-gray-500 list-disc dark:text-gray-400" {...props} />,
+                ol: ({...props}) => <ol
+                  className="space-y-3 text-gray-500 list-decimal dark:text-gray-400 my-3 mx-4" {...props} />,
+                p: ({...props}) => <p className="font-sans" {...props} />,
                 code({...props}) {
                   // @ts-ignore
                   return <Code {...props} />;

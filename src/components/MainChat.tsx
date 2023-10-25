@@ -69,13 +69,14 @@ export default function MainChat() {
 
     const onResponse = (value: string) => {
       console.log(WEBSOCKET_RESPONSE, value)
-      dispatch({type: 'success', message: {text: value, isUser: false}})
+      dispatch({type: 'success', message: {text: value, isUser: false, timestamp: new Date()}})
     };
 
     const onDisconnect = () => {
       console.log("disconnected")
       dispatch({type: 'disconnect'})
     }
+
     socket.current.on("connect", onConnect)
     socket.current.on("disconnect", onDisconnect)
     socket.current.on(WEBSOCKET_RESPONSE, onResponse)
@@ -92,13 +93,13 @@ export default function MainChat() {
   }, [data])
 
   function sendMessage() {
-    dispatch({type: 'request', message: {text, isUser: true}})
+    dispatch({type: 'request', message: {text, isUser: true, timestamp: new Date()}})
     sendWSMessage(text, socket.current)
   }
 
   function sendEnterMessage(e: React.KeyboardEvent<HTMLInputElement>) {
     if (e.key === 'Enter') {
-      dispatch({type: 'request', message: {text, isUser: true}})
+      dispatch({type: 'request', message: {text, isUser: true, timestamp: new Date()}})
       sendWSMessage(text, socket.current)
     }
   }
@@ -124,7 +125,7 @@ export default function MainChat() {
                  value={text}
                  onChange={(e) => dispatch({type: 'text', text: e.target.value})}
                  onKeyUp={sendEnterMessage}
-                 placeholder="Type your message here ..."
+                 placeholder="Type your message here and press ENTER ..."
                  disabled={isLoading || !connected}
                  className="m-3 text-gray-900 text-sm rounded-lg block w-full p-2.5
                   outline outline-offset-2 outline-1 focus:outline-offset-2 focus:outline-2 outline-gray-400"/>

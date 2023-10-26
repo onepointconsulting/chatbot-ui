@@ -63,8 +63,8 @@ export default function Messages({data}: MessagesProps) {
         data.map((message: Message, index: number) => (
           <div key={index} className={`chat-message flex flex-row ${message.isUser ? 'bg-white' : ''}`}>
             <div className="flex flex-col w-20 md:w-24">
-              <span className="text-sm text-gray-500 text-center ml-4 mt-1 ">{message.isUser ? "You" : botName}</span>
-              <span className="text-sm text-gray-400 text-center ml-4 my-1">{message.timestamp.toLocaleTimeString()}</span>
+              <span className="text-sm text-gray-500 text-center mt-4 w-20">{message.isUser ? "You" : botName}</span>
+              <span className="text-sm text-gray-400 text-center my-1 w-20">{message.timestamp.toLocaleTimeString()}</span>
             </div>
             <Markdown
               className="text-gray-900 mx-3 my-3 markdown-body"

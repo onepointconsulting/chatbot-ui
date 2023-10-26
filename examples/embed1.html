@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Chat Example</title>
+    <style type="text/css">
+        #root {
+            position: absolute;
+            right: 0;
+            height: 500px;
+            width: 500px;
+        }
+    </style>
+</head>
+<body>
+<script>
+  window.chatConfig = {
+    botName: "ChatGPT",
+    title: 'Chat Embed Example',
+    websocketUrl: 'ws://localhost:3001',
+  }
+</script>
+<script type="module" crossorigin="anonymous" src="http://localhost:8000/static/assets/index-83a9e106.js"></script>
+<link rel="stylesheet" href="http://localhost:8000/static/assets/index-aaf85341.css">
+<div id="root"></div>
+</body>
+</html>

@@ -26,7 +26,7 @@ function reducer(state: State, action: Action): State {
     case 'failure':
       return {...state, isLoading: false, error: action.error};
     case 'clear':
-      return {...state, data: [], error: ""};
+      return {...state, isLoading: false, data: [], error: ""};
     case 'text':
       return {...state, text: action.text};
     case 'connect':
@@ -110,13 +110,13 @@ export default function MainChat() {
 
   return (
     <>
-      <section className="chat-main flex flex-col h-screen">
-        <div className="chat-header p-2 bg-black text-white fixed w-full flex justify-between">
+      <section className="chat-main flex flex-col">
+        <div className="chat-header p-2 bg-black text-white w-full flex justify-between">
           <h2 className="text-3xl md:text-4xl font-bold">{title}</h2>
           {<div className="mt-auto">{connected ? "connected" : "disconnected"}</div>}
         </div>
         {!!error && <ErrorMessage message={error}/>}
-        <div className="chat-container grow bg-gray-100 mt-14 overflow-auto">
+        <div className="chat-container grow bg-gray-100 overflow-auto">
           <Messages data={data}/>
           {isLoading && <Spinner />}
         </div>

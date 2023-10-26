@@ -7,11 +7,22 @@
     <title>Vite + React + TS</title>
     <script>
       window.chatConfig = {
-        botName: "ChatGPT-3.5",
+        botName: "ChatGPT",
         title: 'Chat with me',
         websocketUrl: 'ws://localhost:3001',
       }
     </script>
+    <style>
+        #root {
+            position: absolute;
+            right: 0;
+            bottom: 0;
+            width: 50vw;
+        }
+        #root .chat-main {
+            height: 50vh;
+        }
+    </style>
   </head>
   <body>
     <div id="root"></div>

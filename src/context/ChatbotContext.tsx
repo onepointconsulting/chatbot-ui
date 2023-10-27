@@ -1,5 +1,6 @@
-import {createContext, ReactNode} from "react";
+import {createContext} from "react";
 import WEBSOCKET_URL from "../lib/apiConstants.ts";
+import {Props} from "./commonModel.ts";
 
 interface ContextProps {
   readonly title?: string,
@@ -14,10 +15,6 @@ declare global {
 }
 
 export const ChatContext = createContext<ContextProps>({websocketUrl: WEBSOCKET_URL})
-
-interface Props {
-  children?: ReactNode
-}
 
 export const ChatContextProvider = ({children}: Props) => {
   const title = window.chatConfig?.title || "Chatbot"

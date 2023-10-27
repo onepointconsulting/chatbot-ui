@@ -1,0 +1,22 @@
+#root {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: 100vw;
+}
+
+#root .chat-main {
+  height: 50vh;
+}
+
+@media screen and (min-width: 768px) {
+  #root {
+    width: 50vw;
+  }
+}
+
+@media screen and (min-width: 1536px) {
+  #root {
+    width: 25vw;
+  }
+}

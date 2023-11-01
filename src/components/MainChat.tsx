@@ -73,9 +73,8 @@ export default function MainChat() {
   }
 
   function sendEnterMessage(e: React.KeyboardEvent<HTMLInputElement>) {
-    if (e.key === 'Enter') {
-      dispatch({type: 'request', message: {text, isUser: true, timestamp: new Date()}})
-      sendWSMessage(text, socket.current)
+    if (e.key === 'Enter' && text.trim().length > 0) {
+      sendMessage()
     }
   }
 

@@ -10,15 +10,22 @@ function printTime(): string {
   return `${pad(now.getHours())}:${pad(now.getMinutes())}:${pad(now.getSeconds())}`
 }
 
+function handleErrorMessage(message: string): string {
+  if(message.includes('xhr poll error')) {
+    return 'The server is not available. Please try again later ...'
+  }
+  return message
+}
+
 export default function ErrorMessage({message, dispatch}: { message: string, dispatch: React.Dispatch<Action> }) {
   return (
     <div className="bg-red-100 border-l-4 border-red-500 text-red-700 p-4" role="alert">
       <div className="flex justify-between">
         <div>
-          <span className="font-bold">Error</span>: {message}<br/>
-          {printTime()}
+          <span className="text-xs">{printTime()}</span><br/>
+          <span className="font-bold">Error</span>: {handleErrorMessage(message)}
         </div>
-        <div className="my-auto">
+        <div className="mt-auto">
           <a href="close" onClick={(e) => {
             e.preventDefault()
             dispatch({type: 'clearFailure'})

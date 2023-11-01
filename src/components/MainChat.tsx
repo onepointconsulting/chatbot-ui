@@ -102,14 +102,14 @@ export default function MainChat() {
                  className="m-3 text-gray-900 text-sm rounded-lg block w-full p-2.5
                   outline outline-offset-2 outline-1 focus:outline-offset-2 focus:outline-2 outline-gray-400"/>
           <button
-            className="flex-none ml-1 mr-2 my-auto bg-sky-500 hover:bg-sky-700 px-5 font-semibold text-white h-10 rounded-2xl"
+            className="flex-none my-auto hover:bg-gray-100 rounded-full"
             disabled={isLoading || !text || !connected}
-            onClick={sendMessage}>Send
+            onClick={sendMessage}><img src="/send.svg" alt="Send" style={{width: "42px"}}/>
           </button>
           <button
-            className="flex-none ml-1 mr-2 my-auto bg-amber-500 hover:bg-amber-700 px-5 font-semibold text-white h-10 rounded-2xl"
+            className="flex-none my-auto pl-1 pr-2 h-10 rounded-2xl"
             onClick={clear}>
-            Clear
+            <img src="/clear.svg" alt="Clear" style={{width: "42px"}}/>
           </button>
         </div>
       </section>

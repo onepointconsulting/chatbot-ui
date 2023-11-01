@@ -1,16 +1,18 @@
 import {Message, State} from "../lib/model.ts";
-import {useContext, useEffect, useReducer, useRef} from "react";
-import {io, Socket} from "socket.io-client";
-import sendWSMessage, {WEBSOCKET_RESPONSE} from "../lib/websocketClient.ts";
+import {useContext, useEffect, useReducer} from "react";
+import sendWSMessage from "../lib/websocketClient.ts";
 import ErrorMessage from "./ErrorMessage.tsx";
 import Messages from "./ChatMessages.tsx";
 import Spinner from "./Spinner.tsx";
 import {ChatContext} from "../context/ChatbotContext.tsx";
+import Header from "./Header.tsx";
+import {useWebsocket} from "../hooks/useWebsocket.ts";
 
-type Action =
+export type Action =
   | { type: 'request', message: Message }
   | { type: 'success', message: Message }
   | { type: 'failure', error: string }
+  | { type: 'clearFailure' }
   | { type: 'connect' }
   | { type: 'disconnect' }
   | { type: 'clear' }
@@ -25,6 +27,8 @@ function reducer(state: State, action: Action): State {
       return {...state, text: '', isLoading: action.type === request, data: [...state.data, action.message]};
     case 'failure':
       return {...state, isLoading: false, error: action.error};
+    case 'clearFailure':
+      return {...state, error: ""};
     case 'clear':
       return {...state, isLoading: false, data: [], error: ""};
     case 'text':
@@ -45,7 +49,7 @@ function scrollToBottom() {
 
 export default function MainChat() {
 
-  const { title, websocketUrl } = useContext(ChatContext)
+  const {title, logoImage, websocketUrl} = useContext(ChatContext)
 
   const [{
     text,
@@ -57,36 +61,7 @@ export default function MainChat() {
     text: "", data: [], isLoading: false, connected: false, error: ""
   });
 
-  const socket = useRef<Socket | null>(null);
-
-  useEffect(() => {
-
-    socket.current = io(websocketUrl)
-    const onConnect = () => {
-      console.log("connected")
-      dispatch({type: 'connect'})
-    };
-
-    const onResponse = (value: string) => {
-      console.log(WEBSOCKET_RESPONSE, value)
-      dispatch({type: 'success', message: {text: value, isUser: false, timestamp: new Date()}})
-    };
-
-    const onDisconnect = () => {
-      console.log("disconnected")
-      dispatch({type: 'disconnect'})
-    }
-
-    socket.current.on("connect", onConnect)
-    socket.current.on("disconnect", onDisconnect)
-    socket.current.on(WEBSOCKET_RESPONSE, onResponse)
-
-    return () => {
-      socket.current?.off('connect', onConnect);
-      socket.current?.off('disconnect', onDisconnect);
-      socket.current?.off(WEBSOCKET_RESPONSE, onResponse);
-    }
-  }, []);
+  const socket = useWebsocket({websocketUrl, dispatch})
 
   useEffect(() => {
     scrollToBottom()
@@ -111,14 +86,11 @@ export default function MainChat() {
   return (
     <>
       <section className="chat-main flex flex-col">
-        <div className="chat-header p-2 bg-black text-white w-full flex justify-between">
-          <h2 className="text-3xl md:text-4xl font-bold">{title}</h2>
-          {<div className="mt-auto">{connected ? "connected" : "disconnected"}</div>}
-        </div>
-        {!!error && <ErrorMessage message={error}/>}
+        <Header title={title} logoImage={logoImage} connected={connected}/>
+        {!!error && <ErrorMessage message={error} dispatch={dispatch}/>}
         <div className="chat-container grow bg-gray-100 overflow-auto">
           <Messages data={data}/>
-          {isLoading && <Spinner />}
+          {isLoading && <Spinner/>}
         </div>
         <div className="chat-input flex">
           <input type="text"

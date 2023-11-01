@@ -1,9 +1,13 @@
 import React from "react";
 import {Action} from "./MainChat.tsx";
 
+function pad(num: number): string {
+  return String(num).padStart(2, '0')
+}
+
 function printTime(): string {
   const now = new Date()
-  return `${now.getHours()}:${now.getMinutes()}:${now.getSeconds()}`
+  return `${pad(now.getHours())}:${pad(now.getMinutes())}:${pad(now.getSeconds())}`
 }
 
 export default function ErrorMessage({message, dispatch}: { message: string, dispatch: React.Dispatch<Action> }) {

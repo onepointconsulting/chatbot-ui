@@ -3,9 +3,9 @@ import Markdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import type {Position} from 'unist'
 import type {ReactNode} from 'react'
+import {useContext, useState} from "react";
 import {PrismAsync as SyntaxHighlighter} from 'react-syntax-highlighter';
 import {dracula} from 'react-syntax-highlighter/dist/esm/styles/prism';
-import {useContext} from "react";
 import {ChatContext} from "../context/ChatbotContext.tsx";
 
 type MessagesProps = { data: Message[] };
@@ -50,37 +50,75 @@ function Code({inline, children, ...props}: CodeProps) {
   );
 }
 
+function handleCopy(text: string, setCopied: ((value: (((prevState: boolean) => boolean) | boolean)) => void)) {
+  navigator.clipboard
+    .writeText(text)
+    .then(() => {
+      console.info("Copied to clipboard successfully!");
+      setCopied(true)
+      setTimeout(() => setCopied(false), 5000)
+    })
+    .catch((error) => {
+      console.error("Copy to clipboard failed: ", error);
+    });
+}
+
+function CopyButton({message}: { message: Message }) {
+  const [copied, setCopied]: [boolean, ((value: (((prevState: boolean) => boolean) | boolean)) => void)] = useState(false)
+  const text = message.text + (!!message.sources ? `\n\nSources: ${message.sources}` : '')
+  return (
+    <div className="flex justify-end mr-3">
+      {copied && <span className="text-sm text-gray-400 mt-2">Copied to clipboard!</span>}
+      <button onClick={() => handleCopy(text, setCopied)}
+              className="w-9 p-2 flex-none my-auto hover:bg-gray-200 rounded-full">
+        <img src="/copy.svg" alt="copy"/>
+      </button>
+    </div>
+  )
+}
+
 /**
  * Displays the messages in the chat window
  * @param data The data with all messagess
  * @constructor
  */
 export default function Messages({data}: MessagesProps) {
-  const { botName } = useContext(ChatContext)
+  const {botName} = useContext(ChatContext)
   return (
     <>
       {
         data.map((message: Message, index: number) => (
-          <div key={index} className={`chat-message flex flex-row ${message.isUser ? 'bg-white' : ''}`}>
-            <div className="flex flex-col w-20">
-              <span className="text-sm text-gray-500 text-center mt-3 w-20">{message.isUser ? "You" : botName}</span>
-              <span className="text-xs text-gray-400 text-center mt-1 mb-3 w-20">{message.timestamp.toLocaleTimeString()}</span>
+          <section key={`message_${index}`}>
+            <div className={`chat-message flex flex-row ${message.isUser ? 'bg-white' : ''}`}>
+              <div className="flex flex-col">
+                <span className="text-sm text-gray-500 text-center mt-3 w-20">{message.isUser ? "You" : botName}</span>
+                <span
+                  className="text-xs text-gray-400 text-center mt-1 mb-3 w-20">{message.timestamp.toLocaleTimeString()}</span>
+              </div>
+              <section>
+                <Markdown
+                  className="text-gray-900 mx-3 mt-3 markdown-body"
+                  remarkPlugins={[remarkGfm]}
+                  components={{
+                    ul: ({...props}) => <ul
+                      className="space-y-1 text-gray-500 list-disc dark:text-gray-400" {...props} />,
+                    ol: ({...props}) => <ol
+                      className="space-y-3 text-gray-500 list-decimal dark:text-gray-400 my-3 mx-4" {...props} />,
+                    p: ({...props}) => <p className="font-sans" {...props} />,
+                    code({...props}) {
+                      // @ts-ignore
+                      return <Code {...props} />;
+                    }
+                  }}
+                >{message.text}</Markdown>
+                {!!message.sources &&
+                  <div className="text-sm text-gray-400 mt-2 px-3">Sources: {message.sources}</div>}
+              </section>
             </div>
-            <Markdown
-              className="text-gray-900 mx-3 my-3 markdown-body"
-              remarkPlugins={[remarkGfm]}
-              components={{
-                ul: ({...props}) => <ul className="space-y-1 text-gray-500 list-disc dark:text-gray-400" {...props} />,
-                ol: ({...props}) => <ol
-                  className="space-y-3 text-gray-500 list-decimal dark:text-gray-400 my-3 mx-4" {...props} />,
-                p: ({...props}) => <p className="font-sans" {...props} />,
-                code({...props}) {
-                  // @ts-ignore
-                  return <Code {...props} />;
-                }
-              }}
-            >{message.text}</Markdown>
-          </div>
+            {!message.isUser && (
+              <CopyButton message={message}/>
+            )}
+          </section>
         ))
       }
     </>

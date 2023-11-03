@@ -26,7 +26,7 @@ export default function ErrorMessage({message, dispatch}: { message: string, dis
           <span className="font-bold">Error</span>: {handleErrorMessage(message)}
         </div>
         <div className="mt-auto">
-          <a href="close" onClick={(e) => {
+          <a href="#" onClick={(e) => {
             e.preventDefault()
             dispatch({type: 'clearFailure'})
           }}>&#10006;</a>

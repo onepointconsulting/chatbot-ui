@@ -21,7 +21,14 @@ export function useWebsocket({websocketUrl, dispatch}: useWebsocketParams): Reac
 
     const onResponse = (value: string) => {
       console.log(WEBSOCKET_RESPONSE, value)
-      dispatch({type: 'success', message: {text: value, isUser: false, timestamp: new Date()}})
+      const {response, sources} = JSON.parse(value)
+      dispatch({
+        type: 'success', message: {
+          text: response,
+          sources,
+          isUser: false, timestamp: new Date()
+        }
+      })
     };
 
     const onDisconnect = () => {

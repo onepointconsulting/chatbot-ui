@@ -7,6 +7,7 @@ import {useContext, useState} from "react";
 import {PrismAsync as SyntaxHighlighter} from 'react-syntax-highlighter';
 import {dracula} from 'react-syntax-highlighter/dist/esm/styles/prism';
 import {ChatContext} from "../context/ChatbotContext.tsx";
+import {injectSourceLinks} from "../lib/sourceFunctions.ts";
 
 type MessagesProps = { data: Message[] };
 
@@ -112,7 +113,8 @@ export default function Messages({data}: MessagesProps) {
                   }}
                 >{message.text}</Markdown>
                 {!!message.sources &&
-                  <div className="text-sm text-gray-400 mt-2 px-3">Sources: {message.sources}</div>}
+                  <div className="text-sm text-gray-400 mt-2 px-3">
+                    Sources: <span dangerouslySetInnerHTML={{__html: injectSourceLinks(message.sources)}}/></div>}
               </section>
             </div>
             {!message.isUser && (

@@ -7,6 +7,7 @@ import Spinner from "./Spinner.tsx";
 import {ChatContext} from "../context/ChatbotContext.tsx";
 import Header from "./Header.tsx";
 import {useWebsocket} from "../hooks/useWebsocket.ts";
+import AppInfo from "./AppInfo.tsx";
 
 export type Action =
   | { type: 'request', message: Message }
@@ -86,6 +87,7 @@ export default function MainChat() {
     <>
       <section className="chat-main flex flex-col">
         <Header title={title} logoImage={logoImage} logoLink={logoLink} connected={connected}/>
+        <AppInfo />
         {!!error && <ErrorMessage message={error} dispatch={dispatch}/>}
         <div className="chat-container grow bg-gray-100 overflow-auto">
           <Messages data={data}/>

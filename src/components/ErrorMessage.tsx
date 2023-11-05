@@ -29,7 +29,7 @@ export default function ErrorMessage({message, dispatch}: { message: string, dis
           <a href="#" onClick={(e) => {
             e.preventDefault()
             dispatch({type: 'clearFailure'})
-          }}>&#10006;</a>
+          }} className="text-xs" title="close">&#10006;</a>
         </div>
       </div>
     </div>

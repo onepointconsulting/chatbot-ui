@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Chat</title>
     <script>
+      const port = 3001
       window.chatConfig = {
         botName: "ChatGPT", // Name of the bot
         // Optional logo
@@ -15,8 +16,8 @@
         // Optional title
         title: 'Chat',
         // The socket to where to connect.
-        websocketUrl: 'ws://localhost:3001',
-        sourceDownloadUrl: 'http://localhost:3001/files',
+        websocketUrl: `ws://localhost:${port}`,
+        sourceDownloadUrl: `http://localhost:${port}/files`,
         // Layout options:
         // layout: 'right_corner'
       }

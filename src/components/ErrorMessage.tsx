@@ -25,7 +25,7 @@ export default function ErrorMessage({message, dispatch}: { message: string, dis
           <span className="text-xs">{printTime()}</span><br/>
           <span className="font-bold">Error</span>: {handleErrorMessage(message)}
         </div>
-        <div className="mt-auto">
+        <div>
           <a href="#" onClick={(e) => {
             e.preventDefault()
             dispatch({type: 'clearFailure'})

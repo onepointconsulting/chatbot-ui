@@ -2,9 +2,9 @@ export function extractPdfs(source: string): string[] {
   let start = 0
   const ending = ".pdf"
   const res: string[] = []
-  for(let i = 0; i < source.length; i++) {
-    if(i > ending.length && source.substring(i - ending.length, i) === ending) {
-      let pdfFile = source.substring(start, i);
+  for(let i = ending.length; i < source.length; i++) {
+    if(source.substring(i + 1 - ending.length, i + 1) === ending) {
+      let pdfFile = source.substring(start, i  + 1);
       let sepPos = pdfFile.indexOf(",");
       if(sepPos < 0) {
         sepPos = pdfFile.indexOf(";");
@@ -12,7 +12,7 @@ export function extractPdfs(source: string): string[] {
       if(sepPos > 0) {
         pdfFile = pdfFile.substring(sepPos);
       }
-      res.push(pdfFile)
+      res.push(pdfFile.trim())
       start = i + 1
     }
     if(source[i] === ',' || source[i] === ';') {

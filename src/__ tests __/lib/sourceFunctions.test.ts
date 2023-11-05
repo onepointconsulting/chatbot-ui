@@ -7,6 +7,16 @@ test('extractPdfs', () => {
   expect(extracted.length).toBe(2)
 })
 
+test('extractPdfs 2', () => {
+  const firstPdf = "Onepoint - Client story - Reaching for the skies (1).pdf"
+  const secondPdf = "Onepoint - Transforming the data platform of TravelCo (Client credential).pdf"
+  const input = `${firstPdf}, ${secondPdf}`
+  const extracted = extractPdfs(input)
+  expect(extracted.length).toBe(2)
+  expect(extracted[0]).toBe(firstPdf)
+  expect(extracted[1]).toBe(secondPdf)
+})
+
 test('injectSourceLinks', () => {
   const res = injectSourceLinks(input, "http://localhost:3000")
   expect(res.includes("<a ")).toBe(true)

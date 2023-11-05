@@ -34,7 +34,7 @@ function reducer(state: State, action: Action): State {
     case 'text':
       return {...state, text: action.text};
     case 'connect':
-      return {...state, connected: true};
+      return {...state, connected: true, error: ""};
     case 'disconnect':
       return {...state, connected: false};
   }
@@ -49,7 +49,7 @@ function scrollToBottom() {
 
 export default function MainChat() {
 
-  const {title, logoImage, websocketUrl} = useContext(ChatContext)
+  const {title, logoImage, logoLink, websocketUrl} = useContext(ChatContext)
 
   const [{
     text,
@@ -85,7 +85,7 @@ export default function MainChat() {
   return (
     <>
       <section className="chat-main flex flex-col">
-        <Header title={title} logoImage={logoImage} connected={connected}/>
+        <Header title={title} logoImage={logoImage} logoLink={logoLink} connected={connected}/>
         {!!error && <ErrorMessage message={error} dispatch={dispatch}/>}
         <div className="chat-container grow bg-gray-100 overflow-auto">
           <Messages data={data}/>

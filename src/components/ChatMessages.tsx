@@ -51,17 +51,36 @@ function Code({inline, children, ...props}: CodeProps) {
   );
 }
 
-function handleCopy(text: string, setCopied: ((value: (((prevState: boolean) => boolean) | boolean)) => void)) {
-  navigator.clipboard
-    .writeText(text)
-    .then(() => {
-      console.info("Copied to clipboard successfully!");
+async function handleCopy(text: string, setCopied: ((value: (((prevState: boolean) => boolean) | boolean)) => void)) {
+
+    // Navigator clipboard api needs a secure context (https)
+    if (navigator.clipboard && window.isSecureContext) {
+      await navigator.clipboard.writeText(text);
       setCopied(true)
       setTimeout(() => setCopied(false), 5000)
-    })
-    .catch((error) => {
-      console.error("Copy to clipboard failed: ", error);
-    });
+    } else {
+      // Use the 'out of viewport hidden text area' trick
+      const textArea = document.createElement("textarea");
+      textArea.value = text;
+
+      // Move textarea out of the viewport so it's not visible
+      textArea.style.position = "absolute";
+      textArea.style.left = "-999999px";
+
+      document.body.prepend(textArea);
+      textArea.select();
+
+      try {
+        document.execCommand('copy');
+        setCopied(true)
+        setTimeout(() => setCopied(false), 5000)
+      } catch (error) {
+        console.error(error);
+      } finally {
+        textArea.remove();
+      }
+    }
+
 }
 
 function CopyButton({message}: { message: Message }) {
@@ -70,7 +89,7 @@ function CopyButton({message}: { message: Message }) {
   return (
     <div className="flex justify-end mr-3">
       {copied && <span className="text-sm text-gray-400 mt-2">Copied to clipboard!</span>}
-      <button onClick={() => handleCopy(text, setCopied)}
+      <button onClick={async () => await handleCopy(text, setCopied)}
               className="w-9 p-2 flex-none my-auto hover:bg-gray-200 rounded-full">
         <img src="/copy.svg" alt="copy"/>
       </button>

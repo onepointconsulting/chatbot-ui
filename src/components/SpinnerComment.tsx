@@ -1,10 +1,16 @@
-import {Comment} from "react-loader-spinner";
+import {Comment, Vortex} from "react-loader-spinner";
 
 const SPINNER_SIZE = 60
 
-export default function Spinner() {
+function SpinnerLayout({children}: { children: React.ReactNode }) {
+  return <div className="chat-message flex flex-col mx-auto">
+    {children}
+  </div>
+}
+
+export default function SpinnerComment() {
   return (
-    <div className="chat-message flex flex-col mx-auto">
+    <SpinnerLayout>
             <span className="text-sm text-gray-500 my-3 mx-auto"><Comment
               visible={true}
               height={SPINNER_SIZE}
@@ -15,6 +21,14 @@ export default function Spinner() {
               color="#fff"
               backgroundColor="#F4442E"
             /></span>
-    </div>
+    </SpinnerLayout>
+  )
+}
+
+export function SpinnerUpload() {
+  return (
+    <SpinnerLayout>
+      <Vortex />
+    </SpinnerLayout>
   )
 }

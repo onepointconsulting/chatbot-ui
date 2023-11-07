@@ -2,7 +2,7 @@ type HeaderType = {
   title?: string,
   logoImage?: string,
   logoLink?: string,
-  connected: boolean,
+  connected?: boolean,
 }
 
 function Logo({logoImage, logoLink}: { logoImage?: string, logoLink?: string }) {
@@ -23,7 +23,7 @@ export default function Header({title, logoImage, logoLink, connected}: HeaderTy
         {<Logo logoLink={logoLink} logoImage={logoImage} />}
         <h2 className="text-3xl md:text-4xl font-bold">{title}</h2>
       </div>
-      {<div className="mt-auto mb-1">{connected ? "connected" : "disconnected"}</div>}
+      {<div className="mt-auto mb-1">{connected === null ? "" : connected === true ? "connected" : "disconnected"}</div>}
     </div>
   )
 }

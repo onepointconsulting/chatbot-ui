@@ -1,6 +1,3 @@
-import React from "react";
-import {Action} from "./MainChat.tsx";
-
 function pad(num: number): string {
   return String(num).padStart(2, '0')
 }
@@ -11,15 +8,20 @@ function printTime(): string {
 }
 
 function handleErrorMessage(message: string): string {
-  if(message.includes('xhr poll error')) {
+  if (message.includes('xhr poll error')) {
     return 'The server is not available. Please try again later ...'
   }
   return message
 }
 
-export default function ErrorMessage({message, dispatch}: { message: string, dispatch: React.Dispatch<Action> }) {
+export default function ErrorMessage({message, clearFunc, isError = true}: {
+  message: string,
+  clearFunc: () => void,
+  isError?: boolean
+}) {
+  const ool = isError ? "red" : "green"
   return (
-    <div className="bg-red-100 border-l-4 border-red-500 text-red-700 p-4" role="alert">
+    <div className={`bg-${ool}-100 border-l-4 border-${ool}-500 text-${ool}-700 p-4`} role="alert">
       <div className="flex justify-between">
         <div>
           <span className="text-xs">{printTime()}</span><br/>
@@ -28,7 +30,7 @@ export default function ErrorMessage({message, dispatch}: { message: string, dis
         <div>
           <a href="#" onClick={(e) => {
             e.preventDefault()
-            dispatch({type: 'clearFailure'})
+            clearFunc()
           }} className="text-xs" title="close">&#10006;</a>
         </div>
       </div>

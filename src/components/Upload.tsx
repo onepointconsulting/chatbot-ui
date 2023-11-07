@@ -47,7 +47,6 @@ export default function Upload() {
   }
 
   async function onUpload() {
-    debugger
     isUploading.value = true
     const formData = new FormData()
     formData.append("token", webserverUploadToken.value)
@@ -59,11 +58,9 @@ export default function Upload() {
     }
     try {
       await axios.post(uploadUrl, formData, config)
-      debugger
       onClear()
       successMessage.value = "Upload successful"
     } catch (e) {
-      debugger
       console.error(e)
       if (e instanceof Error) {
         error.value = e.toString()

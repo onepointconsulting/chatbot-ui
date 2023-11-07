@@ -56,7 +56,7 @@ export default function AppInfo(
     <div className="border-l-4 border-blue-400 flex justify-between bg-blue-50 h-56 md:h-auto overflow-y-auto">
       <div className="chat-message flex flex-col bg-gradient-to-b mx-5">
         <span className="text-sm text-gray-500 mt-3 mb-1">Please ask us any Onepoint related questions. Things you could ask:</span>
-        {exampleQuestions.map((question: string, index: number) => <ListItem question={question} index={index}
+        {exampleQuestions.map((question: string, index: number) => <ListItem key={`question_${index}`} question={question} index={index}
                                                                              socket={socket} dispatch={dispatch}
                                                                              connected={connected}/>)}
       </div>

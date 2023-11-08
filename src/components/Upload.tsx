@@ -1,4 +1,4 @@
-import {Signal, signal} from "@preact/signals-react";
+import {effect, Signal, signal} from "@preact/signals-react";
 import {useDropzone} from "react-dropzone";
 import {useCallback, useContext} from "react";
 import {SpinnerUpload} from "./SpinnerComment.tsx";
@@ -6,7 +6,9 @@ import {ChatContext} from "../context/ChatbotContext.tsx";
 import axios from 'axios';
 import ErrorMessage from "./ErrorMessage.tsx";
 
-const webserverUploadToken = signal("")
+const TOKEN_LOCAL_STORAGE_KEY = "TOKEN_LOCAL_STORAGE_KEY"
+
+const webserverUploadToken = signal(window.localStorage.getItem(TOKEN_LOCAL_STORAGE_KEY) ?? "")
 
 const uploadFile: Signal<File | null> = signal(null)
 
@@ -15,6 +17,10 @@ const isUploading = signal(false)
 const error = signal("")
 
 const successMessage = signal("")
+
+effect(() => {
+  window.localStorage.setItem(TOKEN_LOCAL_STORAGE_KEY, webserverUploadToken.value)
+})
 
 export default function Upload() {
 
@@ -40,7 +46,6 @@ export default function Upload() {
   }, [])
 
   function onClear() {
-    webserverUploadToken.value = ""
     uploadFile.value = null
     isUploading.value = false
     error.value = ""

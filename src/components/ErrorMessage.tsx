@@ -25,7 +25,7 @@ export default function ErrorMessage({message, clearFunc, isError = true}: {
       <div className="flex justify-between">
         <div>
           <span className="text-xs">{printTime()}</span><br/>
-          <span className="font-bold">Error</span>: {handleErrorMessage(message)}
+          <span className="font-bold">{isError ? "Error" : "Message"}</span>: {handleErrorMessage(message)}
         </div>
         <div>
           <a href="#" onClick={(e) => {

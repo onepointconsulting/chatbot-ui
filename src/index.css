@@ -4,5 +4,4 @@
 
 .chat-header {
     -webkit-backface-visibility: hidden;
-    background: linear-gradient(to right, rgb(221, 226, 234), rgb(17, 24, 39), rgb(0, 0, 0))
 }

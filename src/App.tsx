@@ -9,14 +9,14 @@ import Layout from "./components/Layout.tsx";
 function App() {
   return (
     <ChatContextProvider>
-      <Layout>
-        <BrowserRouter>
+      <BrowserRouter>
+        <Layout>
           <Routes>
             <Route path="/upload" element={<Upload/>}/>
             <Route path="*" element={<MainChat/>}/>
           </Routes>
-        </BrowserRouter>
-      </Layout>
+        </Layout>
+      </BrowserRouter>
     </ChatContextProvider>
   )
 }

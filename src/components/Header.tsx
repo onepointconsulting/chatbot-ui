@@ -18,12 +18,12 @@ function Logo({logoImage, logoLink}: { logoImage?: string, logoLink?: string }) 
 
 export default function Header({title, logoImage, logoLink, connected}: HeaderType) {
   return (
-    <div className="chat-header p-2 text-white w-full flex justify-between">
+    <div className="chat-header p-2 w-full flex justify-between">
       <div className="flex flex-row">
         {<Logo logoLink={logoLink} logoImage={logoImage} />}
         <h2 className="text-3xl md:text-4xl font-bold">{title}</h2>
       </div>
-      {<div className="mt-auto mb-1">{connected === null ? "" : connected === true ? "connected" : "disconnected"}</div>}
+      {<div className="mt-auto mb-1 text-xs">{connected === null ? "" : connected === true ? "connected" : "disconnected"}</div>}
     </div>
   )
 }

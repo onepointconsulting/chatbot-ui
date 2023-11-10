@@ -2,6 +2,33 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+    --animtime: 0.25s;
+}
+
 .chat-header {
     -webkit-backface-visibility: hidden;
+}
+
+.side-menu.expanded {
+    -webkit-transition: width var(--animtime) ease-in-out;
+    -moz-transition: width var(--animtime) ease-in-out;
+    -o-transition: width var(--animtime) ease-in-out;
+    transition: width var(--animtime) ease-in-out;
+
+    width:8rem;
+}
+
+.side-menu.contracted {
+    -webkit-transition: width var(--animtime) ease-in-out;
+    -moz-transition: width var(--animtime) ease-in-out;
+    -o-transition: width var(--animtime) ease-in-out;
+    transition: width var(--animtime) ease-in-out;
+
+    width:3.5rem;
+}
+
+.menu-icon {
+    min-width: 32px;
+    height: 1.3em;
 }

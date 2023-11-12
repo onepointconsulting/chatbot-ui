@@ -37,7 +37,7 @@ export default function Header({title, logoImage, logoLink, connected}: HeaderTy
         {!menuHeaderExpanded.value ?
           <a href="#" onClick={onMenuHeaderClick}><img alt="Show Menu" title="Show Menu" src="./menu-icon.svg"
                                                        className="ml-auto"/></a> : <a href="#" onClick={onMenuHeaderClick}>&#10006;</a>}
-        {menuHeaderExpanded.value && <SideMenu mobile={true} />}
+        {menuHeaderExpanded.value && <SideMenu mobile={true} menuHeaderExpanded={menuHeaderExpanded} />}
       </div>
       <span
         className="hidden sm:block">{connected === null ? "" : connected === true ? "connected" : "disconnected"}</span>

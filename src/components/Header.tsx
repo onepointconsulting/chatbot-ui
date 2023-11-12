@@ -1,4 +1,5 @@
 import {signal} from "@preact/signals-react";
+import SideMenu from "./SideMenu.tsx";
 
 type HeaderType = {
   title?: string,
@@ -20,6 +21,11 @@ function Logo({logoImage, logoLink}: { logoImage?: string, logoLink?: string }) 
 
 const menuHeaderExpanded = signal(false)
 
+function onMenuHeaderClick(e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) {
+  e.preventDefault()
+  menuHeaderExpanded.value = !menuHeaderExpanded.value
+}
+
 export default function Header({title, logoImage, logoLink, connected}: HeaderType) {
   return (
     <div className="chat-header p-2 w-full flex justify-between">
@@ -27,14 +33,14 @@ export default function Header({title, logoImage, logoLink, connected}: HeaderTy
         {<Logo logoLink={logoLink} logoImage={logoImage}/>}
         <h2 className="text-3xl md:text-4xl font-bold">{title}</h2>
       </div>
-      <div className="mt-auto mb-2 text-xs flex flex-col">
-        <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor" viewBox="0 0 24 24"
-          className="ml-auto sm:hidden block">
-          <path
-                d="M3 8a1 1 0 0 1 1-1h16a1 1 0 1 1 0 2H4a1 1 0 0 1-1-1Zm0 8a1 1 0 0 1 1-1h10a1 1 0 1 1 0 2H4a1 1 0 0 1-1-1Z"></path>
-        </svg>
-        <span className="hidden sm:block">{connected === null ? "" : connected === true ? "connected" : "disconnected"}</span>
+      <div className="mt-auto mb-2 text-xs flex flex-col sm:hidden">
+        {!menuHeaderExpanded.value ?
+          <a href="#" onClick={onMenuHeaderClick}><img alt="Show Menu" title="Show Menu" src="./menu-icon.svg"
+                                                       className="ml-auto"/></a> : <a href="#" onClick={onMenuHeaderClick}>&#10006;</a>}
+        {menuHeaderExpanded.value && <SideMenu mobile={true} />}
       </div>
+      <span
+        className="hidden sm:block">{connected === null ? "" : connected === true ? "connected" : "disconnected"}</span>
       {/*TODO: Add menu items here*/}
     </div>
   )

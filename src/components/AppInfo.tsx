@@ -48,23 +48,22 @@ export default function AppInfo(
     socket: React.MutableRefObject<Socket | null>
   }
 ) {
-
-  if (!displayInfo.value) {
-    return <></>
-  }
   return (
-    <div className="border-l-4 border-blue-400 flex justify-between bg-blue-50 h-56 md:h-auto overflow-y-auto">
-      <div className="chat-message flex flex-col bg-gradient-to-b mx-5">
+    <div
+      className={`border-l-4 border-blue-400 flex bg-blue-50 h-auto overflow-y-auto`}>
+      <div className="chat-message flex flex-col bg-gradient-to-b mx-5 w-11/12 pb-4">
         <span className="text-sm text-gray-500 mt-3 mb-1">Please ask us any Onepoint related questions. Things you could ask:</span>
-        {exampleQuestions.map((question: string, index: number) => <ListItem key={`question_${index}`} question={question} index={index}
-                                                                             socket={socket} dispatch={dispatch}
-                                                                             connected={connected}/>)}
+        {displayInfo.value && exampleQuestions.map((question: string, index: number) => <ListItem
+          key={`question_${index}`} question={question} index={index}
+          socket={socket} dispatch={dispatch}
+          connected={connected}/>)}
       </div>
-      <div className="mb-auto mr-3 mt-4">
+      <div className="mt-4 w-1/12 pr-4 flex justify-end">
         <a href="#" onClick={(e) => {
           e.preventDefault()
-          displayInfo.value = false
-        }} title="close" className="text-xs">&#10006;</a>
+          displayInfo.value = !displayInfo.value
+        }} title="close"><img src={displayInfo.value ? 'expand-up.svg' : 'expand-down.svg'}
+                                              title="Hide" alt="Hide"/></a>
       </div>
     </div>
   )

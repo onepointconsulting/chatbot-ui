@@ -15,15 +15,15 @@ const menus = [
   }
 ]
 
-export default function SideMenu() {
+export default function SideMenu({mobile = false}: {mobile?: boolean}) {
 
   return (
-    <div className={`mt-20 ml-2 md:ml-3 menu-icon`}>
+    <div className={mobile ? 'fixed w-full left-0 z-40 bg-gray-50 top-14 h-full block sm:hidden': 'mt-20 ml-2 md:ml-3 menu-icon'}>
       {menus.map((menu, index) => (
-        <div className="my-8" key={index}>
+        <div className={mobile ? "ml-2 my-6" : "my-8"} key={index}>
           <Link to={menu.link} className="flex" onClick={(e) => e.stopPropagation()}>
             {menu.icon}
-            {expanded.value && <span className="text-sm">{menu.title}</span>}
+            {(expanded.value || mobile) && <span className="text-sm">{menu.title}</span>}
           </Link>
         </div>
       ))}

@@ -1,5 +1,5 @@
 import {Message, State} from "../lib/model.ts";
-import {useContext, useEffect, useReducer} from "react";
+import {useContext, useEffect, useReducer, useRef} from "react";
 import sendWSMessage from "../lib/websocketClient.ts";
 import ErrorMessage from "./ErrorMessage.tsx";
 import Messages from "./ChatMessages.tsx";
@@ -51,6 +51,7 @@ function scrollToBottom() {
 export default function MainChat() {
 
   const {websocketUrl, setIsConnected} = useContext(ChatContext)
+  const textAreaRef = useRef<HTMLTextAreaElement>(null);
 
   const [{
     text,
@@ -79,9 +80,17 @@ export default function MainChat() {
     sendWSMessage(text, socket.current)
   }
 
-  function sendEnterMessage(e: React.KeyboardEvent<HTMLInputElement>) {
-    if (e.key === 'Enter' && text.trim().length > 0) {
+  function sendEnterMessage(e: React.KeyboardEvent<HTMLTextAreaElement>) {
+    if (!e.shiftKey && e.key === 'Enter' && text.trim().length > 0) {
       sendMessage()
+    } else {
+      const el = e.target as HTMLTextAreaElement
+      if(text.includes("\n")) {
+        textAreaRef.current!.style.height = `auto`
+        textAreaRef.current!.style.height = `${el.scrollHeight}px`
+      } else {
+        textAreaRef.current!.style.height = `3rem`
+      }
     }
   }
 
@@ -98,14 +107,18 @@ export default function MainChat() {
         {isLoading && <SpinnerComment/>}
       </div>
       <div className="chat-input flex">
-        <input type="text"
-               value={text}
-               onChange={(e) => dispatch({type: 'text', text: e.target.value})}
-               onKeyUp={sendEnterMessage}
-               placeholder="Type your message here and press ENTER ..."
-               disabled={isLoading || !connected}
-               className="m-3 text-gray-900 text-sm rounded-lg block w-full p-2.5
-                  outline outline-offset-2 outline-1 focus:outline-offset-2 focus:outline-2 outline-gray-400"/>
+        <textarea aria-invalid="false"
+                  autoComplete="false"
+                  id="chat-input"
+                  placeholder="Type your message here and press ENTER..."
+                  value={text}
+                  onChange={(e) => dispatch({type: 'text', text: e.target.value})}
+                  onKeyUp={sendEnterMessage}
+                  disabled={isLoading || !connected}
+                  className="m-3 text-gray-900 text-sm rounded-lg block w-full px-3 py-4 h-12 overflow-hidden max-h-44 resize-none
+                  outline outline-offset-2 outline-1 focus:outline-offset-2 focus:outline-2 outline-gray-400"
+                  ref={textAreaRef}
+        ></textarea>
         <button
           className="flex-none my-auto hover:bg-gray-100 rounded-full"
           disabled={isLoading || !text || !connected}

@@ -121,7 +121,7 @@ export default function Messages({data}: MessagesProps) {
                   remarkPlugins={[remarkGfm]}
                   components={{
                     ul: ({...props}) => <ul
-                      className="space-y-1 text-gray-500 list-disc dark:text-gray-400" {...props} />,
+                      className="space-y-1 text-gray-500 list-disc dark:text-gray-400 ml-5 mb-3" {...props} />,
                     ol: ({...props}) => <ol
                       className="space-y-3 text-gray-500 list-decimal dark:text-gray-400 my-3 mx-4" {...props} />,
                     p: ({...props}) => <p className="font-sans pb-4 sm:pb-2" {...props} />,

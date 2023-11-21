@@ -80,16 +80,21 @@ export default function MainChat() {
     sendWSMessage(text, socket.current)
   }
 
+  function resetHeight() {
+    textAreaRef.current!.style.height = `3rem`
+  }
+
   function sendEnterMessage(e: React.KeyboardEvent<HTMLTextAreaElement>) {
     if (!e.shiftKey && e.key === 'Enter' && text.trim().length > 0) {
       sendMessage()
+      resetHeight()
     } else {
       const el = e.target as HTMLTextAreaElement
       if(text.includes("\n")) {
         textAreaRef.current!.style.height = `auto`
         textAreaRef.current!.style.height = `${el.scrollHeight}px`
       } else {
-        textAreaRef.current!.style.height = `3rem`
+        resetHeight()
       }
     }
   }

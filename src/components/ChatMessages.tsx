@@ -7,7 +7,7 @@ import {useContext, useState} from "react";
 import {PrismAsync as SyntaxHighlighter} from 'react-syntax-highlighter';
 import {dracula} from 'react-syntax-highlighter/dist/esm/styles/prism';
 import {ChatContext} from "../context/ChatbotContext.tsx";
-import {injectSourceLinks} from "../lib/sourceFunctions.ts";
+import Sources from "./Sources.tsx";
 
 type MessagesProps = { data: Message[] };
 
@@ -116,7 +116,7 @@ export default function Messages({data}: MessagesProps) {
               </div>
               <div className="mr-5">
                 <div className="flex flex-col ml-3">
-                  <span className="text-sm text-gray-500 mt-3">{message.isUser ? "You" : botName}</span>
+                  <span className="text-sm font-bold text-gray-500 mt-3">{message.isUser ? "You" : botName}</span>
                   <span
                     className="text-xs text-gray-400">{message.timestamp.toLocaleTimeString()}</span>
                 </div>
@@ -137,9 +137,7 @@ export default function Messages({data}: MessagesProps) {
                         }
                       }}
                     >{message.text}</Markdown>
-                    {!!message.sources &&
-                      <div className="text-sm text-gray-400 mt-2">
-                        Sources: <span dangerouslySetInnerHTML={{__html: injectSourceLinks(message.sources)}}/></div>}
+                    <Sources message={message}/>
                   </section>
                 </div>
                 {!message.isUser && (

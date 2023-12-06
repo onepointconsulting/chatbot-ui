@@ -1,5 +1,5 @@
 import {createContext, useState} from "react";
-import WEBSOCKET_URL, {UPLOAD_URL} from "../lib/apiConstants.ts";
+import WEBSOCKET_URL, {UPLOAD_URL, UPLOADED_FILES_URL} from "../lib/apiConstants.ts";
 import {Props} from "./commonModel.ts";
 
 interface ContextProps {
@@ -8,6 +8,7 @@ interface ContextProps {
   readonly logoLink?: string,
   readonly websocketUrl: string,
   readonly uploadUrl: string,
+  readonly uploadedFilesUrl: string,
   readonly botName?: string,
   isConnected?: boolean,
   setIsConnected?: (connected: boolean) => void,
@@ -21,7 +22,8 @@ declare global {
 
 export const ChatContext = createContext<ContextProps>({
   websocketUrl: WEBSOCKET_URL,
-  uploadUrl: UPLOAD_URL
+  uploadUrl: UPLOAD_URL,
+  uploadedFilesUrl: UPLOADED_FILES_URL
 })
 
 export const ChatContextProvider = ({children}: Props) => {
@@ -33,6 +35,7 @@ export const ChatContextProvider = ({children}: Props) => {
   const logoLink = chatConfig?.logoLink
   const websocketUrl = chatConfig?.websocketUrl || WEBSOCKET_URL
   const uploadUrl = chatConfig?.uploadUrl || UPLOAD_URL
+  const uploadedFilesUrl = chatConfig?.uploadedFilesUrl || UPLOAD_URL
   const botName = chatConfig?.botName || "Bot"
   const [isConnected, setIsConnected] = useState(false)
   return (
@@ -40,6 +43,7 @@ export const ChatContextProvider = ({children}: Props) => {
       title,
       websocketUrl,
       uploadUrl,
+      uploadedFilesUrl,
       botName,
       logoImage,
       logoLink,

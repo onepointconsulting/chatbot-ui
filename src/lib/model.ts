@@ -13,3 +13,9 @@ export type State = {
   error?: string;
   connected: boolean;
 }
+
+export type UploadedFile = {
+  date: string,
+  name: string,
+  relative_url: string,
+}

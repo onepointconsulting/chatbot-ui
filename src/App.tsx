@@ -1,7 +1,7 @@
 import './App.css'
 import './css/layout_full_screen.css'
 import MainChat from "./components/MainChat.tsx";
-import {ChatContextProvider} from "./context/ChatbotContext.tsx";
+import {ChatContextProvider} from "./context/ChatContext.tsx";
 import {BrowserRouter, Route, Routes} from "react-router-dom";
 import Upload from "./components/Upload.tsx";
 import Layout from "./components/Layout.tsx";

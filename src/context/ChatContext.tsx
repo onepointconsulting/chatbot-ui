@@ -10,6 +10,9 @@ interface ContextProps {
   readonly uploadUrl: string,
   readonly uploadedFilesUrl: string,
   readonly botName?: string,
+  readonly exampleQuestions?: string[],
+  readonly streaming: boolean,
+  readonly showSidebar: boolean,
   isConnected?: boolean,
   setIsConnected?: (connected: boolean) => void,
 }
@@ -23,7 +26,9 @@ declare global {
 export const ChatContext = createContext<ContextProps>({
   websocketUrl: WEBSOCKET_URL,
   uploadUrl: UPLOAD_URL,
-  uploadedFilesUrl: UPLOADED_FILES_URL
+  uploadedFilesUrl: UPLOADED_FILES_URL,
+  streaming: false,
+  showSidebar: false
 })
 
 export const ChatContextProvider = ({children}: Props) => {
@@ -35,8 +40,11 @@ export const ChatContextProvider = ({children}: Props) => {
   const logoLink = chatConfig?.logoLink
   const websocketUrl = chatConfig?.websocketUrl || WEBSOCKET_URL
   const uploadUrl = chatConfig?.uploadUrl || UPLOAD_URL
-  const uploadedFilesUrl = chatConfig?.uploadedFilesUrl || UPLOAD_URL
+  const uploadedFilesUrl = chatConfig?.uploadedFilesUrl
   const botName = chatConfig?.botName || "Bot"
+  const exampleQuestions = chatConfig?.exampleQuestions || []
+  const streaming = chatConfig?.streaming
+  const showSidebar = chatConfig?.showSidebar
   const [isConnected, setIsConnected] = useState(false)
   return (
     <ChatContext.Provider value={{
@@ -47,6 +55,9 @@ export const ChatContextProvider = ({children}: Props) => {
       botName,
       logoImage,
       logoLink,
+      exampleQuestions,
+      streaming,
+      showSidebar,
       isConnected,
       setIsConnected
     }}>{children}</ChatContext.Provider>

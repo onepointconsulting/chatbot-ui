@@ -6,7 +6,7 @@ import type {ReactNode} from 'react'
 import {useContext, useState} from "react";
 import {PrismAsync as SyntaxHighlighter} from 'react-syntax-highlighter';
 import {dracula} from 'react-syntax-highlighter/dist/esm/styles/prism';
-import {ChatContext} from "../context/ChatbotContext.tsx";
+import {ChatContext} from "../context/ChatContext.tsx";
 import Sources from "./Sources.tsx";
 
 type MessagesProps = { data: Message[] };
@@ -103,7 +103,7 @@ function CopyButton({message}: { message: Message }) {
  * @constructor
  */
 export default function Messages({data}: MessagesProps) {
-  const {botName} = useContext(ChatContext)
+  const {botName, uploadedFilesUrl} = useContext(ChatContext)
   return (
     <>
       {
@@ -112,7 +112,7 @@ export default function Messages({data}: MessagesProps) {
             <div className={`chat-message flex flex-row ${message.isUser ? 'bg-white' : ''}`}>
               <div className="text-sm text-gray-500 text-center mt-3 ml-4 min-w-24 flex-none">
                 <img src={message.isUser ? "/user.png" : "/bot.png"} alt={message.isUser ? "user" : botName}
-                     className="mx-auto h-10 w-10"/>
+                     className="mx-auto h-6 w-6 md:w-8 md:h-8"/>
               </div>
               <div className="mr-5">
                 <div className="flex flex-col ml-3">
@@ -130,14 +130,15 @@ export default function Messages({data}: MessagesProps) {
                           className="space-y-1 text-gray-500 list-disc dark:text-gray-400 ml-5 mb-3" {...props} />,
                         ol: ({...props}) => <ol
                           className="space-y-3 text-gray-500 list-decimal dark:text-gray-400 my-3 mx-4" {...props} />,
-                        p: ({...props}) => <p className="font-sans pb-4 sm:pb-2" {...props} />,
+                        p: ({...props}) => <p className="font-sans pb-1" {...props} />,
+                        a: ({children, ...props}) => <a className="font-sans pb-4 sm:pb-2 underline" {...props} target="_blank">{children}</a>,
                         code({...props}) {
                           // @ts-ignore
                           return <Code {...props} />;
                         }
                       }}
                     >{message.text}</Markdown>
-                    <Sources message={message}/>
+                    {!!uploadedFilesUrl && <Sources message={message}/>}
                   </section>
                 </div>
                 {!message.isUser && (

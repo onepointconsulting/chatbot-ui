@@ -4,14 +4,19 @@ import sendWSMessage from "../lib/websocketClient.ts";
 import ErrorMessage from "./ErrorMessage.tsx";
 import Messages from "./ChatMessages.tsx";
 import SpinnerComment from "./SpinnerComment.tsx";
-import {ChatContext} from "../context/ChatbotContext.tsx";
+import {ChatContext} from "../context/ChatContext.tsx";
 import {useWebsocket} from "../hooks/useWebsocket.ts";
 import AppInfo from "./AppInfo.tsx";
 import {Socket} from "socket.io-client";
 
+const request = 'request';
+
 export type Action =
   | { type: 'request', message: Message }
   | { type: 'success', message: Message }
+  | { type: 'startStreaming', message: Message }
+  | { type: 'stopStreaming' }
+  | { type: 'successStreaming', message: Message }
   | { type: 'failure', error: string }
   | { type: 'clearFailure' }
   | { type: 'connect' }
@@ -19,13 +24,21 @@ export type Action =
   | { type: 'clear' }
   | { type: 'text', text: string }
 
-const request = 'request';
-
 function reducer(state: State, action: Action): State {
   switch (action.type) {
     case 'request':
     case 'success':
       return {...state, text: '', isLoading: action.type === request, data: [...state.data, action.message]};
+    case 'startStreaming':
+      return {...state, text: '', isLoading: true, data: [...state.data, action.message]}
+    case 'stopStreaming':
+      return {...state, isLoading: false}
+    case 'successStreaming': {
+      const copy = [...state.data];
+      const concatMessage = copy[state.data.length - 1].text + action.message.text;
+      copy[state.data.length - 1] = {...copy[state.data.length - 1], text: concatMessage};
+      return {...state, text: '', data: [...copy]};
+    }
     case 'failure':
       return {...state, isLoading: false, error: action.error};
     case 'clearFailure':
@@ -48,9 +61,16 @@ function scrollToBottom() {
   }
 }
 
+export function handleMessageDispatch(dispatch: React.Dispatch<Action>, text: string, streaming: boolean) {
+  dispatch({type: 'request', message: {text, isUser: true, timestamp: new Date()}})
+  if (streaming) {
+    dispatch({type: 'startStreaming', message: {text: '', isUser: false, timestamp: new Date()}})
+  }
+}
+
 export default function MainChat() {
 
-  const {websocketUrl, setIsConnected} = useContext(ChatContext)
+  const {websocketUrl, setIsConnected, streaming} = useContext(ChatContext)
   const textAreaRef = useRef<HTMLTextAreaElement>(null);
 
   const [{
@@ -70,13 +90,13 @@ export default function MainChat() {
   }, [data])
 
   useEffect(() => {
-    if(!!setIsConnected) {
+    if (!!setIsConnected) {
       setIsConnected(connected)
     }
   }, [connected])
 
   function sendMessage() {
-    dispatch({type: 'request', message: {text, isUser: true, timestamp: new Date()}})
+    handleMessageDispatch(dispatch, text, streaming);
     sendWSMessage(text, socket.current)
   }
 
@@ -90,7 +110,7 @@ export default function MainChat() {
       resetHeight()
     } else {
       const el = e.target as HTMLTextAreaElement
-      if(text.includes("\n")) {
+      if (text.includes("\n")) {
         textAreaRef.current!.style.height = `auto`
         textAreaRef.current!.style.height = `${el.scrollHeight}px`
       } else {
@@ -120,7 +140,7 @@ export default function MainChat() {
                   onChange={(e) => dispatch({type: 'text', text: e.target.value})}
                   onKeyUp={sendEnterMessage}
                   disabled={isLoading || !connected}
-                  className="m-3 text-gray-900 text-sm rounded-lg block w-full px-3 py-4 h-12 overflow-hidden max-h-44 resize-none
+                  className="m-3 text-gray-900 text-sm rounded-lg block w-full px-3 py-3 md:py-3 h-12 overflow-hidden max-h-44 resize-none
                   outline outline-offset-2 outline-1 focus:outline-offset-2 focus:outline-2 outline-gray-400"
                   ref={textAreaRef}
         ></textarea>

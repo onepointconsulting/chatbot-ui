@@ -1,7 +1,8 @@
-import React, {useEffect, useRef} from "react";
+import React, {useContext, useEffect, useRef} from "react";
 import {io, Socket} from "socket.io-client";
-import {WEBSOCKET_RESPONSE} from "../lib/websocketClient.ts";
+import {STOP_STREAMING_RESPONSE, WEBSOCKET_RESPONSE} from "../lib/websocketClient.ts";
 import {Action} from "../components/MainChat.tsx";
+import {ChatContext} from "../context/ChatContext.tsx";
 
 type useWebsocketParams = {
   websocketUrl: string,
@@ -10,6 +11,7 @@ type useWebsocketParams = {
 
 export function useWebsocket({websocketUrl, dispatch}: useWebsocketParams): React.MutableRefObject<Socket | null> {
   const socket: React.MutableRefObject<Socket | null> = useRef<Socket | null>(null);
+  const {streaming} = useContext(ChatContext)
 
   useEffect(() => {
 
@@ -23,7 +25,7 @@ export function useWebsocket({websocketUrl, dispatch}: useWebsocketParams): Reac
       console.log(WEBSOCKET_RESPONSE, value)
       const {response, sources} = JSON.parse(value)
       dispatch({
-        type: 'success', message: {
+        type: streaming ? 'successStreaming' : 'success', message: {
           text: response,
           sources,
           isUser: false, timestamp: new Date()
@@ -36,6 +38,10 @@ export function useWebsocket({websocketUrl, dispatch}: useWebsocketParams): Reac
       dispatch({type: 'disconnect'})
     }
 
+    const handleStopStreaming = () => {
+      dispatch({type: 'stopStreaming'})
+    }
+
     function handleErrors(err: Error) {
       dispatch({type: 'failure', error: err.message || 'Unknown error'})
       console.error(err)
@@ -46,6 +52,7 @@ export function useWebsocket({websocketUrl, dispatch}: useWebsocketParams): Reac
     socket.current.on('connect_error', err => handleErrors(err))
     socket.current.on('connect_failed', err => handleErrors(err))
     socket.current.on(WEBSOCKET_RESPONSE, onResponse)
+    socket.current.on(STOP_STREAMING_RESPONSE, handleStopStreaming)
 
     return () => {
       socket.current?.off('connect', onConnect);

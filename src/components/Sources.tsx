@@ -1,6 +1,6 @@
 import {Message, UploadedFile} from "../lib/model.ts";
 import {injectSourceLinks} from "../lib/sourceFunctions.ts";
-import {ChatContext} from "../context/ChatbotContext.tsx";
+import {ChatContext} from "../context/ChatContext.tsx";
 import {useContext} from "react";
 import {useQuery, UseQueryResult} from "react-query";
 

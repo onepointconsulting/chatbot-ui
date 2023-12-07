@@ -18,6 +18,6 @@ test('extractPdfs 2', () => {
 })
 
 test('injectSourceLinks', () => {
-  const res = injectSourceLinks(input, "http://localhost:3000")
+  const res = injectSourceLinks(input, ["Onepoint - Client story - Reaching for the skies (1).pdf", "Onepoint - Transforming the data platform of TravelCo (Client credential).pdf"], "http://localhost:3000",)
   expect(res.includes("<a ")).toBe(true)
 })

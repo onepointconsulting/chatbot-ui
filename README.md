@@ -10,3 +10,25 @@ You can find a demo here:
 
 http://176.34.128.143:8081/index.html
 
+## Installation
+
+Make sure you have node 18+ installed.
+
+Then run:
+
+```bash
+npm install
+```
+
+to install the libraries.
+
+## Running
+
+Please run the following command to start the UI in development mode
+
+```bash
+yarn run dev
+```
+
+
+

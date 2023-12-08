@@ -122,6 +122,7 @@ export default function MainChat() {
     }
   }, [connected]);
 
+  const disabled = isLoading || !text || !connected;
   function sendMessage() {
     handleMessageDispatch(dispatch, text, streaming);
     sendWSMessage(text, socket.current);
@@ -177,13 +178,19 @@ export default function MainChat() {
           className="block w-full h-12 px-3 py-3 m-3 overflow-hidden text-sm text-gray-900 rounded-lg resize-none md:py-3 max-h-44 outline outline-offset-2 outline-1 focus:outline-offset-2 focus:outline-2 outline-gray-400"
           ref={textAreaRef}
         ></textarea>
+
+        {/* Send button */}
         <button
-          className="flex-none my-auto rounded-full hover:bg-gray-100"
-          disabled={isLoading || !text || !connected}
+          className={`flex-none my-auto rounded-full ${
+            disabled ? "bg-gray-200" : "bg-blue-200"
+          }`}
+          disabled={disabled}
           onClick={sendMessage}
         >
           <img src="/send.svg" alt="Send" style={{ width: "42px" }} />
         </button>
+
+        {/* Clear button */}
         <button
           className="flex-none h-10 pl-1 pr-2 my-auto rounded-2xl"
           onClick={clear}

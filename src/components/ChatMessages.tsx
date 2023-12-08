@@ -114,7 +114,7 @@ export default function Messages({data}: MessagesProps) {
                 <img src={message.isUser ? "/user.png" : "/bot.png"} alt={message.isUser ? "user" : botName}
                      className="mx-auto h-6 w-6 md:w-8 md:h-8"/>
               </div>
-              <div className="mr-5">
+              <div className="mr-5 grow">
                 <div className="flex flex-col ml-3">
                   <span className="text-sm font-bold text-gray-500 mt-3">{message.isUser ? "You" : botName}</span>
                   <span

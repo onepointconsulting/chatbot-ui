@@ -48,54 +48,53 @@ export default function AppInfo({
   dispatch,
   connected,
   socket,
+  handleHeader,
 }: {
   dispatch: React.Dispatch<Action>;
   connected: boolean;
   socket: React.MutableRefObject<Socket | null>;
+  handleHeader?: boolean;
 }) {
   const { exampleQuestions, defaultQuestionsPrompt } = useContext(ChatContext);
   if (!exampleQuestions || exampleQuestions.length === 0) return <></>;
 
   return (
-    <div
-      className={`border-l-4 border-blue-400 flex bg-blue-50 h-auto overflow-y-auto`}
-    >
-      <div className="flex flex-col w-11/12 pb-4 mx-5 chat-message bg-gradient-to-b">
-        {/* Default questions prompt */}
-        <span className="mt-3 mb-1 text-sm text-gray-500">
-          {defaultQuestionsPrompt}
-        </span>
+    <div className="h-auto pl-[3.1rem] overflow-y-auto lg:pl-[3.6rem] bg-blue-100 border-l-4 border-blue-400">
+      <details
+        className="w-full [&_img]:open:-rotate-180 open"
+        {...(handleHeader ? { open: true } : { open: false })}
+      >
+        {/* Related question items */}
+        {handleHeader ? (
+          <div className="w-1/2 pl-4 transition-all scale-x-105 opacity-100 open:scale-x-0 open:opacity-0">
+            {displayInfo.value &&
+              exampleQuestions?.map((question: string, index: number) => (
+                <ListItem
+                  key={`question_${index}`}
+                  question={question}
+                  index={index}
+                  socket={socket}
+                  dispatch={dispatch}
+                  connected={connected}
+                />
+              ))}
+          </div>
+        ) : (
+          <></>
+        )}
 
-        {displayInfo.value &&
-          exampleQuestions?.map((question: string, index: number) => (
-            <ListItem
-              key={`question_${index}`}
-              question={question}
-              index={index}
-              socket={socket}
-              dispatch={dispatch}
-              connected={connected}
-            />
-          ))}
-      </div>
+        {/* Expander icon for the prompt question */}
+        <summary className="flex items-center justify-between w-full py-2 pr-2 cursor-pointer">
+          {/* Default questions prompt */}
+          <h1 className="text-xl font-bold text-gray-500 md:text-2xl">
+            {defaultQuestionsPrompt}
+          </h1>
 
-      {/* Expander icon for the prompt question */}
-      <div className="flex justify-end w-1/12 pr-4 mt-4">
-        <a
-          href="#"
-          onClick={(e) => {
-            e.preventDefault();
-            displayInfo.value = !displayInfo.value;
-          }}
-          title="close"
-        >
-          <img
-            src={displayInfo.value ? "expand-up.svg" : "expand-down.svg"}
-            title="Hide"
-            alt="Hide"
-          />
-        </a>
-      </div>
+          <div title="transition-all duration-300 transform rotate-0">
+            <img src="/expand-down.svg" alt="Expander icon" />
+          </div>
+        </summary>
+      </details>
     </div>
   );
 }

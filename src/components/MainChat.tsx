@@ -123,6 +123,10 @@ export default function MainChat() {
   }, [connected]);
 
   const disabled = isLoading || !text || !connected;
+  // Hide the question prompt when the user has typed something and streaming is enabled.
+
+  const handleHeader = !!streaming && !isLoading;
+
   function sendMessage() {
     handleMessageDispatch(dispatch, text, streaming);
     sendWSMessage(text, socket.current);
@@ -153,13 +157,21 @@ export default function MainChat() {
 
   return (
     <>
-      <AppInfo dispatch={dispatch} connected={connected} socket={socket} />
+      {/* Related questions/prompt */}
+      <AppInfo
+        handleHeader={handleHeader}
+        dispatch={dispatch}
+        connected={connected}
+        socket={socket}
+      />
+
       {!!error && (
         <ErrorMessage
           message={error}
           clearFunc={() => dispatch({ type: "clearFailure" })}
         />
       )}
+
       <div className="overflow-auto chat-container grow">
         <Messages data={data} isLoading={isLoading} />
         {isLoading && <SpinnerComment />}
@@ -181,7 +193,7 @@ export default function MainChat() {
 
         {/* Send button */}
         <button
-          className={`flex-none my-auto rounded-full ${
+          className={`flex-none my-auto rounded-full hover:transform hover:bg-scale-100 hover:duration-200 ${
             disabled ? "bg-gray-200" : "bg-blue-200"
           }`}
           disabled={disabled}
@@ -192,7 +204,7 @@ export default function MainChat() {
 
         {/* Clear button */}
         <button
-          className="flex-none h-10 pl-1 pr-2 my-auto rounded-2xl"
+          className="flex-none h-10 pl-1 pr-2 my-auto hover:transform rounded-2xl hover:bg-scale-100 hover:duration-200"
           onClick={clear}
         >
           <img src="/clear.svg" alt="Clear" style={{ width: "42px" }} />

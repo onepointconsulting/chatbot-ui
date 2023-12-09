@@ -91,14 +91,17 @@ function CopyButton({ message }: { message: Message }) {
   ] = useState(false);
   const text =
     message.text + (!!message.sources ? `\n\nSources: ${message.sources}` : "");
+
   return (
-    <div className="flex justify-end mr-3">
+    <div className="flex justify-end py-4 mr-3">
+      {/* Display (Copied to clipboard) */}
       {copied && (
         <span className="mt-2 text-sm text-gray-400">Copied to clipboard!</span>
       )}
+
       <button
         onClick={async () => await handleCopy(text, setCopied)}
-        className="flex-none p-2 my-auto rounded-full w-9 hover:bg-gray-200"
+        className="flex-none p-2 my-auto bg-blue-200 rounded-full w-9 hover:bg-gray-200 hover:duration-200"
       >
         <img src="/copy.svg" alt="copy" />
       </button>
@@ -113,17 +116,17 @@ function CopyButton({ message }: { message: Message }) {
  */
 export default function Messages({ data, isLoading }: MessagesProps) {
   const { botName, uploadedFilesUrl } = useContext(ChatContext);
-  console.log("Checking isLoading", isLoading);
 
   return (
     <>
-      {data.map((message: Message, index: number) => (
+      {data?.map((message: Message, index: number) => (
         <section key={`message_${index}`}>
           <div
             className={`chat-message flex flex-row ${
               message.isUser ? "bg-white" : ""
             }`}
           >
+            {/* User profile */}
             <div className="flex-none mt-3 ml-4 text-sm text-center text-gray-500 min-w-24">
               <img
                 src={message.isUser ? "/user.png" : "/bot.png"}
@@ -131,15 +134,22 @@ export default function Messages({ data, isLoading }: MessagesProps) {
                 className="w-6 h-6 mx-auto md:w-8 md:h-8"
               />
             </div>
+
             <div className="mr-5 grow">
+              {/* Username and date/time */}
               <div className="flex flex-col ml-3">
+                {/* Username/bot name */}
                 <span className="mt-3 text-sm font-bold text-gray-500">
                   {message.isUser ? "You" : botName}
                 </span>
+
+                {/* Date */}
                 <span className="text-xs text-gray-400">
                   {message.timestamp.toLocaleTimeString()}
                 </span>
               </div>
+
+              {/* Render response */}
               <div
                 className={`chat-message flex flex-row mt-1 mx-3 ${
                   message.isUser ? "bg-white" : ""

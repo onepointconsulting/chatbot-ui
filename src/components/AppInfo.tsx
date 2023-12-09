@@ -78,6 +78,8 @@ export default function AppInfo({
             />
           ))}
       </div>
+
+      {/* Expander icon for the prompt question */}
       <div className="flex justify-end w-1/12 pr-4 mt-4">
         <a
           href="#"

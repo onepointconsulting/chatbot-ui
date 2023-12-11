@@ -118,7 +118,7 @@ export default function Messages({ data, isLoading }: MessagesProps) {
   const { botName, uploadedFilesUrl } = useContext(ChatContext);
 
   return (
-    <>
+    <main className="relative h-auto">
       {data?.map((message: Message, index: number) => (
         <section key={`message_${index}`}>
           <div
@@ -135,7 +135,8 @@ export default function Messages({ data, isLoading }: MessagesProps) {
               />
             </div>
 
-            <div className="mr-5 grow">
+            {/* Main chat section */}
+            <div className="w-full h-full">
               {/* Username and date/time */}
               <div className="flex flex-col ml-3">
                 {/* Username/bot name */}
@@ -204,6 +205,6 @@ export default function Messages({ data, isLoading }: MessagesProps) {
           </div>
         </section>
       ))}
-    </>
+    </main>
   );
 }

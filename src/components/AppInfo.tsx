@@ -59,14 +59,14 @@ export default function AppInfo({
   if (!exampleQuestions || exampleQuestions.length === 0) return <></>;
 
   return (
-    <div className="h-auto pl-[3.1rem] overflow-y-auto lg:pl-[3.6rem] bg-blue-100 border-l-4 border-blue-400">
+    <div className="h-auto pl-[3.1rem] lg:pl-[3.6rem] bg-gray-100 border-l-4 border-blue-400">
       <details
         className="w-full [&_img]:open:-rotate-180 open"
         {...(handleHeader ? { open: true } : { open: false })}
       >
         {/* Related question items */}
         {handleHeader ? (
-          <div className="w-1/2 pl-4 transition-all scale-x-105 opacity-100 open:scale-x-0 open:opacity-0">
+          <div className="w-1/2 pb-2 pl-4 transition-all scale-x-105 opacity-100 open:scale-x-0 open:opacity-0">
             {displayInfo.value &&
               exampleQuestions?.map((question: string, index: number) => (
                 <ListItem

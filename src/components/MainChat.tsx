@@ -156,28 +156,30 @@ export default function MainChat() {
   }
 
   return (
-    <>
-      {/* Related questions/prompt */}
-      <AppInfo
-        handleHeader={handleHeader}
-        dispatch={dispatch}
-        connected={connected}
-        socket={socket}
-      />
-
-      {!!error && (
-        <ErrorMessage
-          message={error}
-          clearFunc={() => dispatch({ type: "clearFailure" })}
+    <div className="flex flex-col justify-between h-screen">
+      <div>
+        {/* Related questions/prompt */}
+        <AppInfo
+          handleHeader={handleHeader}
+          dispatch={dispatch}
+          connected={connected}
+          socket={socket}
         />
-      )}
 
-      <div className="overflow-auto chat-container grow">
+        {!!error && (
+          <ErrorMessage
+            message={error}
+            clearFunc={() => dispatch({ type: "clearFailure" })}
+          />
+        )}
+      </div>
+
+      <div className="w-full">
         <Messages data={data} isLoading={isLoading} />
         {isLoading && <SpinnerComment />}
       </div>
 
-      <div className="flex chat-input">
+      <div className="sticky bottom-0 flex bg-gray-100 rounded-tr-3xl rounded-tl-3xl chat-input">
         <textarea
           aria-invalid="false"
           autoComplete="false"
@@ -187,7 +189,7 @@ export default function MainChat() {
           onChange={(e) => dispatch({ type: "text", text: e.target.value })}
           onKeyUp={sendEnterMessage}
           disabled={isLoading || !connected}
-          className="block w-full h-12 px-3 py-3 m-3 overflow-hidden text-sm text-gray-900 rounded-lg resize-none md:py-3 max-h-44 outline outline-offset-2 outline-1 focus:outline-offset-2 focus:outline-2 outline-gray-400"
+          className="z-50 block w-full h-12 px-2 py-2 m-3 overflow-hidden text-sm text-gray-900 rounded-lg resize-none md:py-3 max-h-44 outline outline-offset-2 outline-1 focus:outline-offset-2 focus:outline-2 outline-gray-400"
           ref={textAreaRef}
         ></textarea>
 
@@ -210,6 +212,6 @@ export default function MainChat() {
           <img src="/clear.svg" alt="Clear" style={{ width: "42px" }} />
         </button>
       </div>
-    </>
+    </div>
   );
 }

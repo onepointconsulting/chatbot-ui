@@ -12,7 +12,7 @@ type HeaderType = {
 
 function Logo({logoImage, logoLink}: { logoImage?: string, logoLink?: string }) {
 
-  const logoImageElement = !!logoImage && <img src={logoImage} alt="logo" className="h8 md:h-10 mr-2 m-1"/>
+  const logoImageElement = !!logoImage && <img src={logoImage} alt="logo" className="h-8 md:h-10 mr-2 m-1"/>
 
   return (
     <div className="flex flex-row">

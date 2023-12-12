@@ -97,6 +97,12 @@ function CopyButton({message}: { message: Message }) {
   )
 }
 
+const highlightColor = 'bg-white'
+
+function processHighlighting(message: Message) {
+  return message.isUser ? '' : highlightColor
+}
+
 /**
  * Displays the messages in the chat window
  * @param data The data with all messagess
@@ -109,7 +115,7 @@ export default function Messages({data}: MessagesProps) {
       {
         data.map((message: Message, index: number) => (
           <section key={`message_${index}`}>
-            <div className={`chat-message flex flex-row ${message.isUser ? 'bg-white' : ''}`}>
+            <div className={`chat-message flex flex-row ${processHighlighting(message)}`}>
               <div className="text-sm text-gray-500 text-center mt-3 ml-4 min-w-24 flex-none">
                 <img src={message.isUser ? "/user.png" : "/bot.png"} alt={message.isUser ? "user" : botName}
                      className="mx-auto h-6 w-6 md:w-8 md:h-8"/>
@@ -120,7 +126,7 @@ export default function Messages({data}: MessagesProps) {
                   <span
                     className="text-xs text-gray-400">{message.timestamp.toLocaleTimeString()}</span>
                 </div>
-                <div className={`chat-message flex flex-row mt-1 mx-3 ${message.isUser ? 'bg-white' : ''}`}>
+                <div className={`chat-message flex flex-row mt-1 mx-3 ${processHighlighting(message)}`}>
                   <section>
                     <Markdown
                       className="text-gray-900 mt-1 markdown-body"

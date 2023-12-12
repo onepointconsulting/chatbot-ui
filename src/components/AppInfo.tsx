@@ -36,13 +36,13 @@ export default function AppInfo(
     socket: React.MutableRefObject<Socket | null>
   }
 ) {
-  const {exampleQuestions} = useContext(ChatContext)
+  const { exampleQuestions, defaultQuestionsPrompt } = useContext(ChatContext);
   if(!exampleQuestions || exampleQuestions.length === 0) return <></>
   return (
     <div
       className={`border-l-4 border-blue-400 flex bg-blue-50 h-auto overflow-y-auto`}>
       <div className="chat-message flex flex-col bg-gradient-to-b mx-5 w-11/12 pb-4">
-        <span className="text-sm text-gray-500 mt-3 mb-1">Please ask us any Onepoint related questions. Things you could ask:</span>
+        <h4 className="sm:text-xl font-bold text-gray-500 mb-2 mt-2">{defaultQuestionsPrompt}</h4>
         {displayInfo.value && exampleQuestions?.map((question: string, index: number) => <ListItem
           key={`question_${index}`} question={question} index={index}
           socket={socket} dispatch={dispatch}

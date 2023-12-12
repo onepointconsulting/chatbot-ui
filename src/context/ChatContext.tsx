@@ -13,6 +13,7 @@ interface ContextProps {
   readonly exampleQuestions?: string[],
   readonly streaming: boolean,
   readonly showSidebar: boolean,
+  readonly defaultQuestionsPrompt?: string,
   isConnected?: boolean,
   setIsConnected?: (connected: boolean) => void,
 }
@@ -46,6 +47,9 @@ export const ChatContextProvider = ({children}: Props) => {
   const streaming = chatConfig?.streaming
   const showSidebar = chatConfig?.showSidebar
   const [isConnected, setIsConnected] = useState(false)
+  const defaultQuestionsPrompt =
+    chatConfig?.defaultQuestionsPrompt ??
+    "Please ask us any Onepoint related questions. Things you could ask:";
   return (
     <ChatContext.Provider value={{
       title,
@@ -58,6 +62,7 @@ export const ChatContextProvider = ({children}: Props) => {
       exampleQuestions,
       streaming,
       showSidebar,
+      defaultQuestionsPrompt,
       isConnected,
       setIsConnected
     }}>{children}</ChatContext.Provider>

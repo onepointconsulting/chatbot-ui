@@ -40,7 +40,7 @@ export default function AppInfo(
   if(!exampleQuestions || exampleQuestions.length === 0) return <></>
   return (
     <div
-      className={`border-l-4 border-blue-400 flex bg-blue-50 h-auto overflow-y-auto`}>
+      className={`border-l-4 border-blue-400 flex bg-blue-50 h-auto`}>
       <div className="chat-message flex flex-col bg-gradient-to-b mx-5 w-11/12 pb-4">
         <h4 className="sm:text-xl font-bold text-gray-500 mb-2 mt-2">{defaultQuestionsPrompt}</h4>
         {displayInfo.value && exampleQuestions?.map((question: string, index: number) => <ListItem

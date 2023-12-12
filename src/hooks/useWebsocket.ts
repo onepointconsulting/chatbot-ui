@@ -58,6 +58,7 @@ export function useWebsocket({websocketUrl, dispatch}: useWebsocketParams): Reac
       socket.current?.off('connect', onConnect);
       socket.current?.off('disconnect', onDisconnect);
       socket.current?.off(WEBSOCKET_RESPONSE, onResponse);
+      socket.current?.off(STOP_STREAMING_RESPONSE, handleStopStreaming);
     }
   }, []);
   return socket

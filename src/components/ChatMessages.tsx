@@ -8,8 +8,10 @@ import {PrismAsync as SyntaxHighlighter} from 'react-syntax-highlighter';
 import {dracula} from 'react-syntax-highlighter/dist/esm/styles/prism';
 import {ChatContext} from "../context/ChatContext.tsx";
 import Sources from "./Sources.tsx";
+import {Socket} from "socket.io-client";
+import {sendStopStream} from "../lib/websocketClient.ts";
 
-type MessagesProps = { data: Message[] };
+type MessagesProps = { data: Message[], socket: React.MutableRefObject<Socket | null> };
 
 export type ComponentPropsWithoutRef<T extends React.ElementType<any>> =
   import('react').ComponentPropsWithoutRef<T>
@@ -103,57 +105,69 @@ function processHighlighting(message: Message) {
   return message.isUser ? '' : highlightColor
 }
 
+function MessageDisplay(
+  {index, message, botName, uploadedFilesUrl, socket} :
+    {index: number, message: Message, botName: string | undefined, uploadedFilesUrl: string, socket: React.MutableRefObject<Socket | null>}) {
+  return <section key={`message_${index}`}>
+    <div className={`chat-message flex flex-row ${processHighlighting(message)}`}>
+      <div className="text-sm text-gray-500 text-center mt-3 ml-4 min-w-24 flex-none">
+        <img src={message.isUser ? "/user.png" : "/bot.png"} alt={message.isUser ? "user" : botName}
+             className="mx-auto h-6 w-6 md:w-8 md:h-8"/>
+      </div>
+      <div className="mr-5 grow">
+        <div className="flex flex-col ml-3">
+          <span className="text-sm font-bold text-gray-500 mt-3">{message.isUser ? "You" : botName}</span>
+          <span
+            className="text-xs text-gray-400">{message.timestamp.toLocaleTimeString()}</span>
+        </div>
+        <div className={`chat-message flex flex-row mt-1 mx-3 ${processHighlighting(message)}`}>
+          <section>
+            <Markdown
+              className="text-gray-900 mt-1 markdown-body"
+              remarkPlugins={[remarkGfm]}
+              components={{
+                ul: ({...props}) => <ul
+                  className="space-y-1 text-gray-500 list-disc dark:text-gray-400 ml-5 mb-3" {...props} />,
+                ol: ({...props}) => <ol
+                  className="space-y-3 text-gray-500 list-decimal dark:text-gray-400 my-3 mx-4" {...props} />,
+                p: ({...props}) => <p className="font-sans pb-1" {...props} />,
+                a: ({children, ...props}) => <a className="font-sans pb-4 sm:pb-2 underline" {...props}
+                                                target="_blank">{children}</a>,
+                code({...props}) {
+                  // @ts-ignore
+                  return <Code {...props} />;
+                }
+              }}
+            >{message.text}</Markdown>
+            {!!uploadedFilesUrl && <Sources message={message}/>}
+          </section>
+        </div>
+        {!message.isUser && (
+          <>
+            <button onClick={() => {
+              sendStopStream(socket.current)
+            }}>Stop</button>
+            <CopyButton message={message}/></>
+        )}
+      </div>
+    </div>
+  </section>
+}
+
 /**
  * Displays the messages in the chat window
  * @param data The data with all messagess
+ * @param socket The socket to send messages to the server
  * @constructor
  */
-export default function Messages({data}: MessagesProps) {
+export default function Messages({data, socket}: MessagesProps) {
   const {botName, uploadedFilesUrl} = useContext(ChatContext)
   return (
     <>
       {
-        data.map((message: Message, index: number) => (
-          <section key={`message_${index}`}>
-            <div className={`chat-message flex flex-row ${processHighlighting(message)}`}>
-              <div className="text-sm text-gray-500 text-center mt-3 ml-4 min-w-24 flex-none">
-                <img src={message.isUser ? "/user.png" : "/bot.png"} alt={message.isUser ? "user" : botName}
-                     className="mx-auto h-6 w-6 md:w-8 md:h-8"/>
-              </div>
-              <div className="mr-5 grow">
-                <div className="flex flex-col ml-3">
-                  <span className="text-sm font-bold text-gray-500 mt-3">{message.isUser ? "You" : botName}</span>
-                  <span
-                    className="text-xs text-gray-400">{message.timestamp.toLocaleTimeString()}</span>
-                </div>
-                <div className={`chat-message flex flex-row mt-1 mx-3 ${processHighlighting(message)}`}>
-                  <section>
-                    <Markdown
-                      className="text-gray-900 mt-1 markdown-body"
-                      remarkPlugins={[remarkGfm]}
-                      components={{
-                        ul: ({...props}) => <ul
-                          className="space-y-1 text-gray-500 list-disc dark:text-gray-400 ml-5 mb-3" {...props} />,
-                        ol: ({...props}) => <ol
-                          className="space-y-3 text-gray-500 list-decimal dark:text-gray-400 my-3 mx-4" {...props} />,
-                        p: ({...props}) => <p className="font-sans pb-1" {...props} />,
-                        a: ({children, ...props}) => <a className="font-sans pb-4 sm:pb-2 underline" {...props} target="_blank">{children}</a>,
-                        code({...props}) {
-                          // @ts-ignore
-                          return <Code {...props} />;
-                        }
-                      }}
-                    >{message.text}</Markdown>
-                    {!!uploadedFilesUrl && <Sources message={message}/>}
-                  </section>
-                </div>
-                {!message.isUser && (
-                  <CopyButton message={message}/>
-                )}
-              </div>
-            </div>
-          </section>
-        ))
+        data.map((message: Message, index: number) =>
+          <MessageDisplay index={index} message={message} botName={botName}
+                          uploadedFilesUrl={uploadedFilesUrl} socket={socket} key={`message_${index}`}/>)
       }
     </>
   )

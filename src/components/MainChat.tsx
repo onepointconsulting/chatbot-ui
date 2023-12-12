@@ -128,7 +128,7 @@ export default function MainChat() {
       <AppInfo dispatch={dispatch} connected={connected} socket={socket}/>
       {!!error && <ErrorMessage message={error} clearFunc={() => dispatch({type: 'clearFailure'})}/>}
       <div className="chat-container grow overflow-auto">
-        <Messages data={data}/>
+        <Messages data={data} socket={socket}/>
         {isLoading && <SpinnerComment/>}
       </div>
       <div className="chat-input flex">

@@ -1,5 +1,4 @@
-import {Message, State} from "../lib/model.ts";
-import {useContext, useEffect, useReducer, useRef} from "react";
+import {useContext, useEffect, useRef} from "react";
 import sendWSMessage from "../lib/websocketClient.ts";
 import ErrorMessage from "./ErrorMessage.tsx";
 import Messages from "./ChatMessages.tsx";
@@ -8,51 +7,8 @@ import {ChatContext} from "../context/ChatContext.tsx";
 import {useWebsocket} from "../hooks/useWebsocket.ts";
 import AppInfo from "./AppInfo.tsx";
 import {Socket} from "socket.io-client";
+import {Action, MessageContext} from "../context/MessageContext.tsx";
 
-const request = 'request';
-
-export type Action =
-  | { type: 'request', message: Message }
-  | { type: 'success', message: Message }
-  | { type: 'startStreaming', message: Message }
-  | { type: 'stopStreaming' }
-  | { type: 'successStreaming', message: Message }
-  | { type: 'failure', error: string }
-  | { type: 'clearFailure' }
-  | { type: 'connect' }
-  | { type: 'disconnect' }
-  | { type: 'clear' }
-  | { type: 'text', text: string }
-
-function reducer(state: State, action: Action): State {
-  switch (action.type) {
-    case 'request':
-    case 'success':
-      return {...state, text: '', isLoading: action.type === request, data: [...state.data, action.message]};
-    case 'startStreaming':
-      return {...state, text: '', isLoading: true, data: [...state.data, action.message]}
-    case 'stopStreaming':
-      return {...state, isLoading: false}
-    case 'successStreaming': {
-      const copy = [...state.data];
-      const concatMessage = copy[state.data.length - 1].text + action.message.text;
-      copy[state.data.length - 1] = {...copy[state.data.length - 1], text: concatMessage};
-      return {...state, text: '', data: [...copy]};
-    }
-    case 'failure':
-      return {...state, isLoading: false, error: action.error};
-    case 'clearFailure':
-      return {...state, error: ""};
-    case 'clear':
-      return {...state, isLoading: false, data: [], error: ""};
-    case 'text':
-      return {...state, text: action.text};
-    case 'connect':
-      return {...state, connected: true, error: ""};
-    case 'disconnect':
-      return {...state, connected: false};
-  }
-}
 
 function scrollToBottom() {
   const objDiv = document.querySelector(".chat-container")
@@ -71,17 +27,10 @@ export function handleMessageDispatch(dispatch: React.Dispatch<Action>, text: st
 export default function MainChat() {
 
   const {websocketUrl, setIsConnected, streaming} = useContext(ChatContext)
-  const textAreaRef = useRef<HTMLTextAreaElement>(null);
+  const { state, dispatch } = useContext(MessageContext)
+  const {text, data, isLoading, error, connected} = state
 
-  const [{
-    text,
-    data,
-    isLoading,
-    error,
-    connected
-  }, dispatch] = useReducer(reducer, {
-    text: "", data: [], isLoading: false, connected: false, error: ""
-  });
+  const textAreaRef = useRef<HTMLTextAreaElement>(null);
 
   const socket: React.MutableRefObject<Socket | null> = useWebsocket({websocketUrl, dispatch})
 
@@ -128,7 +77,7 @@ export default function MainChat() {
       <AppInfo dispatch={dispatch} connected={connected} socket={socket}/>
       {!!error && <ErrorMessage message={error} clearFunc={() => dispatch({type: 'clearFailure'})}/>}
       <div className="chat-container grow overflow-auto">
-        <Messages data={data} socket={socket}/>
+        <Messages socket={socket}/>
         {isLoading && <SpinnerComment/>}
       </div>
       <div className="chat-input flex">

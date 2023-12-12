@@ -1,11 +1,11 @@
 import './App.css'
 import './css/layout_full_screen.css'
-import MainChat from "./components/MainChat.tsx";
 import {ChatContextProvider} from "./context/ChatContext.tsx";
 import {BrowserRouter, Route, Routes} from "react-router-dom";
 import Upload from "./components/Upload.tsx";
 import Layout from "./components/Layout.tsx";
 import {QueryClient, QueryClientProvider} from "react-query";
+import MainChatParent from "./components/MainChatParent.tsx";
 
 function App() {
 
@@ -18,7 +18,7 @@ function App() {
           <Layout>
             <Routes>
               <Route path="/upload" element={<Upload/>}/>
-              <Route path="*" element={<MainChat/>}/>
+              <Route path="*" element={<MainChatParent/>}/>
             </Routes>
           </Layout>
         </BrowserRouter>

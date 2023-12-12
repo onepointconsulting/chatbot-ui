@@ -1,8 +1,8 @@
 import React, {useContext, useEffect, useRef} from "react";
 import {io, Socket} from "socket.io-client";
 import {STOP_STREAMING_RESPONSE, WEBSOCKET_RESPONSE} from "../lib/websocketClient.ts";
-import {Action} from "../components/MainChat.tsx";
 import {ChatContext} from "../context/ChatContext.tsx";
+import {Action} from "../context/MessageContext.tsx";
 
 type useWebsocketParams = {
   websocketUrl: string,

@@ -10,8 +10,9 @@ import {ChatContext} from "../context/ChatContext.tsx";
 import Sources from "./Sources.tsx";
 import {Socket} from "socket.io-client";
 import {sendStopStream} from "../lib/websocketClient.ts";
+import {MessageContext} from "../context/MessageContext.tsx";
 
-type MessagesProps = { data: Message[], socket: React.MutableRefObject<Socket | null> };
+type MessagesProps = { socket: React.MutableRefObject<Socket | null> };
 
 export type ComponentPropsWithoutRef<T extends React.ElementType<any>> =
   import('react').ComponentPropsWithoutRef<T>
@@ -86,8 +87,10 @@ async function handleCopy(text: string, setCopied: ((value: (((prevState: boolea
 }
 
 function CopyButton({message}: { message: Message }) {
+  const { state } = useContext(MessageContext)
   const [copied, setCopied]: [boolean, ((value: (((prevState: boolean) => boolean) | boolean)) => void)] = useState(false)
   const text = message.text + (!!message.sources ? `\n\nSources: ${message.sources}` : '')
+  if (state.isLoading) return (<div/>) // don't show copy button while loading
   return (
     <div className="flex justify-end mr-3">
       {copied && <span className="text-sm text-gray-400 mt-2">Copied to clipboard!</span>}
@@ -160,12 +163,13 @@ function MessageDisplay(
  * @param socket The socket to send messages to the server
  * @constructor
  */
-export default function Messages({data, socket}: MessagesProps) {
+export default function Messages({socket}: MessagesProps) {
   const {botName, uploadedFilesUrl} = useContext(ChatContext)
+  const { state } = useContext(MessageContext)
   return (
     <>
       {
-        data.map((message: Message, index: number) =>
+        state?.data.map((message: Message, index: number) =>
           <MessageDisplay index={index} message={message} botName={botName}
                           uploadedFilesUrl={uploadedFilesUrl} socket={socket} key={`message_${index}`}/>)
       }

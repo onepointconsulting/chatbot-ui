@@ -10,7 +10,7 @@ const displayInfo = signal(true);
 function ListItem({
   question,
   index,
-            connected,
+  connected,
   dispatch,
   socket,
 }: {
@@ -28,20 +28,6 @@ function ListItem({
         index === exampleQuestions.length - 1 ? '3' : '1'
       }`}
     >
-
-
-
-
-
-
-
-
-
-
-
-
-
-      
       <a
         href="#"
         onClick={(e) => {
@@ -80,7 +66,7 @@ export default function AppInfo({
       >
         {/* Related question items */}
         {handleHeader ? (
-          <div className="w-full transition-all opacity-100 open:scale-x-0 open:opacity-0">
+          <div className="w-fit pl-[10px] transition-all scale-x-105 opacity-100 md:pl-[16px] lg:pl-[22px] xl:pl-[32px] 2xl:pl-8 open:scale-x-0 open:opacity-0">
             {displayInfo.value &&
               exampleQuestions?.map((question: string, index: number) => (
                 <ListItem

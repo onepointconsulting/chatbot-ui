@@ -43,7 +43,7 @@ export default function SideMenu({
         <div className={mobile ? 'ml-2 my-6' : 'my-8'} key={index}>
           <Link
             to={menu.link}
-                  className="flex"
+            className="flex"
             onClick={(e) => {
               e.stopPropagation();
 

@@ -72,7 +72,10 @@ export default function SideMenu({
 
               
               e.stopPropagation();
+              
+              
               if (mobile && menuHeaderExpanded)
+              
 
               
                                       menuHeaderExpanded.value = false;

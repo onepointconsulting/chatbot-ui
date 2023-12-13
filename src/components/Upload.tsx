@@ -1,7 +1,7 @@
 import {effect, Signal, signal} from "@preact/signals-react";
 import {useDropzone} from "react-dropzone";
 import {useCallback, useContext} from "react";
-import {SpinnerUpload} from "./SpinnerComment.tsx";
+import {SpinnerUpload} from "./Spinner.tsx";
 import {ChatContext} from "../context/ChatContext.tsx";
 import axios from 'axios';
 import ErrorMessage from "./ErrorMessage.tsx";

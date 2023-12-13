@@ -39,12 +39,18 @@
     margin-bottom: calc(0.1rem * var(--tw-space-y-reverse));
 }
 
+/** Markdown related **/
+
 .markdown-body li p, .markdown-body p {
     white-space: pre-wrap;
 }
 
 .markdown-body img {
-    max-width: 1024px;
+    max-width: 1280px;
+    width: 100%;
     display: block;
-    margin: 1em auto;
+}
+
+.markdown-body ul {
+    list-style-type: '- ';
 }

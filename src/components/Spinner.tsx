@@ -1,6 +1,6 @@
 import {Circles, Vortex} from "react-loader-spinner";
 
-const SPINNER_SIZE = 50
+const SPINNER_SIZE = 40
 
 function SpinnerLayout({children}: { children: React.ReactNode }) {
   return <div className="chat-message flex flex-col mx-auto">
@@ -8,7 +8,7 @@ function SpinnerLayout({children}: { children: React.ReactNode }) {
   </div>
 }
 
-export default function SpinnerComment() {
+export default function Spinner() {
   return (
     <SpinnerLayout>
             <span className="text-sm text-gray-500 my-3 mx-auto"><Circles

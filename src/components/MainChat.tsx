@@ -2,7 +2,7 @@ import { useContext, useEffect, useRef } from "react";
 import sendWSMessage from "../lib/websocketClient.ts";
 import ErrorMessage from "./ErrorMessage.tsx";
 import Messages from "./ChatMessages.tsx";
-import SpinnerComment from "./SpinnerComment.tsx";
+import Spinner from "./Spinner.tsx";
 import { ChatContext } from "../context/ChatContext.tsx";
 import { useWebsocket } from "../hooks/useWebsocket.ts";
 import AppInfo from "./AppInfo.tsx";
@@ -103,7 +103,7 @@ export default function MainChat() {
       )}
       <div className="overflow-auto chat-container grow">
         <Messages socket={socket} />
-        {isLoading && <SpinnerComment />}
+        {isLoading && <Spinner />}
       </div>
 
       {/* Search input */}

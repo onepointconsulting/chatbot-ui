@@ -65,7 +65,7 @@ export default function AppInfo({
       >
         {/* Related question items */}
         {handleHeader ? (
-          <div className="w-full pl-2 transition-all scale-x-105 opacity-100 md:pl-4 open:scale-x-0 open:opacity-0">
+          <div className="w-full transition-all opacity-100 open:scale-x-0 open:opacity-0">
             {displayInfo.value &&
               exampleQuestions?.map((question: string, index: number) => (
                 <ListItem

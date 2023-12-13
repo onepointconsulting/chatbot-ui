@@ -1,1 +1,6 @@
 /node_modules
+/src/__ tests __/App.test.tsx
+/src/__ tests __/lib/sourceFunctions.test.ts
+/tsconfig.node.json
+/src/vite-env.d.ts
+/tsconfig.json

@@ -69,8 +69,12 @@ export default function SideMenu({
                                      to={menu.link}
             className="flex"
             onClick={(e) => {
+
+              
               e.stopPropagation();
               if (mobile && menuHeaderExpanded)
+
+              
                                       menuHeaderExpanded.value = false;
             }}
           >

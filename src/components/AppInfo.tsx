@@ -10,7 +10,7 @@ const displayInfo = signal(true);
 function ListItem({
   question,
   index,
-  connected,
+            connected,
   dispatch,
   socket,
 }: {
@@ -28,6 +28,20 @@ function ListItem({
         index === exampleQuestions.length - 1 ? '3' : '1'
       }`}
     >
+
+
+
+
+
+
+
+
+
+
+
+
+
+      
       <a
         href="#"
         onClick={(e) => {

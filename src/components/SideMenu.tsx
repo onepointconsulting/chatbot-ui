@@ -1,24 +1,10 @@
 import { Link } from 'react-router-dom';
 import { FaHome, FaUpload } from 'react-icons/fa';
-import { expanded } from './Layout.tsx' 
+import { expanded } from './Layout.tsx';
 import { Signal } from '@preact/signals-react';
 
 const menus = [
   {
-
-
-
-
-
-
-
-
-
-
-
-
-
-    
     link: '/',
     title: 'Home',
     icon: (
@@ -44,16 +30,6 @@ export default function SideMenu({
 }: {
   mobile?: boolean;
   menuHeaderExpanded?: Signal<boolean>;
-
-
-
-
-
-
-
-
-
-  
 }) {
   return (
     <div
@@ -66,19 +42,13 @@ export default function SideMenu({
       {menus.map((menu, index) => (
         <div className={mobile ? 'ml-2 my-6' : 'my-8'} key={index}>
           <Link
-                                     to={menu.link}
-            className="flex"
+            to={menu.link}
+                  className="flex"
             onClick={(e) => {
-
-              
               e.stopPropagation();
-              
-              
-              if (mobile && menuHeaderExpanded)
-              
 
-              
-                                      menuHeaderExpanded.value = false;
+              if (mobile && menuHeaderExpanded)
+                menuHeaderExpanded.value = false;
             }}
           >
             {menu.icon}

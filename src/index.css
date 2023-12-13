@@ -3,54 +3,55 @@
 @tailwind utilities;
 
 :root {
-    --animtime: 0.25s;
+  --animtime: 0.25s;
 }
 
 .chat-header {
-    -webkit-backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
 }
 
 .side-menu.expanded {
-    -webkit-transition: width var(--animtime) ease-in-out;
-    -moz-transition: width var(--animtime) ease-in-out;
-    -o-transition: width var(--animtime) ease-in-out;
-    transition: width var(--animtime) ease-in-out;
+  -webkit-transition: width var(--animtime) ease-in-out;
+  -moz-transition: width var(--animtime) ease-in-out;
+  -o-transition: width var(--animtime) ease-in-out;
+  transition: width var(--animtime) ease-in-out;
 
-    width:8rem;
+  width: 8rem;
 }
 
 .side-menu.contracted {
-    -webkit-transition: width var(--animtime) ease-in-out;
-    -moz-transition: width var(--animtime) ease-in-out;
-    -o-transition: width var(--animtime) ease-in-out;
-    transition: width var(--animtime) ease-in-out;
+  -webkit-transition: width var(--animtime) ease-in-out;
+  -moz-transition: width var(--animtime) ease-in-out;
+  -o-transition: width var(--animtime) ease-in-out;
+  transition: width var(--animtime) ease-in-out;
 
-    width:3.5rem;
+  width: 3.5rem;
 }
 
 .menu-icon {
-    min-width: 32px;
-    height: 1.3em;
+  min-width: 32px;
+  height: 1.3em;
 }
 
 .space-y-3 > :not([hidden]) ~ :not([hidden]) {
-    --tw-space-y-reverse: 0;
-    margin-top: calc(0.1rem * calc(1 - var(--tw-space-y-reverse)));
-    margin-bottom: calc(0.1rem * var(--tw-space-y-reverse));
+  --tw-space-y-reverse: 0;
+  margin-top: calc(0.1rem * calc(1 - var(--tw-space-y-reverse)));
+  margin-bottom: calc(0.1rem * var(--tw-space-y-reverse));
 }
 
 /** Markdown related **/
 
-.markdown-body li p, .markdown-body p {
-    white-space: pre-wrap;
+.markdown-body li p,
+.markdown-body p {
+  white-space: pre-wrap;
 }
 
 .markdown-body img {
-    max-width: 1280px;
-    width: 100%;
-    display: block;
+  max-width: 1280px;
+  width: 100%;
+  display: block;
 }
 
 .markdown-body ul {
-    list-style-type: '- ';
+  list-style-type: '- ';
 }

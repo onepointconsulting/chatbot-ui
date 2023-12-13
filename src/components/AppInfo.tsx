@@ -1,10 +1,10 @@
-import { signal } from "@preact/signals-react";
-import { handleMessageDispatch } from "./MainChat.tsx";
-import { Socket } from "socket.io-client";
-import sendWSMessage from "../lib/websocketClient.ts";
-import { useContext } from "react";
-import { ChatContext } from "../context/ChatContext.tsx";
-import {Action} from "../context/MessageContext.tsx";
+import { signal } from '@preact/signals-react';
+import { handleMessageDispatch } from './MainChat.tsx';
+import { Socket } from 'socket.io-client';
+import sendWSMessage from '../lib/websocketClient.ts';
+import { useContext } from 'react';
+import { ChatContext } from '../context/ChatContext.tsx';
+import { Action } from '../context/MessageContext.tsx';
 
 const displayInfo = signal(true);
 function ListItem({
@@ -25,7 +25,7 @@ function ListItem({
   return (
     <div
       className={`text-sm text-gray-500 mb-${
-        index === exampleQuestions.length - 1 ? "3" : "1"
+        index === exampleQuestions.length - 1 ? '3' : '1'
       }`}
     >
       <a

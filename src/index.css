@@ -38,3 +38,13 @@
     margin-top: calc(0.1rem * calc(1 - var(--tw-space-y-reverse)));
     margin-bottom: calc(0.1rem * var(--tw-space-y-reverse));
 }
+
+.markdown-body li p, .markdown-body p {
+    white-space: pre-wrap;
+}
+
+.markdown-body img {
+    max-width: 1024px;
+    display: block;
+    margin: 1em auto;
+}

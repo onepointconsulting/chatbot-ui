@@ -1,9 +1,10 @@
 import { signal } from "@preact/signals-react";
-import { Action, handleMessageDispatch } from "./MainChat.tsx";
+import { handleMessageDispatch } from "./MainChat.tsx";
 import { Socket } from "socket.io-client";
 import sendWSMessage from "../lib/websocketClient.ts";
 import { useContext } from "react";
 import { ChatContext } from "../context/ChatContext.tsx";
+import {Action} from "../context/MessageContext.tsx";
 
 const displayInfo = signal(true);
 function ListItem({

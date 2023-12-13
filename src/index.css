@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,wght@0,400;0,500;1,400;1,500&family=Lato&family=Montserrat:wght@500&family=Poppins&family=Sen:wght@400;700&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -37,6 +39,11 @@
     --tw-space-y-reverse: 0;
     margin-top: calc(0.1rem * calc(1 - var(--tw-space-y-reverse)));
     margin-bottom: calc(0.1rem * var(--tw-space-y-reverse));
+}
+
+/** **/
+body {
+    font-family: 'Poppins', sans-serif;
 }
 
 /** Markdown related **/

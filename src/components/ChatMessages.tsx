@@ -1,21 +1,21 @@
-import { Message } from "../lib/model.ts";
-import Markdown from "react-markdown";
-import remarkGfm from "remark-gfm";
-import type { Position } from "unist";
-import type { ReactNode } from "react";
-import { useContext, useState } from "react";
-import { PrismAsync as SyntaxHighlighter } from "react-syntax-highlighter";
-import { dracula } from "react-syntax-highlighter/dist/esm/styles/prism";
-import { ChatContext } from "../context/ChatContext.tsx";
-import Sources from "./Sources.tsx";
-import { Socket } from "socket.io-client";
-import { sendStopStream } from "../lib/websocketClient.ts";
-import { MessageContext } from "../context/MessageContext.tsx";
+import { Message } from '../lib/model.ts';
+import Markdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
+import type { Position } from 'unist';
+import type { ReactNode } from 'react';
+import { useContext, useState } from 'react';
+import { PrismAsync as SyntaxHighlighter } from 'react-syntax-highlighter';
+import { dracula } from 'react-syntax-highlighter/dist/esm/styles/prism';
+import { ChatContext } from '../context/ChatContext.tsx';
+import Sources from './Sources.tsx';
+import { Socket } from 'socket.io-client';
+import { sendStopStream } from '../lib/websocketClient.ts';
+import { MessageContext } from '../context/MessageContext.tsx';
 
 type MessagesProps = { socket: React.MutableRefObject<Socket | null> };
 
 export type ComponentPropsWithoutRef<T extends React.ElementType<any>> =
-  import("react").ComponentPropsWithoutRef<T>;
+  import('react').ComponentPropsWithoutRef<T>;
 
 export type ReactMarkdownProps = {
   node: Element;
@@ -34,19 +34,19 @@ export type ReactMarkdownProps = {
   siblingCount?: number;
 };
 
-export type CodeProps = ComponentPropsWithoutRef<"code"> &
+export type CodeProps = ComponentPropsWithoutRef<'code'> &
   ReactMarkdownProps & {
     inline?: boolean;
   };
 
 function Code({ inline, children, ...props }: CodeProps) {
-  const match = /language-(\w+)/.exec(props.className || "") || "Python";
+  const match = /language-(\w+)/.exec(props.className || '') || 'Python';
   return (
     <SyntaxHighlighter
       {...props}
-      children={String(children).replace(/\n$/, "")}
+      children={String(children).replace(/\n$/, '')}
       style={dracula}
-      customStyle={{ paddingRight: "2.5em" }}
+      customStyle={{ paddingRight: '2.5em' }}
       wrapLongLines
       language={match[1]}
       PreTag="div"
@@ -56,7 +56,7 @@ function Code({ inline, children, ...props }: CodeProps) {
 
 async function handleCopy(
   text: string,
-  setCopied: (value: ((prevState: boolean) => boolean) | boolean) => void
+  setCopied: (value: ((prevState: boolean) => boolean) | boolean) => void,
 ) {
   // Navigator clipboard api needs a secure context (https)
   if (navigator.clipboard && window.isSecureContext) {
@@ -65,18 +65,18 @@ async function handleCopy(
     setTimeout(() => setCopied(false), 5000);
   } else {
     // Use the 'out of viewport hidden text area' trick
-    const textArea = document.createElement("textarea");
+    const textArea = document.createElement('textarea');
     textArea.value = text;
 
     // Move textarea out of the viewport so it's not visible
-    textArea.style.position = "absolute";
-    textArea.style.left = "-999999px";
+    textArea.style.position = 'absolute';
+    textArea.style.left = '-999999px';
 
     document.body.prepend(textArea);
     textArea.select();
 
     try {
-      document.execCommand("copy");
+      document.execCommand('copy');
       setCopied(true);
       setTimeout(() => setCopied(false), 5000);
     } catch (error) {
@@ -91,10 +91,10 @@ function CopyButton({ message }: { message: Message }) {
   const { state } = useContext(MessageContext);
   const [copied, setCopied]: [
     boolean,
-    (value: ((prevState: boolean) => boolean) | boolean) => void
+    (value: ((prevState: boolean) => boolean) | boolean) => void,
   ] = useState(false);
   const text =
-    message.text + (!!message.sources ? `\n\nSources: ${message.sources}` : "");
+    message.text + (!!message.sources ? `\n\nSources: ${message.sources}` : '');
   if (state.isLoading) return <div />; // don't show copy button while loading
   return (
     <div className="flex justify-end pb-3 mr-3">
@@ -116,10 +116,10 @@ function CopyButton({ message }: { message: Message }) {
   );
 }
 
-const highlightColor = "bg-white";
+const highlightColor = 'bg-white';
 
 function processHighlighting(message: Message) {
-  return message.isUser ? "" : highlightColor;
+  return message.isUser ? '' : highlightColor;
 }
 
 function MessageDisplay({
@@ -146,8 +146,8 @@ function MessageDisplay({
         {/* User profile/avatar */}
         <div className="flex-none mt-3 ml-4 text-sm text-center text-gray-500 min-w-24">
           <img
-            src={message.isUser ? "/user.png" : "/bot.png"}
-            alt={message.isUser ? "user" : botName}
+            src={message.isUser ? '/user.png' : '/bot.png'}
+            alt={message.isUser ? 'user' : botName}
             className="w-6 h-6 mx-auto md:w-8 md:h-8"
           />
         </div>
@@ -156,7 +156,7 @@ function MessageDisplay({
           {/* Username/date */}
           <div className="flex flex-col ml-3">
             <span className="mt-3 text-sm font-bold text-gray-500">
-              {message.isUser ? "You" : botName}
+              {message.isUser ? 'You' : botName}
             </span>
             <span className="text-xs text-gray-400">
               {message.timestamp.toLocaleTimeString()}
@@ -166,7 +166,7 @@ function MessageDisplay({
           {/* Response text */}
           <div
             className={`chat-message flex flex-row mt-1 mx-3 ${processHighlighting(
-              message
+              message,
             )}`}
           >
             <section>
@@ -186,8 +186,7 @@ function MessageDisplay({
                       {...props}
                     />
                   ),
-                  li: ({...props}) => <li
-                    className="mt-0" {...props} />,
+                  li: ({ ...props }) => <li className="mt-0" {...props} />,
                   p: ({ ...props }) => (
                     <p className="pb-1 font-sans" {...props} />
                   ),

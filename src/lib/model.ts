@@ -1,4 +1,3 @@
-
 export type Message = {
   text: string;
   sources?: string;
@@ -7,15 +6,15 @@ export type Message = {
 };
 
 export type State = {
-  text: string,
+  text: string;
   data: Message[];
   isLoading: boolean;
   error?: string;
   connected: boolean;
-}
+};
 
 export type UploadedFile = {
-  date: string,
-  name: string,
-  relative_url: string,
-}
+  date: string;
+  name: string;
+  relative_url: string;
+};

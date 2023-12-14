@@ -1,8 +1,8 @@
-import Header from "./Header.tsx";
-import { useContext } from "react";
-import { ChatContext } from "../context/ChatContext.tsx";
-import SideMenu from "./SideMenu.tsx";
-import { signal } from "@preact/signals-react";
+import Header from './Header.tsx';
+import { useContext } from 'react';
+import { ChatContext } from '../context/ChatContext.tsx';
+import SideMenu from './SideMenu.tsx';
+import { signal } from '@preact/signals-react';
 
 export const expanded = signal(false);
 
@@ -19,7 +19,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         {showSidebar && (
           <div
             className={`side-menu w-12 md:w-14 bg-gray-50 hidden sm:block
-        ${expanded.value ? "expanded" : "contracted"}`}
+        ${expanded.value ? 'expanded' : 'contracted'}`}
             onClick={toggleExpanded}
           >
             <SideMenu />

@@ -1,10 +1,10 @@
-import { signal } from "@preact/signals-react";
-import { handleMessageDispatch } from "./MainChat.tsx";
-import { Socket } from "socket.io-client";
-import sendWSMessage from "../lib/websocketClient.ts";
-import { useContext } from "react";
-import { ChatContext } from "../context/ChatContext.tsx";
-import {Action} from "../context/MessageContext.tsx";
+import { signal } from '@preact/signals-react';
+import { handleMessageDispatch } from './MainChat.tsx';
+import { Socket } from 'socket.io-client';
+import sendWSMessage from '../lib/websocketClient.ts';
+import { useContext } from 'react';
+import { ChatContext } from '../context/ChatContext.tsx';
+import { Action } from '../context/MessageContext.tsx';
 
 const displayInfo = signal(true);
 function ListItem({
@@ -25,7 +25,7 @@ function ListItem({
   return (
     <div
       className={`text-sm text-gray-500 mb-${
-        index === exampleQuestions.length - 1 ? "3" : "1"
+        index === exampleQuestions.length - 1 ? '3' : '1'
       }`}
     >
       <a
@@ -66,7 +66,7 @@ export default function AppInfo({
       >
         {/* Related question items */}
         {handleHeader ? (
-          <div className="w-full transition-all opacity-100 open:scale-x-0 open:opacity-0">
+          <div className="w-fit pl-[10px] transition-all scale-x-105 opacity-100 md:pl-[16px] lg:pl-[22px] xl:pl-[32px] 2xl:pl-8 open:scale-x-0 open:opacity-0">
             {displayInfo.value &&
               exampleQuestions?.map((question: string, index: number) => (
                 <ListItem

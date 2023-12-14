@@ -1,7 +1,7 @@
-import { signal } from "@preact/signals-react";
-import SideMenu from "./SideMenu.tsx";
-import { useContext } from "react";
-import { ChatContext } from "../context/ChatContext.tsx";
+import { signal } from '@preact/signals-react';
+import SideMenu from './SideMenu.tsx';
+import { useContext } from 'react';
+import { ChatContext } from '../context/ChatContext.tsx';
 
 type HeaderType = {
   title?: string;
@@ -53,7 +53,9 @@ export default function Header({
       {/* Logo */}
       <div className="flex flex-row">
         {<Logo logoLink={logoLink} logoImage={logoImage} />}
-        <h2 className="text-3xl font-bold md:text-4xl text-gray-500">{title}</h2>
+        <h2 className="text-3xl font-bold md:text-4xl text-gray-500">
+          {title}
+        </h2>
       </div>
 
       {/* Sidebar and mobile menu */}
@@ -82,10 +84,10 @@ export default function Header({
       {/* Server status */}
       <span className="hidden text-sm text-gray-400 sm:block">
         {connected === null
-          ? ""
+          ? ''
           : connected === true
-          ? "connected"
-          : "disconnected"}
+            ? 'connected'
+            : 'disconnected'}
       </span>
       {/*TODO: Add menu items here*/}
     </div>

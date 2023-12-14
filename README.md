@@ -29,6 +29,3 @@ Please run the following command to start the UI in development mode
 ```bash
 yarn run dev
 ```
-
-
-

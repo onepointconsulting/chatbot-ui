@@ -41,7 +41,7 @@
   margin-bottom: calc(0.1rem * var(--tw-space-y-reverse));
 }
 
-/** **/
+/** Font related **/
 body {
   font-family: 'Poppins', sans-serif;
 }

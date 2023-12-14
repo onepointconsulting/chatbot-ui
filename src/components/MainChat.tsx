@@ -1,4 +1,4 @@
-import { useContext, useEffect} from 'react';
+import { useContext, useEffect } from 'react';
 import ErrorMessage from './ErrorMessage.tsx';
 import Messages from './ChatMessages.tsx';
 import Spinner from './Spinner.tsx';
@@ -7,7 +7,7 @@ import { useWebsocket } from '../hooks/useWebsocket.ts';
 import AppInfo from './AppInfo.tsx';
 import { Socket } from 'socket.io-client';
 import { Action, MessageContext } from '../context/MessageContext.tsx';
-import SearchInput from "./SearchInput.tsx";
+import SearchInput from './SearchInput.tsx';
 
 function scrollToBottom() {
   const objDiv = document.querySelector('.chat-container');
@@ -53,10 +53,8 @@ export default function MainChat() {
     }
   }, [connected]);
 
-
   // Hide the question prompt when the user has typed something and streaming is enabled.
   const handleHeader = streaming && !isLoading;
-
 
   return (
     <>

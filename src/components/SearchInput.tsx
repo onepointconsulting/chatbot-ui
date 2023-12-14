@@ -1,15 +1,15 @@
-import {useContext, useRef} from "react";
-import {MessageContext} from "../context/MessageContext.tsx";
-import sendWSMessage from "../lib/websocketClient.ts";
-import {handleMessageDispatch} from "./MainChat.tsx";
-import {ChatContext} from "../context/ChatContext.tsx";
-import {Socket} from "socket.io-client";
-import {useWebsocket} from "../hooks/useWebsocket.ts";
+import { useContext, useRef } from 'react';
+import { MessageContext } from '../context/MessageContext.tsx';
+import sendWSMessage from '../lib/websocketClient.ts';
+import { handleMessageDispatch } from './MainChat.tsx';
+import { ChatContext } from '../context/ChatContext.tsx';
+import { Socket } from 'socket.io-client';
+import { useWebsocket } from '../hooks/useWebsocket.ts';
 
 export default function SearchInput() {
   const { websocketUrl, streaming } = useContext(ChatContext);
-  const {state, dispatch} = useContext(MessageContext);
-  const {text, connected, isLoading} = state;
+  const { state, dispatch } = useContext(MessageContext);
+  const { text, connected, isLoading } = state;
 
   const textAreaRef = useRef<HTMLTextAreaElement>(null);
 
@@ -50,18 +50,18 @@ export default function SearchInput() {
 
   return (
     <div className="sticky bottom-0 flex w-full bg-gray-100 chat-input rounded-tr-3xl rounded-tl-3xl">
-        <textarea
-          aria-invalid="false"
-          autoComplete="false"
-          id="chat-input"
-          placeholder="Type your message here and press ENTER..."
-          value={text}
-          onChange={(e) => dispatch({type: 'text', text: e.target.value})}
-          onKeyUp={sendEnterMessage}
-          disabled={isLoading || !connected}
-          className="block w-full h-12 px-2 py-2 m-3 overflow-hidden text-sm text-gray-900 rounded-lg resize-none md:py-3 max-h-44 outline outline-offset-2 outline-1 focus:outline-offset-2 focus:outline-2 outline-gray-400"
-          ref={textAreaRef}
-        ></textarea>
+      <textarea
+        aria-invalid="false"
+        autoComplete="false"
+        id="chat-input"
+        placeholder="Type your message here and press ENTER..."
+        value={text}
+        onChange={(e) => dispatch({ type: 'text', text: e.target.value })}
+        onKeyUp={sendEnterMessage}
+        disabled={isLoading || !connected}
+        className="block w-full h-12 px-2 py-2 m-3 overflow-hidden text-sm text-gray-900 rounded-lg resize-none md:py-3 max-h-44 outline outline-offset-2 outline-1 focus:outline-offset-2 focus:outline-2 outline-gray-400"
+        ref={textAreaRef}
+      ></textarea>
 
       {/* Send button */}
       <button
@@ -71,7 +71,7 @@ export default function SearchInput() {
         disabled={disabled}
         onClick={sendMessage}
       >
-        <img src="/send.svg" alt="Send" style={{width: '42px'}}/>
+        <img src="/send.svg" alt="Send" style={{ width: '42px' }} />
       </button>
 
       {/* Clear button */}
@@ -79,8 +79,8 @@ export default function SearchInput() {
         className="flex-none h-10 pl-1 pr-2 my-auto hover:transform rounded-2xl hover:bg-scale-100 hover:duration-200"
         onClick={clear}
       >
-        <img src="/clear.svg" alt="Clear" style={{width: '42px'}}/>
+        <img src="/clear.svg" alt="Clear" style={{ width: '42px' }} />
       </button>
     </div>
-  )
+  );
 }

@@ -1,5 +1,5 @@
 const port = 8082;
-const server = '176.34.128.143';
+const server = 'localhost';
 
 const eventManagementChatConfig = {
   streaming: true,

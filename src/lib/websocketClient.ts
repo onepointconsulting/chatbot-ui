@@ -1,9 +1,9 @@
 import { Socket } from 'socket.io-client';
 
-export const WEBSOCKET_CONNECT = 'connect'
-export const WEBSOCKET_DISCONNECT = 'disconnect'
-export const WEBSOCKET_CONNECTION_ERROR = 'connect_error'
-export const WEBSOCKET_CONNECTION_FAILED = 'connect_failed'
+export const WEBSOCKET_CONNECT = 'connect';
+export const WEBSOCKET_DISCONNECT = 'disconnect';
+export const WEBSOCKET_CONNECTION_ERROR = 'connect_error';
+export const WEBSOCKET_CONNECTION_FAILED = 'connect_failed';
 
 export const WEBSOCKET_QUESTION = 'question';
 export const WEBSOCKET_RESPONSE = 'response';

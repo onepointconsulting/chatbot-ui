@@ -35,7 +35,7 @@ yarn run dev
 ### Incoming messages
 
 | Name             | Description                                            | Optional |
-|------------------|--------------------------------------------------------|----------|
+| ---------------- | ------------------------------------------------------ | -------- |
 | "connect"        | Fired when the connection to the server is established |          |
 | "disconnect"     | Fired when the connection to the server is stopped     |          |
 | "connect_error"  | Fired when there is a connection error                 | Yes      |
@@ -44,5 +44,3 @@ yarn run dev
 | "stopstreaming"  | Fired when there is an error                           | No       |
 
 ### Outgoing messages
-
-

@@ -2,8 +2,7 @@ const port = 8082;
 const server = '176.34.128.143';
 const onepointChatConfig = {
   streaming: false,
-               showSidebar: true
-  ,
+  showSidebar: true,
   botName: 'ChatGPT', // Name of the bot
   // Optional logo
   logoImage: '/logo-one-point.png',
@@ -12,7 +11,7 @@ const onepointChatConfig = {
   // Optional title
   title: 'Chat',
   // The socket to where to connect.
-                   websocketUrl: `ws://${server}:${port}`,
+  websocketUrl: `ws://${server}:${port}`,
   sourceDownloadUrl: `http://${server}:${port}/files`,
   uploadedFilesUrl: `http://${server}:${port}/upload/files`,
   uploadUrl: `http://${server}:${port}/upload`,

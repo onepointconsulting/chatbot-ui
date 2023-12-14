@@ -20,6 +20,14 @@ Then run:
 npm install
 ```
 
+### Husky pre-commit hook
+
+Please run this command to install the pre-commit hook
+
+```bash
+npx husky install 
+```
+
 to install the libraries.
 
 ## Running
@@ -44,3 +52,8 @@ yarn run dev
 | "stopstreaming"  | Fired when there is an error                           | No       |
 
 ### Outgoing messages
+
+| Name          | Description                                                      | Optional |
+|---------------|------------------------------------------------------------------| -------- |
+| "question"    | Fired when the connection from the user is received              |          |
+| "stop_stream" | Fired when the clients decided that it wants to stop the stream  |          |

@@ -29,3 +29,20 @@ Please run the following command to start the UI in development mode
 ```bash
 yarn run dev
 ```
+
+## Websocket API
+
+### Incoming messages
+
+| Name             | Description                                            | Optional |
+|------------------|--------------------------------------------------------|----------|
+| "connect"        | Fired when the connection to the server is established |          |
+| "disconnect"     | Fired when the connection to the server is stopped     |          |
+| "connect_error"  | Fired when there is a connection error                 | Yes      |
+| "connect_failed" | Fired when the connection fails                        | Yes      |
+| "response"       | Fired when a new token is sent from the server         | No       |
+| "stopstreaming"  | Fired when there is an error                           | No       |
+
+### Outgoing messages
+
+

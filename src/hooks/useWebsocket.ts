@@ -2,6 +2,10 @@ import React, { useContext, useEffect, useRef } from 'react';
 import { io, Socket } from 'socket.io-client';
 import {
   STOP_STREAMING_RESPONSE,
+  WEBSOCKET_CONNECT,
+  WEBSOCKET_CONNECTION_ERROR,
+  WEBSOCKET_CONNECTION_FAILED,
+  WEBSOCKET_DISCONNECT,
   WEBSOCKET_RESPONSE,
 } from '../lib/websocketClient.ts';
 import { ChatContext } from '../context/ChatContext.tsx';
@@ -56,16 +60,25 @@ export function useWebsocket({
       console.error(err);
     }
 
-    socket.current.on('connect', onConnect);
-    socket.current.on('disconnect', onDisconnect);
-    socket.current.on('connect_error', (err) => handleErrors(err));
-    socket.current.on('connect_failed', (err) => handleErrors(err));
+    const handleConnectionError = (err: Error) => handleErrors(err);
+    const handleConnectionFailed = (err: Error) => handleErrors(err);
+
+    socket.current.on(WEBSOCKET_CONNECT, onConnect);
+    socket.current.on(WEBSOCKET_DISCONNECT, onDisconnect);
+
+    socket.current.on(WEBSOCKET_CONNECTION_ERROR, handleConnectionError);
+    socket.current.on(WEBSOCKET_CONNECTION_FAILED, handleConnectionFailed);
+
     socket.current.on(WEBSOCKET_RESPONSE, onResponse);
     socket.current.on(STOP_STREAMING_RESPONSE, handleStopStreaming);
 
     return () => {
-      socket.current?.off('connect', onConnect);
-      socket.current?.off('disconnect', onDisconnect);
+      socket.current?.off(WEBSOCKET_CONNECT, onConnect);
+      socket.current?.off(WEBSOCKET_DISCONNECT, onDisconnect);
+
+      socket.current?.off(WEBSOCKET_CONNECTION_ERROR, handleConnectionError);
+      socket.current?.off(WEBSOCKET_CONNECTION_FAILED, handleConnectionFailed);
+
       socket.current?.off(WEBSOCKET_RESPONSE, onResponse);
       socket.current?.off(STOP_STREAMING_RESPONSE, handleStopStreaming);
     };

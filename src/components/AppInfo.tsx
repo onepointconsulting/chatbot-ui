@@ -62,7 +62,7 @@ export default function AppInfo({
     <div className="h-auto pl-4 md:pl-[3.1rem] lg:pl-[3.6rem] bg-gray-100 border-l-4 border-blue-400">
       <details
         className="w-full [&_img]:open:-rotate-180 open"
-        {...(handleHeader ? { open: true } : { open: false })}
+        {...{ open: handleHeader }}
       >
         {/* Related question items */}
         {handleHeader ? (

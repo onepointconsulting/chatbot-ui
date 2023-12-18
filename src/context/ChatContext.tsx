@@ -1,9 +1,10 @@
-import { createContext, useState } from 'react';
+import React, {createContext, useRef, useState} from 'react';
 import WEBSOCKET_URL, {
   UPLOAD_URL,
   UPLOADED_FILES_URL,
 } from '../lib/apiConstants.ts';
 import { Props } from './commonModel.ts';
+import {Socket} from "socket.io-client";
 
 interface ContextProps {
   readonly title?: string;
@@ -19,6 +20,7 @@ interface ContextProps {
   readonly defaultQuestionsPrompt?: string;
   isConnected?: boolean;
   setIsConnected?: (connected: boolean) => void;
+  socket: React.MutableRefObject<Socket | null>
 }
 
 declare global {
@@ -33,6 +35,7 @@ export const ChatContext = createContext<ContextProps>({
   uploadedFilesUrl: UPLOADED_FILES_URL,
   streaming: false,
   showSidebar: false,
+  socket: {current: null},
 });
 
 export const ChatContextProvider = ({ children }: Props) => {
@@ -49,6 +52,9 @@ export const ChatContextProvider = ({ children }: Props) => {
   const streaming = chatConfig?.streaming;
   const showSidebar = chatConfig?.showSidebar;
   const [isConnected, setIsConnected] = useState(false);
+  const socket: React.MutableRefObject<Socket | null> = useRef<Socket | null>(
+    null,
+  );
   const defaultQuestionsPrompt =
     chatConfig?.defaultQuestionsPrompt ??
     'Please ask us any Onepoint related questions. Things you could ask:';
@@ -68,6 +74,7 @@ export const ChatContextProvider = ({ children }: Props) => {
         defaultQuestionsPrompt,
         isConnected,
         setIsConnected,
+        socket
       }}
     >
       {children}

@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useRef } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { io, Socket } from 'socket.io-client';
 import {
   STOP_STREAMING_RESPONSE,
@@ -20,9 +20,7 @@ export function useWebsocket({
   websocketUrl,
   dispatch,
 }: useWebsocketParams): React.MutableRefObject<Socket | null> {
-  const socket: React.MutableRefObject<Socket | null> = useRef<Socket | null>(
-    null,
-  );
+  const {socket} = useContext(ChatContext);
   const { streaming } = useContext(ChatContext);
 
   useEffect(() => {

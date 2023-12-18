@@ -12,8 +12,6 @@ import { Socket } from 'socket.io-client';
 import { sendStopStream } from '../lib/websocketClient.ts';
 import { MessageContext } from '../context/MessageContext.tsx';
 
-type MessagesProps = { socket: React.MutableRefObject<Socket | null> };
-
 export type ComponentPropsWithoutRef<T extends React.ElementType<any>> =
   import('react').ComponentPropsWithoutRef<T>;
 
@@ -251,12 +249,10 @@ function MessageDisplay({
 
 /**
  * Displays the messages in the chat window
- * @param data The data with all messagess
- * @param socket The socket to send messages to the server
  * @constructor
  */
-export default function Messages({ socket }: MessagesProps) {
-  const { botName, uploadedFilesUrl } = useContext(ChatContext);
+export default function Messages() {
+  const { botName, uploadedFilesUrl, socket } = useContext(ChatContext);
   const { state } = useContext(MessageContext);
   return (
     <>

@@ -71,7 +71,7 @@ export default function MainChat() {
         />
       )}
       <div className="overflow-auto chat-container grow">
-        <Messages socket={socket} />
+        <Messages />
         {isLoading && <Spinner />}
       </div>
 

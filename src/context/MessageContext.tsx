@@ -42,7 +42,6 @@ export function messageReducer(state: State, action: Action): State {
         data: [...state.data, action.message],
       };
     case 'stopStreaming':
-      debugger;
       saveHistory(state.data[state.data.length - 1]);
       return { ...state, isLoading: false };
     case 'successStreaming': {

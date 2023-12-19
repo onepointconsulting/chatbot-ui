@@ -14,18 +14,18 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   const { title, logoImage, logoLink, isConnected, showSidebar } =
     useContext(ChatContext);
   return (
-    <section className="flex flex-col">
+    <section className="flex flex-col bg-[#E6F3FB]">
       <section className="flex flex-row">
         {showSidebar && (
           <div
-            className={`side-menu w-12 md:w-14 bg-gray-50 hidden sm:block
+            className={`side-menu w-12 md:w-14  hidden sm:block
         ${expanded.value ? 'expanded' : 'contracted'}`}
             onClick={toggleExpanded}
           >
             <SideMenu />
           </div>
         )}
-        <section className="flex flex-col w-full bg-white chat-main">
+        <section className="flex flex-col w-full chat-main">
           <Header
             title={title}
             logoImage={logoImage}

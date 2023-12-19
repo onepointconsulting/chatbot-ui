@@ -8,6 +8,10 @@
   --animtime: 0.25s;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 .chat-header {
   -webkit-backface-visibility: hidden;
 }

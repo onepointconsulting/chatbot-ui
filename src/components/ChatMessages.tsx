@@ -106,9 +106,16 @@ function CopyButton({ message }: { message: Message }) {
       {/* Copy button */}
       <button
         onClick={async () => await handleCopy(text, setCopied)}
-        className="flex-none p-2 my-auto bg-blue-200 rounded-full w-9 hover:bg-gray-200 hover:duration-200"
+        className="flex-none p-2 my-auto bg-blue-200 rounded-full w-9 hover:bg-gray-500 hover:duration-200 "
       >
-        <img src="/copy.svg" alt="copy" title="Copy to clipboard" />
+        <img
+          src="/copy.svg"
+          alt="copy"
+          title="Copy to clipboard"
+          style={{
+            filter: 'invert(1)',
+          }}
+        />
       </button>
     </div>
   );
@@ -125,7 +132,6 @@ function MessageDisplay({
   message,
   botName,
   uploadedFilesUrl,
-  socket,
 }: {
   index: number;
   message: Message;
@@ -133,13 +139,16 @@ function MessageDisplay({
   uploadedFilesUrl: string;
   socket: React.MutableRefObject<Socket | null>;
 }) {
-  const { state } = useContext(MessageContext);
-  const { isLoading } = state;
+  const isUser = message.isUser ? 'text-white' : '';
 
   return (
-    <section key={`message_${index}`}>
+    <section className="mx-5" key={`message_${index}`}>
       <div
-        className={`chat-message flex flex-row ${processHighlighting(message)}`}
+        className={`${
+          message.isUser ? 'bg-[#339DDF] text-white my-8' : ''
+        } chat-message py-4 flex flex-row rounded-2xl ${processHighlighting(
+          message,
+        )}`}
       >
         {/* User profile/avatar */}
         <div className="flex-none mt-3 ml-4 text-sm text-center text-gray-500 min-w-24">
@@ -153,10 +162,10 @@ function MessageDisplay({
         <div className="mr-5 grow">
           {/* Username/date */}
           <div className="flex flex-col ml-3">
-            <span className="mt-3 text-sm font-bold text-gray-500">
+            <span className={`${isUser} mt-3 text-sm font-bold`}>
               {message.isUser ? 'You' : botName}
             </span>
-            <span className="text-xs text-gray-400">
+            <span className={`text-xs text-gray-400 ${isUser}`}>
               {message.timestamp.toLocaleTimeString()}
             </span>
           </div>
@@ -169,7 +178,7 @@ function MessageDisplay({
           >
             <section>
               <Markdown
-                className="mt-1 text-gray-900 markdown-body"
+                className={`mt-1 text-gray-900 markdown-body ${isUser}`}
                 remarkPlugins={[remarkGfm]}
                 components={{
                   ul: ({ ...props }) => (
@@ -209,35 +218,8 @@ function MessageDisplay({
             </section>
           </div>
 
-          {/* Handle the stop and copy buttons */}
+          {/* Handle the copy button */}
           <div className="w-full">
-            {/* Stop streaming */}
-            {!message.isUser && isLoading ? (
-              <button
-                onClick={() => {
-                  sendStopStream(socket.current);
-                }}
-                type="button"
-                className="float-right p-1 mb-3 border-2 border-blue-300 rounded-full hover:bg-gray-200 hover:duration-200"
-                aria-label="Stop streaming"
-                title="Stop streaming"
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 16 16"
-                  fill="gray"
-                  className="w-3 h-3 text-gizmo-gray-950 dark:text-gray-200"
-                >
-                  <path
-                    d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2z"
-                    strokeWidth="0"
-                  ></path>
-                </svg>
-              </button>
-            ) : (
-              <></>
-            )}
-
             {/* Copy button */}
             {!message.isUser && <CopyButton message={message} />}
           </div>

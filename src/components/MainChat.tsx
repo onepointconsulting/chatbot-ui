@@ -70,7 +70,7 @@ export default function MainChat() {
           clearFunc={() => dispatch({ type: 'clearFailure' })}
         />
       )}
-      <div className="overflow-auto chat-container grow">
+      <div className="overflow-auto chat-container grow bg-[#E6F3FB]">
         <Messages />
         {isLoading && <Spinner />}
       </div>

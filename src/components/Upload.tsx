@@ -92,7 +92,7 @@ export default function Upload() {
   }
 
   return (
-    <div className="flex flex-col h-screen w-full px-4 py-4">
+    <div className="flex flex-col w-full h-screen px-4 py-4">
       {isUploading.value && <SpinnerUpload />}
       {!!error.value && (
         <ErrorMessage
@@ -125,7 +125,7 @@ export default function Upload() {
         </label>
         <div
           {...getRootProps()}
-          className="w-full px-5 py-3 bg-white h-56 flex flex-col justify-around"
+          className="flex flex-col justify-around w-full h-56 px-5 py-3 bg-white"
         >
           <input {...getInputProps()} />
           {isDragActive ? (
@@ -143,7 +143,7 @@ export default function Upload() {
             </p>
           )}
         </div>
-        <div className="flex mt-2 w-full">
+        <div className="flex w-full mt-2">
           <button
             className={`bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded w-3/4 mr-2 ${disabledStyle}`}
             disabled={disabled()}

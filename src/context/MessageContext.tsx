@@ -1,6 +1,7 @@
 import { Message, State } from '../lib/model.ts';
 import { createContext, useReducer } from 'react';
 import { Props } from './commonModel.ts';
+import {saveHistory} from "../lib/history.ts";
 
 export type Action =
   | { type: 'request'; message: Message }
@@ -26,6 +27,7 @@ export function messageReducer(state: State, action: Action): State {
   switch (action.type) {
     case 'request':
     case 'success':
+      saveHistory(action.message)
       return {
         ...state,
         text: '',
@@ -40,6 +42,8 @@ export function messageReducer(state: State, action: Action): State {
         data: [...state.data, action.message],
       };
     case 'stopStreaming':
+      debugger
+      saveHistory(state.data[state.data.length - 1])
       return { ...state, isLoading: false };
     case 'successStreaming': {
       const copy = [...state.data];

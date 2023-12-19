@@ -9,7 +9,6 @@ import { dracula } from 'react-syntax-highlighter/dist/esm/styles/prism';
 import { ChatContext } from '../context/ChatContext.tsx';
 import Sources from './Sources.tsx';
 import { Socket } from 'socket.io-client';
-import { sendStopStream } from '../lib/websocketClient.ts';
 import { MessageContext } from '../context/MessageContext.tsx';
 
 export type ComponentPropsWithoutRef<T extends React.ElementType<any>> =

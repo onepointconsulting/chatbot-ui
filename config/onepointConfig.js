@@ -1,7 +1,9 @@
 const port = 8082;
 const server = '176.34.128.143';
+
 const onepointChatConfig = {
   streaming: false,
+  // whether to show the sidebar or not
   showSidebar: true,
   botName: 'ChatGPT', // Name of the bot
   // Optional logo

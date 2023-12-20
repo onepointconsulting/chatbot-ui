@@ -1,40 +1,14 @@
-import type { ReactNode } from 'react';
 import { useContext, useState } from 'react';
 import Markdown from 'react-markdown';
 import { PrismAsync as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { dracula } from 'react-syntax-highlighter/dist/esm/styles/prism';
 import remarkGfm from 'remark-gfm';
 import { Socket } from 'socket.io-client';
-import type { Position } from 'unist';
 import { ChatContext } from '../context/ChatContext.tsx';
 import { MessageContext } from '../context/MessageContext.tsx';
 import { Message } from '../lib/model.ts';
 import Sources from './Sources.tsx';
-
-export type ComponentPropsWithoutRef<T extends React.ElementType<any>> =
-  import('react').ComponentPropsWithoutRef<T>;
-
-export type ReactMarkdownProps = {
-  node: Element;
-  children: ReactNode[];
-  /**
-   * Passed when `options.rawSourcePos` is given
-   */
-  sourcePosition?: Position;
-  /**
-   * Passed when `options.includeElementIndex` is given
-   */
-  index?: number;
-  /**
-   * Passed when `options.includeElementIndex` is given
-   */
-  siblingCount?: number;
-};
-
-export type CodeProps = ComponentPropsWithoutRef<'code'> &
-  ReactMarkdownProps & {
-    inline?: boolean;
-  };
+import {CodeProps} from "../model/chatMessage.ts";
 
 function Code({ inline, children, ...props }: CodeProps) {
   const match = /language-(\w+)/.exec(props.className || '') || 'Python';

@@ -25,7 +25,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
             <SideMenu />
           </div>
         )}
-        <section className="flex flex-col w-full chat-main">
+        <section className="flex flex-col w-full chat-main 2xl:container 2xl:mx-auto">
           <Header
             title={title}
             logoImage={logoImage}

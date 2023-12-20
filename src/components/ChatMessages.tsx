@@ -205,7 +205,7 @@ function MessageDisplay({
               {message.isUser ? 'You' : botName}
             </span>
             <span className={`text-xs text-gray-400 ${isUser}`}>
-              {message?.timestamp?.toLocaleTimeString()}
+              {(message?.timestamp as Date)?.toLocaleTimeString()}
             </span>
           </div>
 

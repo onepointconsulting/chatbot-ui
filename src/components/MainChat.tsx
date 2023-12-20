@@ -62,7 +62,7 @@ export default function MainChat() {
         dispatch={dispatch}
         connected={connected}
         socket={socket}
-        handleHeader={handleHeader}
+        expandAppInfo={handleHeader}
       />
       {!!error && (
         <ErrorMessage

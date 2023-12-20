@@ -8,6 +8,7 @@ import Messages from './ChatMessages.tsx';
 import ErrorMessage from './ErrorMessage.tsx';
 import SearchInput from './SearchInput.tsx';
 import Spinner from './Spinner.tsx';
+import loadHistory from "../lib/history.ts";
 
 function scrollToBottom() {
   const objDiv = document.querySelector('.chat-container');
@@ -42,6 +43,11 @@ export default function MainChat() {
     websocketUrl,
     dispatch,
   });
+
+  useEffect(() => {
+    const messages = loadHistory(20);
+    dispatch({ type: 'bulkLoad', messages });
+  }, []);
 
   useEffect(() => {
     scrollToBottom();

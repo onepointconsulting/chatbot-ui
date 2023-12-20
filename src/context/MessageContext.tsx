@@ -9,6 +9,7 @@ export type Action =
   | { type: 'startStreaming'; message: Message }
   | { type: 'stopStreaming' }
   | { type: 'successStreaming'; message: Message }
+  | { type: 'bulkLoad'; messages: Message[] }
   | { type: 'failure'; error: string }
   | { type: 'clearFailure' }
   | { type: 'connect' }
@@ -66,6 +67,10 @@ export function messageReducer(state: State, action: Action): State {
       return { ...state, connected: true, error: '' };
     case 'disconnect':
       return { ...state, connected: false };
+    case 'bulkLoad':
+      return { ...state, data: action.messages };
+    default:
+      return state;
   }
 }
 

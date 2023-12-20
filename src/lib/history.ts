@@ -13,7 +13,13 @@ export default function loadHistory(numMessages: number = 20): Message[] {
   }
 
   const entries = JSON.parse(history) as Message[];
-  const startIndex = Math.max(0, entries.length - numMessages);
+  const correctedEntries = entries.map((entry) => {
+    if (typeof entry.timestamp === 'string') {
+      entry.timestamp = new Date(entry.timestamp);
+    }
+    return entry;
+  })
+  const startIndex = Math.max(0, correctedEntries.length - numMessages);
   return entries.slice(startIndex);
 }
 
@@ -27,7 +33,7 @@ export function saveHistory(message: Message) {
 
     if (
       entries[entries.length - 1].timestamp.toString() ===
-        message.timestamp.toISOString() &&
+        (message.timestamp as Date).toISOString() &&
       entries[entries.length - 1].text === message.text
     ) {
       // If the last message is the same as the current one, don't save it

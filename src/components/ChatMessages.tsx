@@ -275,10 +275,6 @@ function MessageDisplay({
 export default function Messages() {
   const { botName, uploadedFilesUrl, socket } = useContext(ChatContext);
   const { state } = useContext(MessageContext);
-  const { isLoading } = state;
-
-  // Will need to use for showing the history.
-  // const renderHistory = isLoading && loadHistory(20);
 
   return (
     <>

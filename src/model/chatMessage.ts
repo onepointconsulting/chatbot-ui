@@ -1,5 +1,5 @@
-import {ReactNode} from "react";
-import {Position} from "unist";
+import { ReactNode } from 'react';
+import { Position } from 'unist';
 
 export type ComponentPropsWithoutRef<T extends React.ElementType<any>> =
   import('react').ComponentPropsWithoutRef<T>;
@@ -23,5 +23,5 @@ export type ReactMarkdownProps = {
 
 export type CodeProps = ComponentPropsWithoutRef<'code'> &
   ReactMarkdownProps & {
-  inline?: boolean;
-};
+    inline?: boolean;
+  };

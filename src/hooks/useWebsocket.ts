@@ -6,11 +6,13 @@ import {
   WEBSOCKET_CONNECTION_ERROR,
   WEBSOCKET_CONNECTION_FAILED,
   WEBSOCKET_DISCONNECT,
-  WEBSOCKET_RESPONSE, WEBSOCKET_START_SESSION, sendStartSession,
+  WEBSOCKET_RESPONSE,
+  WEBSOCKET_START_SESSION,
+  sendStartSession,
 } from '../lib/websocketClient.ts';
 import { ChatContext } from '../context/ChatContext.tsx';
 import { Action } from '../context/MessageContext.tsx';
-import {saveSession} from "../lib/sessionFunctions.ts";
+import { saveSession } from '../lib/sessionFunctions.ts';
 
 type useWebsocketParams = {
   websocketUrl: string;
@@ -62,9 +64,9 @@ export function useWebsocket({
     }
 
     function onStartSession(value: string) {
-      debugger
-      if(!value) return;
-      saveSession({id: value, timestamp: new Date()});
+      debugger;
+      if (!value) return;
+      saveSession({ id: value, timestamp: new Date() });
     }
 
     const onConnectionError = (err: Error) => handleErrors(err);
@@ -79,7 +81,7 @@ export function useWebsocket({
     socket.current.on(WEBSOCKET_RESPONSE, onResponse);
     socket.current.on(WEBSOCKET_STOP_STREAMING_RESPONSE, onStopStreaming);
 
-    socket.current.on(WEBSOCKET_START_SESSION, onStartSession)
+    socket.current.on(WEBSOCKET_START_SESSION, onStartSession);
 
     return () => {
       socket.current?.off(WEBSOCKET_CONNECT, onConnect);

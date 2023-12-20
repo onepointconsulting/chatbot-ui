@@ -1,5 +1,5 @@
-import {Socket} from 'socket.io-client';
-import {getSession} from "./sessionFunctions.ts";
+import { Socket } from 'socket.io-client';
+import { getSession } from './sessionFunctions.ts';
 
 export const WEBSOCKET_CONNECT = 'connect';
 export const WEBSOCKET_DISCONNECT = 'disconnect';
@@ -26,11 +26,15 @@ export function sendStopStream(socket: Socket<any, any> | null) {
 }
 
 export function sendStartSession(socket: Socket<any, any> | null) {
-  const session = getSession()
+  const session = getSession();
   safeEmit(socket, WEBSOCKET_START_SESSION, session ? session.id : '');
 }
 
-function safeEmit(socket: Socket<any, any> | null, event: string, ...args: any[]) {
+function safeEmit(
+  socket: Socket<any, any> | null,
+  event: string,
+  ...args: any[]
+) {
   if (!!socket) {
     socket.emit(event, ...args);
     console.log(`Sent ${event} message`);

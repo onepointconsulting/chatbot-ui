@@ -18,5 +18,5 @@ const eventManagementChatConfig = {
   uploadedFilesUrl: ``,
   uploadUrl: `http://${server}:${port}/upload`,
   defaultQuestionsPrompt: '',
-  exampleQuestions: []
+  exampleQuestions: [],
 };

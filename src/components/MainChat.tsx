@@ -1,13 +1,13 @@
 import { useContext, useEffect } from 'react';
-import ErrorMessage from './ErrorMessage.tsx';
-import Messages from './ChatMessages.tsx';
-import Spinner from './Spinner.tsx';
+import { Socket } from 'socket.io-client';
 import { ChatContext } from '../context/ChatContext.tsx';
+import { Action, MessageContext } from '../context/MessageContext.tsx';
 import { useWebsocket } from '../hooks/useWebsocket.ts';
 import AppInfo from './AppInfo.tsx';
-import { Socket } from 'socket.io-client';
-import { Action, MessageContext } from '../context/MessageContext.tsx';
+import Messages from './ChatMessages.tsx';
+import ErrorMessage from './ErrorMessage.tsx';
 import SearchInput from './SearchInput.tsx';
+import Spinner from './Spinner.tsx';
 
 function scrollToBottom() {
   const objDiv = document.querySelector('.chat-container');

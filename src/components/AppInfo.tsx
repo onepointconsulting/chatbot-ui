@@ -24,7 +24,7 @@ function ListItem({
   if (!exampleQuestions) return <></>;
   return (
     <div
-      className={`text-sm text-gray-500  mb-${
+      className={`bg-white p-2 rounded-md my-1 text-sm text-[#A6A6A6] hover:bg-blue-50 hover:text-gray-600 hover:duration-300  mb-${
         index === exampleQuestions.length - 1 ? '3' : '1'
       }`}
     >
@@ -59,7 +59,7 @@ export default function AppInfo({
   const { exampleQuestions, defaultQuestionsPrompt } = useContext(ChatContext);
   if (!exampleQuestions || exampleQuestions.length === 0) return <></>;
   return (
-    <div className="h-auto pl-4 md:pl-[3.1rem] lg:pl-[3.6rem] bg-[#E6F3FB] border-l-4 border-blue-400">
+    <div className="pr-4 lg:pr-0 h-auto pl-4 md:pl-[3.1rem] lg:pl-[3.6rem] bg-[#339ddf] border-l-4 border-blue-400">
       <details
         className="w-full [&_img]:open:-rotate-180 open"
         {...{ open: handleHeader }}
@@ -84,14 +84,21 @@ export default function AppInfo({
         )}
 
         {/* Expander icon for the prompt question */}
-        <summary className="flex items-center justify-between w-full py-2 pr-2 cursor-pointer">
+        <summary className="flex items-center justify-between w-full py-2 pl-4 pr-2 cursor-pointer">
           {/* Default questions prompt */}
-          <h1 className="text-xl font-bold text-gray-500 md:text-2xl">
+          <h1 className="text-xl font-bold text-white md:text-2xl">
             {defaultQuestionsPrompt}
           </h1>
 
           <div title="transition-all duration-300 transform rotate-0">
-            <img src="/expand-down.svg" alt="Expander icon" />
+            <img
+              className="w-8"
+              src="/expand-down.svg"
+              alt="Expander icon"
+              style={{
+                filter: 'invert(1)',
+              }}
+            />
           </div>
         </summary>
       </details>

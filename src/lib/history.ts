@@ -6,6 +6,17 @@ const SIZE_LIMIT = 1024 * 1024 * 4; // 4MB
 
 const byteSize = (str: string) => new Blob([str]).size;
 
+export default function loadHistory(numMessages: number = 20): Message[] {
+  const history = localStorage.getItem(HISTORY_KEY);
+  if (history === null) {
+    return [];
+  }
+
+  const entries = JSON.parse(history) as Message[];
+  const startIndex = Math.max(0, entries.length - numMessages);
+  return entries.slice(startIndex);
+}
+
 export function saveHistory(message: Message) {
   const history = localStorage.getItem(HISTORY_KEY);
   if (history === null) {

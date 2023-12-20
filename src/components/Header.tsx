@@ -49,13 +49,11 @@ export default function Header({
 }: HeaderType) {
   const { showSidebar } = useContext(ChatContext);
   return (
-    <div className="flex justify-between w-full p-2 chat-header">
+    <div className="flex justify-between w-full p-2 chat-header bg-[#339ddf]">
       {/* Logo */}
       <div className="flex flex-row">
         {<Logo logoLink={logoLink} logoImage={logoImage} />}
-        <h2 className="text-3xl font-bold md:text-4xl text-gray-500">
-          {title}
-        </h2>
+        <h2 className="text-3xl font-bold text-white md:text-4xl">{title}</h2>
       </div>
 
       {/* Sidebar and mobile menu */}
@@ -82,7 +80,7 @@ export default function Header({
       )}
 
       {/* Server status */}
-      <span className="hidden text-sm text-gray-400 sm:block">
+      <span className="hidden text-sm text-white sm:block">
         {connected === null
           ? ''
           : connected === true

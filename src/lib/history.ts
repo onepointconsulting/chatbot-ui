@@ -18,7 +18,7 @@ export default function loadHistory(numMessages: number = 20): Message[] {
       entry.timestamp = new Date(entry.timestamp);
     }
     return entry;
-  })
+  });
   const startIndex = Math.max(0, correctedEntries.length - numMessages);
   return entries.slice(startIndex);
 }

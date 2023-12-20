@@ -8,7 +8,7 @@ import Messages from './ChatMessages.tsx';
 import ErrorMessage from './ErrorMessage.tsx';
 import SearchInput from './SearchInput.tsx';
 import Spinner from './Spinner.tsx';
-import loadHistory from "../lib/history.ts";
+import loadHistory from '../lib/history.ts';
 
 function scrollToBottom() {
   const objDiv = document.querySelector('.chat-container');

@@ -47,6 +47,7 @@ export function messageReducer(state: State, action: Action): State {
       return { ...state, isLoading: false };
     case 'successStreaming': {
       const copy = [...state.data];
+      // Apend text token to the last message
       const concatMessage =
         copy[state.data.length - 1].text + action.message.text;
       copy[state.data.length - 1] = {

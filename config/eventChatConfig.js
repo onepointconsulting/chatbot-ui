@@ -3,6 +3,7 @@ const server = 'localhost';
 
 const eventManagementChatConfig = {
   streaming: true,
+  // whether to show the sidebar or not
   showSidebar: false,
   botName: 'ChatGPT', // Name of the bot
   // Optional logo

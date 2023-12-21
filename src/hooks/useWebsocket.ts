@@ -1,15 +1,18 @@
 import React, { useContext, useEffect } from 'react';
 import { io, Socket } from 'socket.io-client';
 import {
-  STOP_STREAMING_RESPONSE,
+  WEBSOCKET_STOP_STREAMING_RESPONSE,
   WEBSOCKET_CONNECT,
   WEBSOCKET_CONNECTION_ERROR,
   WEBSOCKET_CONNECTION_FAILED,
   WEBSOCKET_DISCONNECT,
   WEBSOCKET_RESPONSE,
+  WEBSOCKET_START_SESSION,
+  sendStartSession,
 } from '../lib/websocketClient.ts';
 import { ChatContext } from '../context/ChatContext.tsx';
 import { Action } from '../context/MessageContext.tsx';
+import { saveSession } from '../lib/sessionFunctions.ts';
 
 type useWebsocketParams = {
   websocketUrl: string;
@@ -28,6 +31,8 @@ export function useWebsocket({
     const onConnect = () => {
       console.log('connected');
       dispatch({ type: 'connect' });
+      // Handle session
+      sendStartSession(socket.current);
     };
 
     const onResponse = (value: string) => {
@@ -48,7 +53,7 @@ export function useWebsocket({
       dispatch({ type: 'disconnect' });
     };
 
-    const handleStopStreaming = () => {
+    const onStopStreaming = () => {
       dispatch({ type: 'stopStreaming' });
     };
 
@@ -57,27 +62,37 @@ export function useWebsocket({
       console.error(err);
     }
 
-    const handleConnectionError = (err: Error) => handleErrors(err);
-    const handleConnectionFailed = (err: Error) => handleErrors(err);
+    function onStartSession(value: string) {
+      debugger;
+      if (!value) return;
+      saveSession({ id: value, timestamp: new Date() });
+    }
+
+    const onConnectionError = (err: Error) => handleErrors(err);
+    const onConnectionFailed = (err: Error) => handleErrors(err);
 
     socket.current.on(WEBSOCKET_CONNECT, onConnect);
     socket.current.on(WEBSOCKET_DISCONNECT, onDisconnect);
 
-    socket.current.on(WEBSOCKET_CONNECTION_ERROR, handleConnectionError);
-    socket.current.on(WEBSOCKET_CONNECTION_FAILED, handleConnectionFailed);
+    socket.current.on(WEBSOCKET_CONNECTION_ERROR, onConnectionError);
+    socket.current.on(WEBSOCKET_CONNECTION_FAILED, onConnectionFailed);
 
     socket.current.on(WEBSOCKET_RESPONSE, onResponse);
-    socket.current.on(STOP_STREAMING_RESPONSE, handleStopStreaming);
+    socket.current.on(WEBSOCKET_STOP_STREAMING_RESPONSE, onStopStreaming);
+
+    socket.current.on(WEBSOCKET_START_SESSION, onStartSession);
 
     return () => {
       socket.current?.off(WEBSOCKET_CONNECT, onConnect);
       socket.current?.off(WEBSOCKET_DISCONNECT, onDisconnect);
 
-      socket.current?.off(WEBSOCKET_CONNECTION_ERROR, handleConnectionError);
-      socket.current?.off(WEBSOCKET_CONNECTION_FAILED, handleConnectionFailed);
+      socket.current?.off(WEBSOCKET_CONNECTION_ERROR, onConnectionError);
+      socket.current?.off(WEBSOCKET_CONNECTION_FAILED, onConnectionFailed);
 
       socket.current?.off(WEBSOCKET_RESPONSE, onResponse);
-      socket.current?.off(STOP_STREAMING_RESPONSE, handleStopStreaming);
+      socket.current?.off(WEBSOCKET_STOP_STREAMING_RESPONSE, onStopStreaming);
+
+      socket.current?.off(WEBSOCKET_START_SESSION, onStartSession);
     };
   }, []);
   return socket;

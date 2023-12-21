@@ -59,7 +59,8 @@ body {
 
 .markdown-body img {
   max-width: 1280px;
-  width: 100%;
+  width: 58%; /* Reduced the image size which render in the chat response */
+  margin: auto;
   display: block;
 }
 

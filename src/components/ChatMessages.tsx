@@ -134,11 +134,11 @@ function BackToBottom() {
       chatContainer.style.scrollBehavior = 'smooth';
     }
   };
-
   return (
     <button
-      className="absolute hover:scale-105 hover:duration-200 transform z-10 text-gray-600 border rounded-full cursor-pointer right-1/2 border-black/10 bg-blue-400 bottom-[7.25rem] translate-x-[-50%]"
+      className="absolute hover:scale-105 hover:duration-200 transform z-10 text-gray-600 border rounded-full cursor-pointer border-black/10 bg-blue-400 bottom-[5.6rem] left-1/2 -translate-x-1/2"
       onClick={scrollToBottom}
+      title="Back to bottom"
     >
       <svg
         width="24"
@@ -181,7 +181,7 @@ function MessageDisplay({
   const isUser = message.isUser ? 'text-white' : '';
 
   return (
-    <section className="mx-5" key={`message_${index}`}>
+    <section className="mx-2 lg:mx-5" key={`message_${index}`}>
       <div
         className={`${
           message.isUser ? 'bg-[#339DDF] text-white my-8' : ''
@@ -205,7 +205,9 @@ function MessageDisplay({
               {message.isUser ? 'You' : botName}
             </span>
             <span className={`text-xs text-gray-400 ${isUser}`}>
-              {message?.timestamp?.toLocaleTimeString()}
+              {message?.timestamp instanceof Date
+                ? message.timestamp.toLocaleString()
+                : message?.timestamp}
             </span>
           </div>
 
@@ -275,6 +277,7 @@ function MessageDisplay({
 export default function Messages() {
   const { botName, uploadedFilesUrl, socket } = useContext(ChatContext);
   const { state } = useContext(MessageContext);
+  const { isLoading } = state;
 
   return (
     <>
@@ -291,7 +294,7 @@ export default function Messages() {
         );
       })}
 
-      <BackToBottom />
+      {!isLoading && <BackToBottom />}
     </>
   );
 }

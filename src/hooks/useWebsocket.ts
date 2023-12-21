@@ -31,7 +31,6 @@ export function useWebsocket({
     };
 
     const onResponse = (value: string) => {
-      console.log(WEBSOCKET_RESPONSE, value);
       const { response, sources } = JSON.parse(value);
       dispatch({
         type: streaming ? 'successStreaming' : 'success',

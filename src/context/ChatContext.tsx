@@ -18,6 +18,7 @@ interface ContextProps {
   readonly streaming: boolean;
   readonly showSidebar: boolean;
   readonly defaultQuestionsPrompt?: string;
+  readonly historySize?: number;
   isConnected?: boolean;
   setIsConnected?: (connected: boolean) => void;
   socket: React.MutableRefObject<Socket | null>;
@@ -35,6 +36,7 @@ export const ChatContext = createContext<ContextProps>({
   uploadedFilesUrl: UPLOADED_FILES_URL,
   streaming: false,
   showSidebar: false,
+  historySize: 20,
   socket: { current: null },
 });
 
@@ -51,6 +53,7 @@ export const ChatContextProvider = ({ children }: Props) => {
   const exampleQuestions = chatConfig?.exampleQuestions || [];
   const streaming = chatConfig?.streaming;
   const showSidebar = chatConfig?.showSidebar;
+  const historySize = chatConfig?.historySize || 20;
   const [isConnected, setIsConnected] = useState(false);
   const socket: React.MutableRefObject<Socket | null> = useRef<Socket | null>(
     null,
@@ -71,6 +74,7 @@ export const ChatContextProvider = ({ children }: Props) => {
         exampleQuestions,
         streaming,
         showSidebar,
+        historySize,
         defaultQuestionsPrompt,
         isConnected,
         setIsConnected,

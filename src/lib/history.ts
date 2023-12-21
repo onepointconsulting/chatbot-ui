@@ -20,7 +20,7 @@ export default function loadHistory(numMessages: number = 20): Message[] {
     return entry;
   });
   const startIndex = Math.max(0, correctedEntries.length - numMessages);
-  return entries.slice(startIndex);
+  return correctedEntries.slice(startIndex);
 }
 
 export function saveHistory(message: Message) {

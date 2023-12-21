@@ -35,7 +35,8 @@ export function handleMessageDispatch(
 }
 
 export default function MainChat() {
-  const { websocketUrl, setIsConnected, streaming } = useContext(ChatContext);
+  const { websocketUrl, setIsConnected, streaming, historySize } =
+    useContext(ChatContext);
   const { state, dispatch } = useContext(MessageContext);
   const { data, isLoading, error, connected } = state;
 
@@ -45,7 +46,7 @@ export default function MainChat() {
   });
 
   useEffect(() => {
-    const messages = loadHistory(20);
+    const messages = loadHistory(historySize);
     dispatch({ type: 'bulkLoad', messages });
   }, []);
 

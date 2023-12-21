@@ -10,6 +10,8 @@ const onepointChatConfig = {
   logoLink: 'https://www.onepointltd.com/',
   // Optional title
   title: 'Chat',
+  // Number of history messages to load.
+  historySize: 20,
   // The socket to where to connect.
   websocketUrl: `ws://${server}:${port}`,
   sourceDownloadUrl: `http://${server}:${port}/files`,

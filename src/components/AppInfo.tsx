@@ -78,7 +78,6 @@ export default function AppInfo({
   expandAppInfo: boolean;
 }) {
   const shouldExpandAppInfo = changeAppInfoState(expandAppInfo);
-  console.log('shouldExpandAppInfo', shouldExpandAppInfo);
   const { exampleQuestions, defaultQuestionsPrompt } = useContext(ChatContext);
   if (!exampleQuestions || exampleQuestions.length === 0) return <></>;
   return (
@@ -93,10 +92,12 @@ export default function AppInfo({
           {defaultQuestionsPrompt}
         </h1>
 
-        <div title="transition-all duration-300 transform rotate-0">
+        <div title="Expand the table">
           <img
             className="w-8"
-            src="/expand-down.svg"
+            src={`${
+              shouldExpandAppInfo ? ' /expand-down.svg' : ' /expand-up.svg'
+            }  `}
             alt="Expander icon"
             style={{
               filter: 'invert(1)',

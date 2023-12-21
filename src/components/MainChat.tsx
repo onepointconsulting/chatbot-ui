@@ -9,7 +9,7 @@ import ErrorMessage from './ErrorMessage.tsx';
 import SearchInput from './SearchInput.tsx';
 import Spinner from './Spinner.tsx';
 import loadHistory from '../lib/history.ts';
-import {debounce} from 'lodash';
+import { debounce } from 'lodash';
 
 export function scrollToBottom(scrollBehavior: string = 'auto') {
   const chatContainer = document.querySelector('.chat-container');

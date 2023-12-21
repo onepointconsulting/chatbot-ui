@@ -9,7 +9,7 @@ import { MessageContext } from '../context/MessageContext.tsx';
 import { Message } from '../lib/model.ts';
 import Sources from './Sources.tsx';
 import { CodeProps } from '../model/chatMessage.ts';
-import {scrollToBottom} from "./MainChat.tsx";
+import { scrollToBottom } from './MainChat.tsx';
 
 function Code({ inline, children, ...props }: CodeProps) {
   const match = /language-(\w+)/.exec(props.className || '') || 'Python';

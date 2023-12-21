@@ -9,11 +9,13 @@ import ErrorMessage from './ErrorMessage.tsx';
 import SearchInput from './SearchInput.tsx';
 import Spinner from './Spinner.tsx';
 import loadHistory from '../lib/history.ts';
+import {debounce} from 'lodash';
 
-function scrollToBottom() {
-  const objDiv = document.querySelector('.chat-container');
-  if (!!objDiv) {
-    objDiv.scrollTop = objDiv.scrollHeight;
+export function scrollToBottom(scrollBehavior: string = 'auto') {
+  const chatContainer = document.querySelector('.chat-container');
+  if (!!chatContainer) {
+    (chatContainer as HTMLElement).style.scrollBehavior = scrollBehavior;
+    chatContainer.scrollTop = chatContainer.scrollHeight;
   }
 }
 
@@ -45,13 +47,15 @@ export default function MainChat() {
     dispatch,
   });
 
+  const debouncedScrollToBottom = debounce(scrollToBottom, 500);
+
   useEffect(() => {
     const messages = loadHistory(historySize);
     dispatch({ type: 'bulkLoad', messages });
   }, []);
 
   useEffect(() => {
-    scrollToBottom();
+    debouncedScrollToBottom();
   }, [data]);
 
   useEffect(() => {

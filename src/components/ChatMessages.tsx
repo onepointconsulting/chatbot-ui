@@ -9,6 +9,7 @@ import { MessageContext } from '../context/MessageContext.tsx';
 import { Message } from '../lib/model.ts';
 import Sources from './Sources.tsx';
 import { CodeProps } from '../model/chatMessage.ts';
+import {scrollToBottom} from "./MainChat.tsx";
 
 function Code({ inline, children, ...props }: CodeProps) {
   const match = /language-(\w+)/.exec(props.className || '') || 'Python';
@@ -99,19 +100,11 @@ function CopyButton({ message }: { message: Message }) {
 // Back to bottom button
 function BackToBottom() {
   // Handle the back to bottom button with smooth scrolling
-  const scrollToBottom = () => {
-    const chatContainer = document.querySelector(
-      '.chat-container',
-    ) as HTMLElement;
-    if (chatContainer) {
-      chatContainer.scrollTop = chatContainer.scrollHeight;
-      chatContainer.style.scrollBehavior = 'smooth';
-    }
-  };
+
   return (
     <button
       className="absolute hover:scale-105 hover:duration-200 transform z-10 text-gray-600 border rounded-full cursor-pointer border-black/10 bg-blue-400 bottom-[5.6rem] left-1/2 -translate-x-1/2"
-      onClick={scrollToBottom}
+      onClick={() => scrollToBottom('smooth')}
       title="Back to bottom"
     >
       <svg

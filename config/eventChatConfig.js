@@ -12,6 +12,8 @@ const eventManagementChatConfig = {
   logoLink: 'https://www.brahmakumaris.uk/',
   // Optional title
   title: 'Event Chat',
+  // Number of history messages to load.
+  historySize: 4,
   // The socket to where to connect.
   websocketUrl: `ws://${server}:${port}`,
   sourceDownloadUrl: `http://${server}:${port}/files`,

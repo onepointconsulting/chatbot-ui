@@ -7,9 +7,10 @@ import { Socket } from 'socket.io-client';
 import { ChatContext } from '../context/ChatContext.tsx';
 import { MessageContext } from '../context/MessageContext.tsx';
 import { Message } from '../lib/model.ts';
-import Sources from './Sources.tsx';
+import sendWSMessage from '../lib/websocketClient.ts';
 import { CodeProps } from '../model/chatMessage.ts';
-import { scrollToBottom } from './MainChat.tsx';
+import { handleMessageDispatch, scrollToBottom } from './MainChat.tsx';
+import Sources from './Sources.tsx';
 
 function Code({ inline, children, ...props }: CodeProps) {
   const match = /language-(\w+)/.exec(props.className || '') || 'Python';
@@ -145,7 +146,16 @@ function MessageDisplay({
   uploadedFilesUrl: string;
   socket: React.MutableRefObject<Socket | null>;
 }) {
+  const { socket, streaming } = useContext(ChatContext);
+  const { state, dispatch } = useContext(MessageContext);
+  const { text } = state;
   const isUser = message.isUser ? 'text-white' : '';
+
+  // Not fixed yet. onsubmit is not picking up the text value
+  function reSubmit() {
+    handleMessageDispatch(dispatch, text, streaming);
+    sendWSMessage(text, socket.current);
+  }
 
   return (
     <section className="mx-2 lg:mx-5" key={`message_${index}`}>
@@ -232,6 +242,30 @@ function MessageDisplay({
             {!message.isUser && <CopyButton message={message} />}
           </div>
         </div>
+
+        {/* ReSubmit the history */}
+        {message.isUser && (
+          <button
+            className="w-auto p-2 mx-4 bg-blue-500 rounded-full h-fit"
+            onClick={() => reSubmit()}
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth={1.5}
+              stroke="currentColor"
+              dataSlot="icon"
+              className="w-6 h-6"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0 3.181 3.183a8.25 8.25 0 0 0 13.803-3.7M4.031 9.865a8.25 8.25 0 0 1 13.803-3.7l3.181 3.182m0-4.991v4.99"
+              />
+            </svg>
+          </button>
+        )}
       </div>
     </section>
   );

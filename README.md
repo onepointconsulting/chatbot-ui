@@ -54,6 +54,6 @@ yarn run dev
 ### Outgoing messages
 
 | Name             | Description                                                     | Optional |
-|------------------| --------------------------------------------------------------- | -------- |
+| ---------------- | --------------------------------------------------------------- | -------- |
 | "client_message" | Fired when the connection from the user is received             |          |
 | "stop_stream"    | Fired when the clients decided that it wants to stop the stream |          |

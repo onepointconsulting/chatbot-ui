@@ -8,7 +8,7 @@ It uses wwebsockets for communication with a back end.
 
 You can find a demo here:
 
-http://176.34.128.143:8081/index.html
+http://176.34.128.143:8082/index.html
 
 ## Installation
 

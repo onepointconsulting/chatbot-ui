@@ -6,8 +6,8 @@ export const WEBSOCKET_DISCONNECT = 'disconnect';
 export const WEBSOCKET_CONNECTION_ERROR = 'connect_error';
 export const WEBSOCKET_CONNECTION_FAILED = 'connect_failed';
 
-export const WEBSOCKET_QUESTION = 'question';
-export const WEBSOCKET_RESPONSE = 'response';
+export const WEBSOCKET_CLIENT_MESSAGE = 'client_message';
+export const WEBSOCKET_SERVER_MESSAGE = 'server_message';
 export const WEBSOCKET_START_SESSION = 'start_session';
 
 export const WEBSOCKET_STOP_STREAMING_RESPONSE = 'stopstreaming';
@@ -18,7 +18,7 @@ export default function sendWSMessage(
   message: string,
   socket: Socket<any, any> | null,
 ) {
-  safeEmit(socket, WEBSOCKET_QUESTION, message);
+  safeEmit(socket, WEBSOCKET_CLIENT_MESSAGE, message);
 }
 
 export function sendStopStream(socket: Socket<any, any> | null) {

@@ -6,7 +6,7 @@ import {
   WEBSOCKET_CONNECTION_ERROR,
   WEBSOCKET_CONNECTION_FAILED,
   WEBSOCKET_DISCONNECT,
-  WEBSOCKET_RESPONSE,
+  WEBSOCKET_SERVER_MESSAGE,
   WEBSOCKET_START_SESSION,
   sendStartSession,
 } from '../lib/websocketClient.ts';
@@ -77,7 +77,7 @@ export function useWebsocket({
     socket.current.on(WEBSOCKET_CONNECTION_ERROR, onConnectionError);
     socket.current.on(WEBSOCKET_CONNECTION_FAILED, onConnectionFailed);
 
-    socket.current.on(WEBSOCKET_RESPONSE, onResponse);
+    socket.current.on(WEBSOCKET_SERVER_MESSAGE, onResponse);
     socket.current.on(WEBSOCKET_STOP_STREAMING_RESPONSE, onStopStreaming);
 
     socket.current.on(WEBSOCKET_START_SESSION, onStartSession);
@@ -89,7 +89,7 @@ export function useWebsocket({
       socket.current?.off(WEBSOCKET_CONNECTION_ERROR, onConnectionError);
       socket.current?.off(WEBSOCKET_CONNECTION_FAILED, onConnectionFailed);
 
-      socket.current?.off(WEBSOCKET_RESPONSE, onResponse);
+      socket.current?.off(WEBSOCKET_SERVER_MESSAGE, onResponse);
       socket.current?.off(WEBSOCKET_STOP_STREAMING_RESPONSE, onStopStreaming);
 
       socket.current?.off(WEBSOCKET_START_SESSION, onStartSession);

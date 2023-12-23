@@ -48,12 +48,12 @@ yarn run dev
 | "disconnect"     | Fired when the connection to the server is stopped     |          |
 | "connect_error"  | Fired when there is a connection error                 | Yes      |
 | "connect_failed" | Fired when the connection fails                        | Yes      |
-| "response"       | Fired when a new token is sent from the server         | No       |
+| "server_message" | Fired when a new token is sent from the server         | No       |
 | "stopstreaming"  | Fired when there is an error                           | No       |
 
 ### Outgoing messages
 
-| Name          | Description                                                     | Optional |
-| ------------- | --------------------------------------------------------------- | -------- |
-| "question"    | Fired when the connection from the user is received             |          |
-| "stop_stream" | Fired when the clients decided that it wants to stop the stream |          |
+| Name             | Description                                                     | Optional |
+|------------------| --------------------------------------------------------------- | -------- |
+| "client_message" | Fired when the connection from the user is received             |          |
+| "stop_stream"    | Fired when the clients decided that it wants to stop the stream |          |

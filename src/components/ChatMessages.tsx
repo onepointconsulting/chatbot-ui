@@ -147,14 +147,14 @@ function MessageDisplay({
   socket: React.MutableRefObject<Socket | null>;
 }) {
   const { socket, streaming } = useContext(ChatContext);
-  const { state, dispatch } = useContext(MessageContext);
-  const { text } = state;
+  const { dispatch } = useContext(MessageContext);
   const isUser = message.isUser ? 'text-white' : '';
 
   // Not fixed yet. onsubmit is not picking up the text value
   function reSubmit() {
-    handleMessageDispatch(dispatch, text, streaming);
-    sendWSMessage(text, socket.current);
+    const messageText = message.text;
+    handleMessageDispatch(dispatch, messageText, streaming);
+    sendWSMessage(messageText, socket.current);
   }
 
   return (
@@ -255,7 +255,6 @@ function MessageDisplay({
               viewBox="0 0 24 24"
               strokeWidth={1.5}
               stroke="currentColor"
-              dataSlot="icon"
               className="w-6 h-6"
             >
               <path

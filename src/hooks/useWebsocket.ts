@@ -44,7 +44,7 @@ export function useWebsocket({
           sources,
           isUser: false,
           timestamp: new Date(),
-          sessionId
+          sessionId,
         },
       });
     };

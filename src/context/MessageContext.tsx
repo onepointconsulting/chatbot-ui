@@ -1,7 +1,8 @@
-import { Message, State } from '../lib/model.ts';
+import { State } from '../lib/model.ts';
 import { createContext, useReducer } from 'react';
 import { Props } from './commonModel.ts';
 import { saveHistory } from '../lib/history.ts';
+import {Message} from "../model/message.ts";
 
 export type Action =
   | { type: 'request'; message: Message }

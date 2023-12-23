@@ -1,9 +1,4 @@
-export type Message = {
-  text: string;
-  sources?: string;
-  isUser: boolean;
-  timestamp: Date | string;
-};
+import {Message} from "../model/message.ts";
 
 export type State = {
   text: string;

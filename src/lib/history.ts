@@ -1,4 +1,5 @@
-import { Message } from './model.ts';
+import {Message} from "../model/message.ts";
+
 
 const HISTORY_KEY = 'history';
 

@@ -6,11 +6,11 @@ import remarkGfm from 'remark-gfm';
 import { Socket } from 'socket.io-client';
 import { ChatContext } from '../context/ChatContext.tsx';
 import { MessageContext } from '../context/MessageContext.tsx';
-import { Message } from '../lib/model.ts';
 import sendWSMessage from '../lib/websocketClient.ts';
 import { CodeProps } from '../model/chatMessage.ts';
 import { handleMessageDispatch, scrollToBottom } from './MainChat.tsx';
 import Sources from './Sources.tsx';
+import {Message} from "../model/message.ts";
 
 function Code({ inline, children, ...props }: CodeProps) {
   const match = /language-(\w+)/.exec(props.className || '') || 'Python';

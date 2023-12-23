@@ -10,7 +10,7 @@ import sendWSMessage from '../lib/websocketClient.ts';
 import { CodeProps } from '../model/chatMessage.ts';
 import { handleMessageDispatch, scrollToBottom } from './MainChat.tsx';
 import Sources from './Sources.tsx';
-import {Message} from "../model/message.ts";
+import { Message } from '../model/message.ts';
 
 function Code({ inline, children, ...props }: CodeProps) {
   const match = /language-(\w+)/.exec(props.className || '') || 'Python';

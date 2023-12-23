@@ -1,4 +1,4 @@
-import {Message} from "../model/message.ts";
+import { Message } from '../model/message.ts';
 
 export type State = {
   text: string;

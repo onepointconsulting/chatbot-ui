@@ -3,7 +3,7 @@ import { injectSourceLinks } from '../lib/sourceFunctions.ts';
 import { ChatContext } from '../context/ChatContext.tsx';
 import { useContext } from 'react';
 import { useQuery, UseQueryResult } from 'react-query';
-import {Message} from "../model/message.ts";
+import { Message } from '../model/message.ts';
 
 function uploadedFilesAdapter(data?: UploadedFile[]): string[] {
   return data?.map((file) => file.name) ?? [];

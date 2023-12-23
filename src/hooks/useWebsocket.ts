@@ -36,7 +36,7 @@ export function useWebsocket({
     };
 
     const onResponse = (value: string) => {
-      const { response, sources } = JSON.parse(value);
+      const { response, sources, sessionId } = JSON.parse(value);
       dispatch({
         type: streaming ? 'successStreaming' : 'success',
         message: {
@@ -44,6 +44,7 @@ export function useWebsocket({
           sources,
           isUser: false,
           timestamp: new Date(),
+          sessionId
         },
       });
     };

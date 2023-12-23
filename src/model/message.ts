@@ -3,4 +3,5 @@ export type Message = {
   sources?: string;
   isUser: boolean;
   timestamp: Date | string;
+  sessionId?: string;
 };

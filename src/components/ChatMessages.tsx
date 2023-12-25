@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import Markdown from 'react-markdown';
 import { PrismAsync as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { dracula } from 'react-syntax-highlighter/dist/esm/styles/prism';
@@ -71,6 +71,7 @@ function CopyButton({ message }: { message: Message }) {
   const text =
     message.text + (!!message.sources ? `\n\nSources: ${message.sources}` : '');
   if (state.isLoading) return <div />; // don't show copy button while loading
+  console.log('message.text', message);
   return (
     <div className="flex justify-start py-3 mr-3">
       {/* Copy button */}
@@ -153,6 +154,7 @@ function MessageDisplay({
   // Not fixed yet. onsubmit is not picking up the text value
   function reSubmit() {
     const messageText = message.text;
+    console.log('messageText', messageText);
     handleMessageDispatch(dispatch, messageText, streaming);
     sendWSMessage(messageText, socket.current);
   }
@@ -275,9 +277,34 @@ function MessageDisplay({
  * @constructor
  */
 export default function Messages() {
+  const [isChatAtBottom, setIsChatAtBottom] = useState<boolean>(false);
   const { botName, uploadedFilesUrl, socket } = useContext(ChatContext);
   const { state } = useContext(MessageContext);
   const { isLoading } = state;
+
+  // Handle the scroll to the bottom button.
+  useEffect(() => {
+    const feedContainer = document.querySelector(
+      '.chat-container',
+    ) as HTMLElement;
+
+    const handleScroll = () => {
+      if (!!feedContainer) {
+        const isAtBottom =
+          feedContainer.scrollHeight - feedContainer.scrollTop ===
+          feedContainer.clientHeight;
+        setIsChatAtBottom(isAtBottom);
+      }
+    };
+
+    // Listen for the scroll event on the chat container
+    feedContainer.addEventListener('scroll', handleScroll);
+
+    return () => {
+      // Remove the event listener when the component unmounts
+      feedContainer.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
 
   return (
     <>
@@ -294,7 +321,7 @@ export default function Messages() {
         );
       })}
 
-      {!isLoading && <BackToBottom />}
+      {!isLoading && !isChatAtBottom && <BackToBottom />}
     </>
   );
 }

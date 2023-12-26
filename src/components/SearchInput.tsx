@@ -1,8 +1,6 @@
 import { useContext, useRef } from 'react';
-import { Socket } from 'socket.io-client';
 import { ChatContext } from '../context/ChatContext.tsx';
 import { MessageContext } from '../context/MessageContext.tsx';
-import { useWebsocket } from '../hooks/useWebsocket.ts';
 import sendWSMessage, { sendStopStream } from '../lib/websocketClient.ts';
 import { handleMessageDispatch } from './MainChat.tsx';
 
@@ -35,16 +33,11 @@ function StopStreaming() {
 }
 
 export default function SearchInput() {
-  const { websocketUrl, streaming } = useContext(ChatContext);
+  const { streaming, socket } = useContext(ChatContext);
   const { state, dispatch } = useContext(MessageContext);
   const { text, connected, isLoading } = state;
 
   const textAreaRef = useRef<HTMLTextAreaElement>(null);
-
-  const socket: React.MutableRefObject<Socket | null> = useWebsocket({
-    websocketUrl,
-    dispatch,
-  });
 
   function resetHeight() {
     textAreaRef.current!.style.height = `3rem`;

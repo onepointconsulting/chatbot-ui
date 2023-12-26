@@ -23,6 +23,7 @@ export function useWebsocket({
   websocketUrl,
   dispatch,
 }: useWebsocketParams): React.MutableRefObject<Socket | null> {
+  console.log('useWebsocket')
   const { socket } = useContext(ChatContext);
   const { streaming } = useContext(ChatContext);
 
@@ -64,7 +65,6 @@ export function useWebsocket({
     }
 
     function onStartSession(value: string) {
-      debugger;
       if (!value) return;
       saveSession({ id: value, timestamp: new Date() });
     }

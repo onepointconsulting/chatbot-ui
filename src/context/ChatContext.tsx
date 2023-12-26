@@ -53,7 +53,7 @@ export const ChatContextProvider = ({ children }: Props) => {
   const exampleQuestions = chatConfig?.exampleQuestions || [];
   const streaming = chatConfig?.streaming;
   const showSidebar = chatConfig?.showSidebar;
-  const historySize = chatConfig?.historySize || 20;
+  const historySize = chatConfig?.historySize ?? 20;
   const [isConnected, setIsConnected] = useState(false);
   const socket: React.MutableRefObject<Socket | null> = useRef<Socket | null>(
     null,

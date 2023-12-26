@@ -160,7 +160,7 @@ function MessageDisplay({
   }
 
   return (
-    <section className="mx-2 lg:mx-5" key={`message_${index}`}>
+    <section className="mx-2 lg:mx-5 mt-2" key={`message_${index}`}>
       <div
         className={`${
           message.isUser ? 'bg-[#339DDF] text-white my-8' : ''

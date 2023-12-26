@@ -33,7 +33,7 @@ function StopStreaming() {
 }
 
 export default function SearchInput() {
-  const { streaming, socket } = useContext(ChatContext);
+  const { streaming, socket, historySize } = useContext(ChatContext);
   const { state, dispatch } = useContext(MessageContext);
   const { text, connected, isLoading } = state;
 
@@ -67,7 +67,10 @@ export default function SearchInput() {
 
   // Clear message
   function clear() {
-    dispatch({ type: 'clear' });
+    const myDialog: any | null = document.getElementById("clear-dialog")
+    if(myDialog) {
+      myDialog.showModal();
+    }
   }
 
   // Handle the send icon.
@@ -94,7 +97,7 @@ export default function SearchInput() {
 
       {/* Send button */}
       <button
-        className={`flex-none my-auto rounded-full hover:transform hover:bg-scale-100 hover:duration-200 ${
+        className={`flex-none mr-2 my-auto rounded-full hover:transform hover:bg-scale-100 hover:duration-200 ${
           disabled ? 'bg-gray-500' : 'bg-[#339ddf]'
         }`}
         disabled={disabled}
@@ -129,17 +132,17 @@ export default function SearchInput() {
       </button>
 
       {/* Clear button */}
-      <button
-        className="flex-none h-10 pl-1 pr-2 my-auto hover:transform rounded-2xl hover:bg-scale-100 hover:duration-200"
+      {(historySize && historySize > 0) ? <button
+        className="flex-none h-10 ml-1 mr-2 my-auto hover:transform rounded-2xl hover:bg-scale-100 hover:duration-200 outline-0"
         onClick={clear}
       >
         <img
           src="/clear.svg"
           alt="Clear"
-          title="clear the chat screen"
-          style={{ width: '38px' }}
+          title="clear the chat"
+          style={{width: '38px'}}
         />
-      </button>
+      </button> : <></>}
     </div>
   );
 }

@@ -10,6 +10,7 @@ import SearchInput from './SearchInput.tsx';
 import Spinner from './Spinner.tsx';
 import loadHistory from '../lib/history.ts';
 import { debounce } from 'lodash';
+import ClearDialog from "./ClearDialog.tsx";
 
 export function scrollToBottom(scrollBehavior: string = 'auto') {
   const chatContainer = document.querySelector('.chat-container');
@@ -75,6 +76,7 @@ export default function MainChat() {
         socket={socket}
         expandAppInfo={handleHeader}
       />
+      <ClearDialog />
       {!!error && (
         <ErrorMessage
           message={error}

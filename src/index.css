@@ -81,3 +81,13 @@ body {
   background-color: #cfcdcd;
   border-radius: 4px;
 }
+
+/* Related to the dialog */
+#clear-dialog {
+  padding: 1rem;
+  border-radius: 0.5rem;
+}
+
+button:focus, button:active {
+  border: none !important;
+}

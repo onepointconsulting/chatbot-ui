@@ -13,7 +13,7 @@ const eventManagementChatConfig = {
   // Optional title
   title: 'Data Assessment Companion',
   // Number of history messages to load. 0 means no history.
-  historySize: 0,
+  historySize: 2,
   // The socket to where to connect.
   websocketUrl: `ws://${server}:${port}`,
   sourceDownloadUrl: `http://${server}:${port}/files`,

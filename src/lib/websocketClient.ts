@@ -18,7 +18,14 @@ export default function sendWSMessage(
   message: string,
   socket: Socket<any, any> | null,
 ) {
-  safeEmit(socket, WEBSOCKET_CLIENT_MESSAGE, message);
+  // Check if session is set and if not, send the plain message
+  const session = getSession();
+  if(session) {
+    const { id, timestamp } = session;
+    safeEmit(socket, WEBSOCKET_CLIENT_MESSAGE, JSON.stringify({ id, timestamp, message }));
+  } else {
+    safeEmit(socket, WEBSOCKET_CLIENT_MESSAGE, message);
+  }
 }
 
 export function sendStopStream(socket: Socket<any, any> | null) {

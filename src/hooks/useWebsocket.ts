@@ -23,7 +23,7 @@ export function useWebsocket({
   websocketUrl,
   dispatch,
 }: useWebsocketParams): React.MutableRefObject<Socket | null> {
-  console.log('useWebsocket')
+  console.log('useWebsocket');
   const { socket } = useContext(ChatContext);
   const { streaming } = useContext(ChatContext);
 

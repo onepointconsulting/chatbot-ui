@@ -20,9 +20,13 @@ export default function sendWSMessage(
 ) {
   // Check if session is set and if not, send the plain message
   const session = getSession();
-  if(session) {
+  if (session) {
     const { id, timestamp } = session;
-    safeEmit(socket, WEBSOCKET_CLIENT_MESSAGE, JSON.stringify({ id, timestamp, message }));
+    safeEmit(
+      socket,
+      WEBSOCKET_CLIENT_MESSAGE,
+      JSON.stringify({ id, timestamp, message }),
+    );
   } else {
     safeEmit(socket, WEBSOCKET_CLIENT_MESSAGE, message);
   }

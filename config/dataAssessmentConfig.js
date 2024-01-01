@@ -7,13 +7,13 @@ const eventManagementChatConfig = {
   showSidebar: false,
   botName: 'Data Assessment', // Name of the bot
   // Optional logo
-  logoImage: '/logo-one-point.png',
+  logoImage: '/logo-one-point-white.png',
   // External link to a webpage
   logoLink: 'https://onepointltd.com/',
   // Optional title
   title: 'Data Assessment Companion',
   // Number of history messages to load. 0 means no history.
-  historySize: 2,
+  historySize: 10,
   // The socket to where to connect.
   websocketUrl: `ws://${server}:${port}`,
   sourceDownloadUrl: `http://${server}:${port}/files`,

@@ -12,6 +12,10 @@ html {
   scroll-behavior: smooth;
 }
 
+.logo-title {
+  @apply mt-0.5
+}
+
 .chat-header {
   -webkit-backface-visibility: hidden;
 }
@@ -88,7 +92,3 @@ body {
   border-radius: 0.5rem;
 }
 
-button:focus,
-button:active {
-  border: none !important;
-}

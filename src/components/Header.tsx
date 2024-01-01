@@ -53,7 +53,7 @@ export default function Header({
       {/* Logo */}
       <div className="flex flex-row">
         {<Logo logoLink={logoLink} logoImage={logoImage} />}
-        <h2 className="text-3xl font-bold text-white md:text-4xl">{title}</h2>
+        <h2 className="text-3xl font-bold text-white md:text-4xl logo-title">{title}</h2>
       </div>
 
       {/* Sidebar and mobile menu */}

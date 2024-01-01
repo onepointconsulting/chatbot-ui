@@ -13,7 +13,7 @@ html {
 }
 
 .logo-title {
-  @apply mt-0.5
+  @apply mt-0.5;
 }
 
 .chat-header {
@@ -91,4 +91,3 @@ body {
   padding: 1rem;
   border-radius: 0.5rem;
 }
-

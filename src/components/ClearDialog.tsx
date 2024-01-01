@@ -28,7 +28,9 @@ export default function ClearDialog({}) {
 
   return (
     <dialog data-model={true} id="clear-dialog">
-      <div className="my-2">Would you really like to delete the chat contents?</div>
+      <div className="my-2">
+        Would you really like to delete the chat contents?
+      </div>
       <input
         type="checkbox"
         checked={deleteHistory.value}
@@ -39,10 +41,16 @@ export default function ClearDialog({}) {
         Delete history
       </label>
       <div className="flex justify-between mt-4">
-        <button data-close-modal={true} onClick={onClose} className="button-cancel">
+        <button
+          data-close-modal={true}
+          onClick={onClose}
+          className="button-cancel"
+        >
           Close
         </button>
-        <button onClick={onOk} className="button-ok">Ok</button>
+        <button onClick={onOk} className="button-ok">
+          Ok
+        </button>
       </div>
     </dialog>
   );

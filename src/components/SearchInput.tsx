@@ -3,8 +3,8 @@ import { ChatContext } from '../context/ChatContext.tsx';
 import { MessageContext } from '../context/MessageContext.tsx';
 import sendWSMessage, { sendStopStream } from '../lib/websocketClient.ts';
 import { handleMessageDispatch } from './MainChat.tsx';
-import ClearButton from "./buttons/ClearButton.tsx";
-import ReportDownload from "./buttons/ReportDownload.tsx";
+import ClearButton from './buttons/ClearButton.tsx';
+import ReportDownload from './buttons/ReportDownload.tsx';
 
 // Stop streaming button
 function StopStreaming() {
@@ -126,7 +126,14 @@ export default function SearchInput() {
       </button>
 
       {/* Clear button */}
-      {historySize && historySize > 0 ? (<><ClearButton /><ReportDownload /></>) : (<></>)}
+      {historySize && historySize > 0 ? (
+        <>
+          <ClearButton />
+          <ReportDownload />
+        </>
+      ) : (
+        <></>
+      )}
     </div>
   );
 }

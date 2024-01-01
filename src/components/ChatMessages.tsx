@@ -144,7 +144,7 @@ function MessageDisplay({
   index: number;
   message: Message;
   botName: string | undefined;
-  uploadedFilesUrl: string;
+  uploadedFilesUrl?: string;
   socket: React.MutableRefObject<Socket | null>;
 }) {
   const { socket, streaming } = useContext(ChatContext);

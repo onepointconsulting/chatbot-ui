@@ -12,7 +12,8 @@ interface ContextProps {
   readonly logoLink?: string;
   readonly websocketUrl: string;
   readonly uploadUrl: string;
-  readonly uploadedFilesUrl: string;
+  readonly uploadedFilesUrl?: string;
+  readonly reportUrl?: string;
   readonly botName?: string;
   readonly exampleQuestions?: string[];
   readonly streaming: boolean;
@@ -49,6 +50,7 @@ export const ChatContextProvider = ({ children }: Props) => {
   const websocketUrl = chatConfig?.websocketUrl || WEBSOCKET_URL;
   const uploadUrl = chatConfig?.uploadUrl || UPLOAD_URL;
   const uploadedFilesUrl = chatConfig?.uploadedFilesUrl;
+  const reportUrl = chatConfig?.reportUrl;
   const botName = chatConfig?.botName || 'Bot';
   const exampleQuestions = chatConfig?.exampleQuestions || [];
   const streaming = chatConfig?.streaming;
@@ -68,6 +70,7 @@ export const ChatContextProvider = ({ children }: Props) => {
         websocketUrl,
         uploadUrl,
         uploadedFilesUrl,
+        reportUrl,
         botName,
         logoImage,
         logoLink,

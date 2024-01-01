@@ -3,6 +3,8 @@ import { ChatContext } from '../context/ChatContext.tsx';
 import { MessageContext } from '../context/MessageContext.tsx';
 import sendWSMessage, { sendStopStream } from '../lib/websocketClient.ts';
 import { handleMessageDispatch } from './MainChat.tsx';
+import ClearButton from "./buttons/ClearButton.tsx";
+import ReportDownload from "./buttons/ReportDownload.tsx";
 
 // Stop streaming button
 function StopStreaming() {
@@ -65,14 +67,6 @@ export default function SearchInput() {
     }
   }
 
-  // Clear message
-  function clear() {
-    const myDialog: any | null = document.getElementById('clear-dialog');
-    if (myDialog) {
-      myDialog.showModal();
-    }
-  }
-
   // Handle the send icon.
   const disabled = isLoading || !text || !connected;
 
@@ -132,21 +126,7 @@ export default function SearchInput() {
       </button>
 
       {/* Clear button */}
-      {historySize && historySize > 0 ? (
-        <button
-          className="flex-none h-10 ml-1 mr-2 my-auto hover:transform rounded-2xl hover:bg-scale-100 hover:duration-200 outline-0"
-          onClick={clear}
-        >
-          <img
-            src="/clear.svg"
-            alt="Clear"
-            title="clear the chat"
-            style={{ width: '38px' }}
-          />
-        </button>
-      ) : (
-        <></>
-      )}
+      {historySize && historySize > 0 ? (<><ClearButton /><ReportDownload /></>) : (<></>)}
     </div>
   );
 }

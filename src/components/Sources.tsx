@@ -13,6 +13,7 @@ export default function Sources({ message }: { message: Message }) {
   const { uploadedFilesUrl } = useContext(ChatContext);
 
   async function fetchFileNames() {
+    if(!uploadedFilesUrl) return Promise.resolve([]);
     const res = await fetch(uploadedFilesUrl);
     return await res.json();
   }

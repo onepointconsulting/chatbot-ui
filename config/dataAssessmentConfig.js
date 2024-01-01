@@ -1,3 +1,4 @@
+const protocol = 'http';
 const port = 8083;
 const server = 'localhost';
 
@@ -16,9 +17,9 @@ const eventManagementChatConfig = {
   historySize: 10,
   // The socket to where to connect.
   websocketUrl: `ws://${server}:${port}`,
-  sourceDownloadUrl: `http://${server}:${port}/files`,
-  uploadedFilesUrl: ``,
-  uploadUrl: `http://${server}:${port}/upload`,
+  sourceDownloadUrl: `${protocol}://${server}:${port}/files`,
+  reportUrl: `${protocol}://${server}:${port}/report`,
+  uploadUrl: `${protocol}://${server}:${port}/upload`,
   defaultQuestionsPrompt: '',
   exampleQuestions: [],
 };

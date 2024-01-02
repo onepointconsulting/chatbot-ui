@@ -15,7 +15,7 @@ export type Action =
   | { type: 'clearFailure' }
   | { type: 'connect' }
   | { type: 'disconnect' }
-  | { type: 'clear' }
+  | { type: 'clear' };
 
 interface MessageContextProps {
   state: State;

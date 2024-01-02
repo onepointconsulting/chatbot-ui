@@ -5,9 +5,9 @@ import sendWSMessage, { sendStopStream } from '../lib/websocketClient.ts';
 import { handleMessageDispatch } from './MainChat.tsx';
 import ClearButton from './buttons/ClearButton.tsx';
 import ReportDownload from './buttons/ReportDownload.tsx';
-import {signal} from "@preact/signals-react";
+import { signal } from '@preact/signals-react';
 
-const textSignal = signal("")
+const textSignal = signal('');
 
 // Stop streaming button
 function StopStreaming() {
@@ -52,12 +52,16 @@ export default function SearchInput() {
   function sendMessage() {
     handleMessageDispatch(dispatch, textSignal.value, streaming);
     sendWSMessage(textSignal.value, socket.current);
-    textSignal.value = "";
+    textSignal.value = '';
   }
 
   // Send message on enter
   function sendEnterMessage(e: React.KeyboardEvent<HTMLTextAreaElement>) {
-    if (!e.shiftKey && e.key === 'Enter' && textSignal.value.trim().length > 0) {
+    if (
+      !e.shiftKey &&
+      e.key === 'Enter' &&
+      textSignal.value.trim().length > 0
+    ) {
       sendMessage();
       resetHeight();
     } else {
@@ -83,7 +87,7 @@ export default function SearchInput() {
           id="chat-input"
           placeholder="Type your message here and press ENTER..."
           value={textSignal.value}
-          onChange={(e) => textSignal.value = e.target.value}
+          onChange={(e) => (textSignal.value = e.target.value)}
           onKeyUp={sendEnterMessage}
           disabled={isLoading || !connected}
           className="block w-full h-12 px-2 py-2 m-3 overflow-hidden text-sm text-gray-900 rounded-lg resize-none md:py-3 max-h-44 outline outline-offset-2 outline-1 focus:outline-offset-2 focus:outline-2 outline-gray-400"

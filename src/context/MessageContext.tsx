@@ -16,7 +16,6 @@ export type Action =
   | { type: 'connect' }
   | { type: 'disconnect' }
   | { type: 'clear' }
-  | { type: 'text'; text: string };
 
 interface MessageContextProps {
   state: State;
@@ -32,14 +31,12 @@ export function messageReducer(state: State, action: Action): State {
       saveHistory(action.message);
       return {
         ...state,
-        text: '',
         isLoading: action.type === request,
         data: [...state.data, action.message],
       };
     case 'startStreaming':
       return {
         ...state,
-        text: '',
         isLoading: true,
         data: [...state.data, action.message],
       };
@@ -55,7 +52,7 @@ export function messageReducer(state: State, action: Action): State {
         ...copy[state.data.length - 1],
         text: concatMessage,
       };
-      return { ...state, text: '', data: [...copy] };
+      return { ...state, data: [...copy] };
     }
     case 'failure':
       return { ...state, isLoading: false, error: action.error };
@@ -63,8 +60,6 @@ export function messageReducer(state: State, action: Action): State {
       return { ...state, error: '' };
     case 'clear':
       return { ...state, isLoading: false, data: [], error: '' };
-    case 'text':
-      return { ...state, text: action.text };
     case 'connect':
       return { ...state, connected: true, error: '' };
     case 'disconnect':
@@ -77,13 +72,12 @@ export function messageReducer(state: State, action: Action): State {
 }
 
 export const MessageContext = createContext<MessageContextProps>({
-  state: { text: '', data: [], isLoading: false, connected: false, error: '' },
+  state: { data: [], isLoading: false, connected: false, error: '' },
   dispatch: () => null,
 });
 
 export const MessageContextProvider = ({ children }: Props) => {
   const [state, dispatch] = useReducer(messageReducer, {
-    text: '',
     data: [],
     isLoading: false,
     connected: false,

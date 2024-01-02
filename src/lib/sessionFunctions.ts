@@ -1,6 +1,6 @@
 import { Session } from '../model/session.ts';
 
-const SESSION_KEY = 'session';
+export const SESSION_KEY = 'session';
 export function saveSession(session: Session) {
   localStorage.setItem(SESSION_KEY, JSON.stringify(session));
 }

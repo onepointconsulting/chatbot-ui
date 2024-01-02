@@ -6,6 +6,7 @@ const eventManagementChatConfig = {
   streaming: false,
   // whether to show the sidebar or not
   showSidebar: false,
+  supportsSession: true,
   botName: 'Data Assessment', // Name of the bot
   // Optional logo
   logoImage: '/logo-one-point-white.png',

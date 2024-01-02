@@ -73,7 +73,7 @@ function CopyButton({ message }: { message: Message }) {
   if (state.isLoading) return <div />; // don't show copy button while loading
   console.log('message.text', message);
   return (
-    <div className="flex justify-start py-3 mr-3">
+    <div className="flex justify-start py-3 mx-3">
       {/* Copy button */}
 
       <svg

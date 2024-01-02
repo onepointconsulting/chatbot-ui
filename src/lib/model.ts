@@ -1,7 +1,6 @@
 import { Message } from '../model/message.ts';
 
 export type State = {
-  text: string;
   data: Message[];
   isLoading: boolean;
   error?: string;

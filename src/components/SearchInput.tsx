@@ -5,6 +5,9 @@ import sendWSMessage, { sendStopStream } from '../lib/websocketClient.ts';
 import { handleMessageDispatch } from './MainChat.tsx';
 import ClearButton from './buttons/ClearButton.tsx';
 import ReportDownload from './buttons/ReportDownload.tsx';
+import {signal} from "@preact/signals-react";
+
+const textSignal = signal("")
 
 // Stop streaming button
 function StopStreaming() {
@@ -37,7 +40,7 @@ function StopStreaming() {
 export default function SearchInput() {
   const { streaming, socket, historySize } = useContext(ChatContext);
   const { state, dispatch } = useContext(MessageContext);
-  const { text, connected, isLoading } = state;
+  const { connected, isLoading } = state;
 
   const textAreaRef = useRef<HTMLTextAreaElement>(null);
 
@@ -47,18 +50,19 @@ export default function SearchInput() {
 
   // Send message
   function sendMessage() {
-    handleMessageDispatch(dispatch, text, streaming);
-    sendWSMessage(text, socket.current);
+    handleMessageDispatch(dispatch, textSignal.value, streaming);
+    sendWSMessage(textSignal.value, socket.current);
+    textSignal.value = "";
   }
 
   // Send message on enter
   function sendEnterMessage(e: React.KeyboardEvent<HTMLTextAreaElement>) {
-    if (!e.shiftKey && e.key === 'Enter' && text.trim().length > 0) {
+    if (!e.shiftKey && e.key === 'Enter' && textSignal.value.trim().length > 0) {
       sendMessage();
       resetHeight();
     } else {
       const el = e.target as HTMLTextAreaElement;
-      if (text.includes('\n')) {
+      if (textSignal.value.includes('\n')) {
         textAreaRef.current!.style.height = `auto`;
         textAreaRef.current!.style.height = `${el.scrollHeight}px`;
       } else {
@@ -68,7 +72,7 @@ export default function SearchInput() {
   }
 
   // Handle the send icon.
-  const disabled = isLoading || !text || !connected;
+  const disabled = isLoading || !textSignal.value || !connected;
 
   return (
     <div className="sticky bottom-0 flex w-full gap-2 mt-4 bg-white chat-input rounded-tr-3xl rounded-tl-3xl">
@@ -78,8 +82,8 @@ export default function SearchInput() {
           autoComplete="false"
           id="chat-input"
           placeholder="Type your message here and press ENTER..."
-          value={text}
-          onChange={(e) => dispatch({ type: 'text', text: e.target.value })}
+          value={textSignal.value}
+          onChange={(e) => textSignal.value = e.target.value}
           onKeyUp={sendEnterMessage}
           disabled={isLoading || !connected}
           className="block w-full h-12 px-2 py-2 m-3 overflow-hidden text-sm text-gray-900 rounded-lg resize-none md:py-3 max-h-44 outline outline-offset-2 outline-1 focus:outline-offset-2 focus:outline-2 outline-gray-400"

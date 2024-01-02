@@ -1,6 +1,6 @@
 import { Message } from '../model/message.ts';
 
-const HISTORY_KEY = 'history';
+export const HISTORY_KEY = 'history';
 
 const SIZE_LIMIT = 1024 * 1024 * 4; // 4MB
 

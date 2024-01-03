@@ -11,6 +11,7 @@ import Spinner from './Spinner.tsx';
 import loadHistory from '../lib/history.ts';
 import { debounce } from 'lodash';
 import ClearDialog from './ClearDialog.tsx';
+import SuggestedResponsePanel from "./PossibleResponse.tsx";
 
 export function scrollToBottom(scrollBehavior: string = 'auto') {
   const chatContainer = document.querySelector('.chat-container');
@@ -87,7 +88,8 @@ export default function MainChat() {
         <Messages />
         {isLoading && <Spinner />}
       </div>
-
+      {data && data.length > 0 && data[data.length - 1].suggestedResponses
+        && <SuggestedResponsePanel possibleResponses={data[data.length - 1].suggestedResponses ?? []}/>}
       {/* Search input */}
       <SearchInput />
     </>

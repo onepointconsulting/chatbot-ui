@@ -28,6 +28,8 @@ export function messageReducer(state: State, action: Action): State {
   switch (action.type) {
     case 'request':
     case 'success':
+      // TODO: remove this line after debugging
+      // action.message.suggestedResponses = [{title: "Yes", subtitle: "That is affirmative", text: "Yes"}, {title: "No", subtitle: "That is a no", text: "No"}, {title: "Maybe", subtitle: "That could be true or not", text: "Maybe"}]
       saveHistory(action.message);
       return {
         ...state,

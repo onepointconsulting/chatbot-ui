@@ -79,7 +79,7 @@ export default function SearchInput() {
   const disabled = isLoading || !textSignal.value || !connected;
 
   return (
-    <div className="sticky bottom-0 flex w-full gap-2 mt-4 bg-white chat-input rounded-tr-3xl rounded-tl-3xl">
+    <div className="sticky bottom-0 flex w-full gap-2 mt-2 bg-white chat-input rounded-tr-3xl rounded-tl-3xl">
       <div className="relative w-full mr-4">
         <textarea
           aria-invalid="false"

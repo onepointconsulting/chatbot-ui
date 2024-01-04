@@ -1,19 +1,18 @@
 import { SuggestedResponse } from '../model/message.ts';
-import {useContext} from "react";
-import {MessageContext} from "../context/MessageContext.tsx";
-import {ChatContext} from "../context/ChatContext.tsx";
-import {handleMessageDispatch} from "./MainChat.tsx";
-import {textSignal} from "./SearchInput.tsx";
-import sendWSMessage from "../lib/websocketClient.ts";
+import { useContext } from 'react';
+import { MessageContext } from '../context/MessageContext.tsx';
+import { ChatContext } from '../context/ChatContext.tsx';
+import { handleMessageDispatch } from './MainChat.tsx';
+import { textSignal } from './SearchInput.tsx';
+import sendWSMessage from '../lib/websocketClient.ts';
 
 export default function SuggestedResponsePanel({
   possibleResponses,
 }: {
   possibleResponses: SuggestedResponse[];
 }) {
-
   const { socket, streaming } = useContext(ChatContext);
-  const { dispatch } = useContext(MessageContext)
+  const { dispatch } = useContext(MessageContext);
 
   function handleSuggestedResponseClick(response: SuggestedResponse) {
     const text = response.body;
@@ -32,9 +31,9 @@ export default function SuggestedResponsePanel({
           title={response.body}
         >
           <div className="truncate font-bold text-base">{response.title}</div>
-            <div className="truncate text-sm opacity-50">
-              {response.subtitle ?? response.body}
-            </div>
+          <div className="truncate text-sm opacity-50">
+            {response.subtitle ?? response.body}
+          </div>
         </button>
       ))}
     </div>

@@ -7,7 +7,7 @@ import ClearButton from './buttons/ClearButton.tsx';
 import ReportDownload from './buttons/ReportDownload.tsx';
 import { signal } from '@preact/signals-react';
 
-const textSignal = signal('');
+export const textSignal = signal('');
 
 // Stop streaming button
 function StopStreaming() {

@@ -71,7 +71,7 @@ function CopyButton({ message }: { message: Message }) {
   const text =
     message.text + (!!message.sources ? `\n\nSources: ${message.sources}` : '');
   if (state.isLoading) return <div />; // don't show copy button while loading
-  console.log('message.text', message);
+  console.log('message', message);
   return (
     <div className="flex justify-start py-3 mx-3">
       {/* Copy button */}

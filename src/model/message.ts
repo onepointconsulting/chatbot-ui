@@ -1,7 +1,7 @@
 export type SuggestedResponse = {
   title: string;
   subtitle?: string;
-  text: string;
+  body: string;
 };
 
 export type Message = {

@@ -17,15 +17,18 @@ html {
 }
 
 .button-cancel {
-  @apply bg-gray-500 hover:bg-gray-600 px-5 py-2.5 text-sm font-medium text-white focus:ring-4 focus:outline-none focus:ring-gray-300 rounded-lg text-center dark:bg-gray-600 dark:hover:bg-blue-700 dark:focus:ring-gray-800;
+  @apply bg-gray-500 hover:bg-gray-600 px-5 py-2.5 text-sm font-medium text-white focus:ring-4 focus:outline-none
+    focus:ring-gray-300 rounded-lg text-center dark:bg-gray-600 dark:hover:bg-blue-700 dark:focus:ring-gray-800;
 }
 
 .button-ok {
-  @apply bg-blue-500 hover:bg-blue-600 px-5 py-2.5 text-sm font-medium text-white focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800;
+  @apply bg-blue-500 hover:bg-blue-600 px-5 py-2.5 text-sm font-medium text-white focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg
+    text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800;
 }
 
 .button-possible-response {
-  @apply flex flex-col overflow-hidden w-full bg-white hover:bg-gray-50 px-4 py-2 rounded-2xl border-gray-300 border cursor-pointer font-sans;
+  @apply flex flex-col overflow-hidden w-full bg-white hover:bg-gray-50 px-4 py-2 rounded-2xl border-gray-300 border cursor-pointer font-sans
+    transition duration-200 hover:scale-105;
 }
 
 .chat-header {

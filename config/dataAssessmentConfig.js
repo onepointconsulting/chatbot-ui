@@ -21,6 +21,7 @@ const eventManagementChatConfig = {
   sourceDownloadUrl: `${protocol}://${server}:${port}/files`,
   reportUrl: `${protocol}://${server}:${port}/report`,
   uploadUrl: `${protocol}://${server}:${port}/upload`,
+  chartProgressUrl: `${protocol}://${server}:${port}/spider_chart`,
   defaultQuestionsPrompt: '',
   exampleQuestions: [],
 };

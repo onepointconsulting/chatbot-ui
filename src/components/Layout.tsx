@@ -3,6 +3,7 @@ import { useContext } from 'react';
 import { ChatContext } from '../context/ChatContext.tsx';
 import SideMenu from './SideMenu.tsx';
 import { signal } from '@preact/signals-react';
+import ProgressIframe, {showProgressChart} from "./ProgressIframe.tsx";
 
 export const expanded = signal(false);
 
@@ -25,7 +26,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
             <SideMenu />
           </div>
         )}
-        <section className="flex flex-col w-full chat-main 2xl:container 2xl:mx-auto">
+        <section className={`flex flex-col ${showProgressChart.value ? 'w-full md:w-3/4 lg:w-4/6 xl:w-7/12' : 'w-full'} chat-main`}>
           <Header
             title={title}
             logoImage={logoImage}
@@ -33,6 +34,9 @@ export default function Layout({ children }: { children: React.ReactNode }) {
             connected={isConnected}
           />
           {children}
+        </section>
+        <section className={`${showProgressChart.value ? 'hidden md:block md:w-1/4 lg:w-2/6  xl:w-5/12' : ''}`}>
+          <ProgressIframe/>
         </section>
       </section>
     </section>

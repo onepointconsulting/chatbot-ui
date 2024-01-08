@@ -14,6 +14,7 @@ interface ContextProps {
   readonly uploadUrl: string;
   readonly uploadedFilesUrl?: string;
   readonly reportUrl?: string;
+  readonly chartProgressUrl?: string;
   readonly botName?: string;
   readonly exampleQuestions?: string[];
   readonly streaming: boolean;
@@ -53,6 +54,7 @@ export const ChatContextProvider = ({ children }: Props) => {
   const uploadUrl = chatConfig?.uploadUrl || UPLOAD_URL;
   const uploadedFilesUrl = chatConfig?.uploadedFilesUrl;
   const reportUrl = chatConfig?.reportUrl;
+  const chartProgressUrl = chatConfig?.chartProgressUrl;
   const botName = chatConfig?.botName || 'Bot';
   const exampleQuestions = chatConfig?.exampleQuestions || [];
   const streaming = chatConfig?.streaming;
@@ -74,6 +76,7 @@ export const ChatContextProvider = ({ children }: Props) => {
         uploadUrl,
         uploadedFilesUrl,
         reportUrl,
+        chartProgressUrl,
         botName,
         logoImage,
         logoLink,

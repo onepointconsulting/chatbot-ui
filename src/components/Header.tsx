@@ -22,7 +22,7 @@ function Logo({
   );
 
   return (
-    <div className="flex flex-row">
+    <div>
       {!logoLink ? (
         logoImageElement
       ) : (
@@ -51,9 +51,9 @@ export default function Header({
   return (
     <div className="flex justify-between w-full p-2 chat-header bg-[#339ddf]">
       {/* Logo */}
-      <div className="flex flex-row">
-        {<Logo logoLink={logoLink} logoImage={logoImage} />}
-        <h2 className="text-3xl font-bold text-white md:text-4xl logo-title">
+      <div className="block xl:flex xl:flex-row">
+        <Logo logoLink={logoLink} logoImage={logoImage} />
+        <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white logo-title">
           {title}
         </h2>
       </div>

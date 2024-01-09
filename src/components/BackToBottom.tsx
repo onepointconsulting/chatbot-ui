@@ -1,6 +1,6 @@
-import {scrollToBottom} from './MainChat.tsx';
-import {useEffect} from "react";
-import {signal} from "@preact/signals-react";
+import { scrollToBottom } from './MainChat.tsx';
+import { useEffect } from 'react';
+import { signal } from '@preact/signals-react';
 
 const chatAtBottom = signal(false);
 
@@ -17,12 +17,16 @@ export default function BackToBottom() {
     const handleScroll = () => {
       if (!!feedContainer) {
         const isAtBottom =
-          feedContainer.scrollHeight - feedContainer.scrollTop <= feedContainer.clientHeight;
-        console.log('feedContainer.scrollHeight', feedContainer.scrollHeight)
-        console.log('feedContainer.scrollTop', feedContainer.scrollTop)
-        console.log('feedContainer.clientHeight', feedContainer.clientHeight)
-        console.log('feedContainer.scrollHeight - feedContainer.scrollTop', feedContainer.scrollHeight - feedContainer.scrollTop)
-        chatAtBottom.value = (isAtBottom);
+          feedContainer.scrollHeight - feedContainer.scrollTop <=
+          feedContainer.clientHeight;
+        console.log('feedContainer.scrollHeight', feedContainer.scrollHeight);
+        console.log('feedContainer.scrollTop', feedContainer.scrollTop);
+        console.log('feedContainer.clientHeight', feedContainer.clientHeight);
+        console.log(
+          'feedContainer.scrollHeight - feedContainer.scrollTop',
+          feedContainer.scrollHeight - feedContainer.scrollTop,
+        );
+        chatAtBottom.value = isAtBottom;
       }
     };
 
@@ -35,30 +39,31 @@ export default function BackToBottom() {
     };
   }, []);
 
-
   return (
     <div className="relative">
-      {!chatAtBottom.value && <button
-        className="absolute left-1/2 bottom-[4rem] z-10 hover:scale-105 hover:duration-200 transform text-gray-600 border rounded-full cursor-pointer border-black/10 bg-blue-400"
-        onClick={() => scrollToBottom('smooth')}
-        title="Back to bottom"
-      >
-        <svg
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-          fill="none"
-          className="m-1 text-white"
+      {!chatAtBottom.value && (
+        <button
+          className="absolute left-1/2 bottom-[4rem] z-10 hover:scale-105 hover:duration-200 transform text-gray-600 border rounded-full cursor-pointer border-black/10 bg-blue-400"
+          onClick={() => scrollToBottom('smooth')}
+          title="Back to bottom"
         >
-          <path
-            d="M17 13L12 18L7 13M12 6L12 17"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          ></path>
-        </svg>
-      </button>}
+          <svg
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            className="m-1 text-white"
+          >
+            <path
+              d="M17 13L12 18L7 13M12 6L12 17"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            ></path>
+          </svg>
+        </button>
+      )}
     </div>
   );
 }

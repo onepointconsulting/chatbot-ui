@@ -1,19 +1,19 @@
-import {SuggestedResponse} from '../model/message.ts';
-import {useContext} from 'react';
-import {MessageContext} from '../context/MessageContext.tsx';
-import {ChatContext} from '../context/ChatContext.tsx';
-import {handleMessageDispatch} from './MainChat.tsx';
-import {textSignal} from './SearchInput.tsx';
+import { SuggestedResponse } from '../model/message.ts';
+import { useContext } from 'react';
+import { MessageContext } from '../context/MessageContext.tsx';
+import { ChatContext } from '../context/ChatContext.tsx';
+import { handleMessageDispatch } from './MainChat.tsx';
+import { textSignal } from './SearchInput.tsx';
 import sendWSMessage from '../lib/websocketClient.ts';
-import BackToBottom from "./BackToBottom.tsx";
+import BackToBottom from './BackToBottom.tsx';
 
 export default function SuggestedResponsePanel({
-                                                 possibleResponses,
-                                               }: {
+  possibleResponses,
+}: {
   possibleResponses: SuggestedResponse[];
 }) {
-  const {socket, streaming} = useContext(ChatContext);
-  const {dispatch} = useContext(MessageContext);
+  const { socket, streaming } = useContext(ChatContext);
+  const { dispatch } = useContext(MessageContext);
 
   function handleSuggestedResponseClick(response: SuggestedResponse) {
     const text = response.body;
@@ -25,8 +25,7 @@ export default function SuggestedResponsePanel({
   return (
     <>
       <BackToBottom />
-      <div
-        className="grid w-full grid-flow-row grid-cols-[repeat(auto-fit,minmax(250px,1fr))] gap-2 mt-2 box-border pl-1 pr-3 lg:pl-5 lg:pr-8">
+      <div className="grid w-full grid-flow-row grid-cols-[repeat(auto-fit,minmax(250px,1fr))] gap-2 mt-2 box-border pl-1 pr-3 lg:pl-5 lg:pr-8">
         {possibleResponses.map((response, index) => (
           <button
             onClick={() => handleSuggestedResponseClick(response)}

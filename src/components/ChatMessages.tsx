@@ -1,25 +1,25 @@
-import { useContext, useEffect, useState } from 'react';
+import {useContext, useState} from 'react';
 import Markdown from 'react-markdown';
-import { PrismAsync as SyntaxHighlighter } from 'react-syntax-highlighter';
-import { dracula } from 'react-syntax-highlighter/dist/esm/styles/prism';
+import {PrismAsync as SyntaxHighlighter} from 'react-syntax-highlighter';
+import {dracula} from 'react-syntax-highlighter/dist/esm/styles/prism';
 import remarkGfm from 'remark-gfm';
-import { Socket } from 'socket.io-client';
-import { ChatContext } from '../context/ChatContext.tsx';
-import { MessageContext } from '../context/MessageContext.tsx';
+import {Socket} from 'socket.io-client';
+import {ChatContext} from '../context/ChatContext.tsx';
+import {MessageContext} from '../context/MessageContext.tsx';
 import sendWSMessage from '../lib/websocketClient.ts';
-import { CodeProps } from '../model/chatMessage.ts';
-import { handleMessageDispatch, scrollToBottom } from './MainChat.tsx';
+import {CodeProps} from '../model/chatMessage.ts';
+import {handleMessageDispatch} from './MainChat.tsx';
 import Sources from './Sources.tsx';
-import { Message } from '../model/message.ts';
+import {Message} from '../model/message.ts';
 
-function Code({ inline, children, ...props }: CodeProps) {
+function Code({inline, children, ...props}: CodeProps) {
   const match = /language-(\w+)/.exec(props.className || '') || 'Python';
   return (
     <SyntaxHighlighter
       {...props}
       children={String(children).replace(/\n$/, '')}
       style={dracula}
-      customStyle={{ paddingRight: '2.5em' }}
+      customStyle={{paddingRight: '2.5em'}}
       wrapLongLines
       language={match[1]}
       PreTag="div"
@@ -62,15 +62,15 @@ async function handleCopy(
 }
 
 // Copy button
-function CopyButton({ message }: { message: Message }) {
-  const { state } = useContext(MessageContext);
+function CopyButton({message}: { message: Message }) {
+  const {state} = useContext(MessageContext);
   const [copied, setCopied]: [
     boolean,
     (value: ((prevState: boolean) => boolean) | boolean) => void,
   ] = useState(false);
   const text =
     message.text + (!!message.sources ? `\n\nSources: ${message.sources}` : '');
-  if (state.isLoading) return <div />; // don't show copy button while loading
+  if (state.isLoading) return <div/>; // don't show copy button while loading
   console.log('message', message);
   return (
     <div className="flex justify-start py-3 mx-3">
@@ -99,35 +99,6 @@ function CopyButton({ message }: { message: Message }) {
   );
 }
 
-// Back to bottom button
-function BackToBottom() {
-  // Handle the back to bottom button with smooth scrolling
-
-  return (
-    <button
-      className="absolute hover:scale-105 hover:duration-200 transform z-10 text-gray-600 border rounded-full cursor-pointer border-black/10 bg-blue-400 bottom-[5.6rem] left-1/2 -translate-x-1/2"
-      onClick={() => scrollToBottom('smooth')}
-      title="Back to bottom"
-    >
-      <svg
-        width="24"
-        height="24"
-        viewBox="0 0 24 24"
-        fill="none"
-        className="m-1 text-white"
-      >
-        <path
-          d="M17 13L12 18L7 13M12 6L12 17"
-          stroke="currentColor"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        ></path>
-      </svg>
-    </button>
-  );
-}
-
 const highlightColor = 'bg-white';
 
 function processHighlighting(message: Message) {
@@ -136,19 +107,19 @@ function processHighlighting(message: Message) {
 
 // Display the messages in the chat window
 function MessageDisplay({
-  index,
-  message,
-  botName,
-  uploadedFilesUrl,
-}: {
+                          index,
+                          message,
+                          botName,
+                          uploadedFilesUrl,
+                        }: {
   index: number;
   message: Message;
   botName: string | undefined;
   uploadedFilesUrl?: string;
   socket: React.MutableRefObject<Socket | null>;
 }) {
-  const { socket, streaming } = useContext(ChatContext);
-  const { dispatch } = useContext(MessageContext);
+  const {socket, streaming} = useContext(ChatContext);
+  const {dispatch} = useContext(MessageContext);
   const isUser = message.isUser ? 'text-white' : '';
 
   // Not fixed yet. onsubmit is not picking up the text value
@@ -201,23 +172,23 @@ function MessageDisplay({
                 className={`mt-1 text-gray-900 markdown-body ${isUser}`}
                 remarkPlugins={[remarkGfm]}
                 components={{
-                  ul: ({ ...props }) => (
+                  ul: ({...props}) => (
                     <ul
                       className="mb-3 ml-5 space-y-1 text-gray-500 list-disc dark:text-gray-400"
                       {...props}
                     />
                   ),
-                  ol: ({ ...props }) => (
+                  ol: ({...props}) => (
                     <ol
                       className="mx-4 my-3 space-y-3 text-gray-500 list-decimal dark:text-gray-400"
                       {...props}
                     />
                   ),
-                  li: ({ ...props }) => <li className="mt-0" {...props} />,
-                  p: ({ ...props }) => (
+                  li: ({...props}) => <li className="mt-0" {...props} />,
+                  p: ({...props}) => (
                     <p className="pb-1 font-sans" {...props} />
                   ),
-                  a: ({ children, ...props }) => (
+                  a: ({children, ...props}) => (
                     <a
                       className="pb-4 font-sans underline sm:pb-2"
                       {...props}
@@ -226,7 +197,7 @@ function MessageDisplay({
                       {children}
                     </a>
                   ),
-                  code({ ...props }) {
+                  code({...props}) {
                     // @ts-ignore
                     return <Code {...props} />;
                   },
@@ -234,14 +205,14 @@ function MessageDisplay({
               >
                 {message.text}
               </Markdown>
-              {!!uploadedFilesUrl && <Sources message={message} />}
+              {!!uploadedFilesUrl && <Sources message={message}/>}
             </section>
           </div>
 
           {/* Handle the copy button */}
           <div className="float-left w-full">
             {/* Copy button */}
-            {!message.isUser && <CopyButton message={message} />}
+            {!message.isUser && <CopyButton message={message}/>}
           </div>
         </div>
 
@@ -277,34 +248,8 @@ function MessageDisplay({
  * @constructor
  */
 export default function Messages() {
-  const [isChatAtBottom, setIsChatAtBottom] = useState<boolean>(false);
-  const { botName, uploadedFilesUrl, socket } = useContext(ChatContext);
-  const { state } = useContext(MessageContext);
-  const { isLoading } = state;
-
-  // Handle the scroll to the bottom button.
-  useEffect(() => {
-    const feedContainer = document.querySelector(
-      '.chat-container',
-    ) as HTMLElement;
-
-    const handleScroll = () => {
-      if (!!feedContainer) {
-        const isAtBottom =
-          feedContainer.scrollHeight - feedContainer.scrollTop ===
-          feedContainer.clientHeight;
-        setIsChatAtBottom(isAtBottom);
-      }
-    };
-
-    // Listen for the scroll event on the chat container
-    feedContainer.addEventListener('scroll', handleScroll);
-
-    return () => {
-      // Remove the event listener when the component unmounts
-      feedContainer.removeEventListener('scroll', handleScroll);
-    };
-  }, []);
+  const {botName, uploadedFilesUrl, socket} = useContext(ChatContext);
+  const {state} = useContext(MessageContext);
 
   return (
     <>
@@ -320,8 +265,6 @@ export default function Messages() {
           />
         );
       })}
-
-      {!isLoading && !isChatAtBottom && <BackToBottom />}
     </>
   );
 }

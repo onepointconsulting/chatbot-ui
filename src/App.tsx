@@ -1,12 +1,12 @@
 import './App.css';
 import './css/layout_full_screen.css';
-import {ChatContextProvider} from './context/ChatContext.tsx';
-import {BrowserRouter, Route, Routes} from 'react-router-dom';
+import { ChatContextProvider } from './context/ChatContext.tsx';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Upload from './components/Upload.tsx';
 import Layout from './components/Layout.tsx';
-import {QueryClient, QueryClientProvider} from 'react-query';
+import { QueryClient, QueryClientProvider } from 'react-query';
 import MainChatParent from './components/MainChatParent.tsx';
-import {MessageContextProvider} from "./context/MessageContext.tsx";
+import { MessageContextProvider } from './context/MessageContext.tsx';
 
 function App() {
   const queryClient = new QueryClient();
@@ -18,8 +18,8 @@ function App() {
           <MessageContextProvider>
             <Layout>
               <Routes>
-                <Route path="/upload" element={<Upload/>}/>
-                <Route path="*" element={<MainChatParent/>}/>
+                <Route path="/upload" element={<Upload />} />
+                <Route path="*" element={<MainChatParent />} />
               </Routes>
             </Layout>
           </MessageContextProvider>

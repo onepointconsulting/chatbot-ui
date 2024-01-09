@@ -95,7 +95,6 @@ export default function MainChat() {
       )}
       {/* Search input */}
       <SearchInput />
-
     </>
   );
 }

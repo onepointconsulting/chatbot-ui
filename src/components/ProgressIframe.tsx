@@ -20,7 +20,7 @@ export default function ProgressIframe() {
     return <> </>;
   }
   return (
-    <div className="flex flex-row items-start h-full">
+    <div className="flex flex-row items-start h-full bg-white">
       <div className="">
         {showProgressChart.value && (
           <img

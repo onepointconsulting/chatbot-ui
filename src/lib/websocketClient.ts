@@ -19,6 +19,7 @@ export default function sendWSMessage(
   socket: Socket<any, any> | null,
 ) {
   // Check if session is set and if not, send the plain message
+  console.info('Sending message to server', message);
   const session = getSession();
   if (session) {
     const { id, timestamp } = session;

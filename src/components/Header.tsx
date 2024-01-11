@@ -10,15 +10,14 @@ type HeaderType = {
   connected?: boolean;
 };
 
-function Logo({
-  logoImage,
+function Logo({logoImage,
   logoLink,
 }: {
   logoImage?: string;
   logoLink?: string;
 }) {
   const logoImageElement = !!logoImage && (
-    <img src={logoImage} alt="logo" className="h-8 m-1 mr-2 md:h-10" />
+    <img src={logoImage} alt="logo" className="h-8 m-1 pr-2 md:h-10" />
   );
 
   return (

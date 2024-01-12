@@ -1,22 +1,20 @@
+import { Topic } from '../../lib/model.ts';
+import { useContext } from 'react';
+import { ConfigContext } from '../../context/InitialConfigurationContext.tsx';
 
-import {Topic} from "../../lib/model.ts";
-import {useContext} from "react";
-import {ConfigContext} from "../../context/InitialConfigurationContext.tsx";
-
-export default function Switcher({topic}: {topic: Topic}) {
-
-  const {dispatch} = useContext(ConfigContext);
+export default function Switcher({ topic }: { topic: Topic }) {
+  const { dispatch } = useContext(ConfigContext);
   const handleCheckboxChange = () => {
-    dispatch({type: 'switchTopic', data: topic})
-  }
+    dispatch({ type: 'switchTopic', data: topic });
+  };
 
   return (
     <>
-      <label className='autoSaverSwitch relative inline-flex cursor-pointer select-none items-center'>
+      <label className="autoSaverSwitch relative inline-flex cursor-pointer select-none items-center">
         <input
-          type='checkbox'
-          name='autoSaver'
-          className='sr-only'
+          type="checkbox"
+          name="autoSaver"
+          className="sr-only"
           checked={topic.checked}
           onChange={handleCheckboxChange}
         />
@@ -31,10 +29,11 @@ export default function Switcher({topic}: {topic: Topic}) {
             }`}
           ></span>
         </span>
-        <span className='label flex items-center text-sm font-medium text-black'>
-          {topic.name} <span className='pl-1'> {topic.checked ? 'On' : 'Off'} </span>
+        <span className="label flex items-center text-sm font-medium text-black">
+          {topic.name}{' '}
+          <span className="pl-1"> {topic.checked ? 'On' : 'Off'} </span>
         </span>
       </label>
     </>
-  )
+  );
 }

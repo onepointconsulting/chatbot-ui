@@ -12,7 +12,7 @@ export const WEBSOCKET_SERVER_MESSAGE = 'server_message';
 export const WEBSOCKET_COMMAND = {
   START_SESSION: 'start_session',
   SELECT_TOPICS: 'select_topics',
-}
+};
 
 export const WEBSOCKET_STOP_STREAMING_RESPONSE = 'stopstreaming';
 

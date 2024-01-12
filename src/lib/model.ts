@@ -3,7 +3,7 @@ import { Message } from '../model/message.ts';
 export type Topic = {
   name: string;
   checked: boolean;
-}
+};
 
 export type State = {
   data: Message[];
@@ -21,4 +21,4 @@ export type UploadedFile = {
 export type ConfigState = {
   selectTopics: boolean;
   topics: Topic[];
-}
+};

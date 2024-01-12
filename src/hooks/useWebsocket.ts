@@ -7,7 +7,8 @@ import {
   WEBSOCKET_CONNECTION_FAILED,
   WEBSOCKET_DISCONNECT,
   WEBSOCKET_SERVER_MESSAGE,
-  sendStartSession, WEBSOCKET_COMMAND,
+  sendStartSession,
+  WEBSOCKET_COMMAND,
 } from '../lib/websocketClient.ts';
 import { ChatContext } from '../context/ChatContext.tsx';
 import { Action } from '../context/MessageContext.tsx';
@@ -81,7 +82,6 @@ export function useWebsocket({
     socket.current.on(WEBSOCKET_STOP_STREAMING_RESPONSE, onStopStreaming);
 
     socket.current.on(WEBSOCKET_COMMAND.START_SESSION, onStartSession);
-
 
     return () => {
       socket.current?.off(WEBSOCKET_CONNECT, onConnect);

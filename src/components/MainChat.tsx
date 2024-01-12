@@ -12,8 +12,8 @@ import loadHistory from '../lib/history.ts';
 import { debounce } from 'lodash';
 import ClearDialog from './dialogs/ClearDialog.tsx';
 import SuggestedResponsePanel from './SuggestedResponsePanel.tsx';
-import TopicChoiceDialog from "./dialogs/TopicChoiceDialog.tsx";
-import {ConfigContextProvider} from "../context/InitialConfigurationContext.tsx";
+import TopicChoiceDialog from './dialogs/TopicChoiceDialog.tsx';
+import { ConfigContextProvider } from '../context/InitialConfigurationContext.tsx';
 
 export function scrollToBottom(scrollBehavior: string = 'auto') {
   const chatContainer = document.querySelector('.chat-container');

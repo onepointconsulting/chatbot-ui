@@ -1,4 +1,4 @@
-import {CLEAR_DIALOG_ID} from "../dialogs/ClearDialog.tsx";
+import { CLEAR_DIALOG_ID } from '../dialogs/ClearDialog.tsx';
 
 function showClearDialog() {
   const myDialog: any | null = document.getElementById(CLEAR_DIALOG_ID);

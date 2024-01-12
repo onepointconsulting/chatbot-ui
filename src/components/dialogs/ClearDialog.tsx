@@ -9,7 +9,7 @@ const deleteHistory = signal<boolean>(false);
 
 const deleteSession = signal<boolean>(false);
 
-export const CLEAR_DIALOG_ID = "clear-dialog"
+export const CLEAR_DIALOG_ID = 'clear-dialog';
 const deleteHistoryCheckId = 'delete-history-check';
 const deleteSessionCheckId = 'delete-session-check';
 

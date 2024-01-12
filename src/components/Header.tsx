@@ -10,7 +10,8 @@ type HeaderType = {
   connected?: boolean;
 };
 
-function Logo({logoImage,
+function Logo({
+  logoImage,
   logoLink,
 }: {
   logoImage?: string;

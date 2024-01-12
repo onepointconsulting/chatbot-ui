@@ -10,8 +10,10 @@ import SearchInput from './SearchInput.tsx';
 import Spinner from './Spinner.tsx';
 import loadHistory from '../lib/history.ts';
 import { debounce } from 'lodash';
-import ClearDialog from './ClearDialog.tsx';
+import ClearDialog from './dialogs/ClearDialog.tsx';
 import SuggestedResponsePanel from './SuggestedResponsePanel.tsx';
+import TopicChoiceDialog from "./dialogs/TopicChoiceDialog.tsx";
+import {ConfigContextProvider} from "../context/InitialConfigurationContext.tsx";
 
 export function scrollToBottom(scrollBehavior: string = 'auto') {
   const chatContainer = document.querySelector('.chat-container');
@@ -78,6 +80,9 @@ export default function MainChat() {
         expandAppInfo={handleHeader}
       />
       <ClearDialog />
+      <ConfigContextProvider>
+        <TopicChoiceDialog socket={socket} />
+      </ConfigContextProvider>
       {!!error && (
         <ErrorMessage
           message={error}

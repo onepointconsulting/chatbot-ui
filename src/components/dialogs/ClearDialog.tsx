@@ -1,14 +1,15 @@
 import { useContext } from 'react';
-import { MessageContext } from '../context/MessageContext.tsx';
+import { MessageContext } from '../../context/MessageContext.tsx';
 import { Signal, signal } from '@preact/signals-react';
-import { SESSION_KEY } from '../lib/sessionFunctions.ts';
-import { HISTORY_KEY } from '../lib/history.ts';
-import { ChatContext } from '../context/ChatContext.tsx';
+import { SESSION_KEY } from '../../lib/sessionFunctions.ts';
+import { HISTORY_KEY } from '../../lib/history.ts';
+import { ChatContext } from '../../context/ChatContext.tsx';
 
 const deleteHistory = signal<boolean>(false);
 
 const deleteSession = signal<boolean>(false);
 
+export const CLEAR_DIALOG_ID = "clear-dialog"
 const deleteHistoryCheckId = 'delete-history-check';
 const deleteSessionCheckId = 'delete-session-check';
 
@@ -51,7 +52,7 @@ export default function ClearDialog({}) {
   const { dispatch } = useContext(MessageContext);
 
   function onClose() {
-    const myDialog: any | null = document.getElementById('clear-dialog');
+    const myDialog: any | null = document.getElementById(CLEAR_DIALOG_ID);
     if (myDialog) {
       myDialog.close();
     }
@@ -67,7 +68,7 @@ export default function ClearDialog({}) {
   }
 
   return (
-    <dialog data-model={true} id="clear-dialog">
+    <dialog data-model={true} id={CLEAR_DIALOG_ID} className="chatbot-dialog">
       <div className="my-2">
         Would you really like to delete the chat contents?
       </div>

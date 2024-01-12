@@ -8,7 +8,11 @@ export const WEBSOCKET_CONNECTION_FAILED = 'connect_failed';
 
 export const WEBSOCKET_CLIENT_MESSAGE = 'client_message';
 export const WEBSOCKET_SERVER_MESSAGE = 'server_message';
-export const WEBSOCKET_START_SESSION = 'start_session';
+
+export const WEBSOCKET_COMMAND = {
+  START_SESSION: 'start_session',
+  SELECT_TOPICS: 'select_topics',
+}
 
 export const WEBSOCKET_STOP_STREAMING_RESPONSE = 'stopstreaming';
 
@@ -39,7 +43,7 @@ export function sendStopStream(socket: Socket<any, any> | null) {
 
 export function sendStartSession(socket: Socket<any, any> | null) {
   const session = getSession();
-  safeEmit(socket, WEBSOCKET_START_SESSION, session ? session.id : '');
+  safeEmit(socket, WEBSOCKET_COMMAND.START_SESSION, session ? session.id : '');
 }
 
 function safeEmit(

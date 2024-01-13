@@ -5,6 +5,12 @@ export type Topic = {
   checked: boolean;
 };
 
+export type QuizzMode = {
+  name: string;
+  questionCount: number;
+  enabled?: boolean;
+}
+
 export type State = {
   data: Message[];
   isLoading: boolean;
@@ -21,4 +27,5 @@ export type UploadedFile = {
 export type ConfigState = {
   selectTopics: boolean;
   topics: Topic[];
+  quizzModes: QuizzMode[];
 };

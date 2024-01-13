@@ -4,7 +4,7 @@ import { ChatContext } from '../context/ChatContext.tsx';
 import SideMenu from './SideMenu.tsx';
 import { signal } from '@preact/signals-react';
 import ProgressIframe, { showProgressChart } from './ProgressIframe.tsx';
-import {ConfigContext} from "../context/InitialConfigurationContext.tsx";
+import { ConfigContext } from '../context/InitialConfigurationContext.tsx';
 
 export const expanded = signal(false);
 
@@ -44,15 +44,17 @@ export default function Layout({ children }: { children: React.ReactNode }) {
           />
           {children}
         </section>
-        {!selectTopics && <section
-          className={`${
-            showProgressChart.value
-              ? 'hidden md:block md:w-1/4 lg:w-2/6  xl:w-5/12'
-              : ''
-          }`}
-        >
-          <ProgressIframe/>
-        </section>}
+        {!selectTopics && (
+          <section
+            className={`${
+              showProgressChart.value
+                ? 'hidden md:block md:w-1/4 lg:w-2/6  xl:w-5/12'
+                : ''
+            }`}
+          >
+            <ProgressIframe />
+          </section>
+        )}
       </section>
     </section>
   );

@@ -13,7 +13,7 @@ import {
 import { ChatContext } from '../context/ChatContext.tsx';
 import { Action } from '../context/MessageContext.tsx';
 import { saveSession } from '../lib/sessionFunctions.ts';
-import {ConfigContext} from "../context/InitialConfigurationContext.tsx";
+import { ConfigContext } from '../context/InitialConfigurationContext.tsx';
 
 type useWebsocketParams = {
   websocketUrl: string;
@@ -107,7 +107,10 @@ export function useWebsocket({
       socket.current?.off(WEBSOCKET_STOP_STREAMING_RESPONSE, onStopStreaming);
 
       socket.current?.off(WEBSOCKET_COMMAND.START_SESSION, onStartSession);
-      socket.current?.off(WEBSOCKET_COMMAND.QUIZZ_CONFIGURATION, onSelectTopics);
+      socket.current?.off(
+        WEBSOCKET_COMMAND.QUIZZ_CONFIGURATION,
+        onSelectTopics,
+      );
     };
   }, []);
   return socket;

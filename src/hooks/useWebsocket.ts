@@ -99,7 +99,10 @@ export function useWebsocket({
 
     socket.current.on(WEBSOCKET_COMMAND.START_SESSION, onStartSession);
     socket.current.on(WEBSOCKET_COMMAND.QUIZ_CONFIGURATION, onSelectTopics);
-    socket.current.on(WEBSOCKET_COMMAND.QUIZ_CONFIGURATION_SAVE_OK, onQuizConfigurationSaveOk);
+    socket.current.on(
+      WEBSOCKET_COMMAND.QUIZ_CONFIGURATION_SAVE_OK,
+      onQuizConfigurationSaveOk,
+    );
 
     return () => {
       socket.current?.off(WEBSOCKET_CONNECT, onConnect);
@@ -112,11 +115,11 @@ export function useWebsocket({
       socket.current?.off(WEBSOCKET_STOP_STREAMING_RESPONSE, onStopStreaming);
 
       socket.current?.off(WEBSOCKET_COMMAND.START_SESSION, onStartSession);
+      socket.current?.off(WEBSOCKET_COMMAND.QUIZ_CONFIGURATION, onSelectTopics);
       socket.current?.off(
-        WEBSOCKET_COMMAND.QUIZ_CONFIGURATION,
-        onSelectTopics,
+        WEBSOCKET_COMMAND.QUIZ_CONFIGURATION_SAVE_OK,
+        onQuizConfigurationSaveOk,
       );
-      socket.current?.off(WEBSOCKET_COMMAND.QUIZ_CONFIGURATION_SAVE_OK, onQuizConfigurationSaveOk);
     };
   }, []);
   return socket;

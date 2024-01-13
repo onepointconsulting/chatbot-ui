@@ -22,12 +22,14 @@ export default function QuizzModeButtons() {
   }
 
   function getTotalQuestions() {
-    return topics ? topics.reduce((total, topic) => {
-      if (topic.checked) {
-        return total + questionCount.value;
-      }
-      return total;
-    }, 0) : 0;
+    return topics
+      ? topics.reduce((total, topic) => {
+          if (topic.checked) {
+            return total + questionCount.value;
+          }
+          return total;
+        }, 0)
+      : 0;
   }
 
   return (
@@ -60,7 +62,8 @@ export default function QuizzModeButtons() {
       </div>
       <div className="flex flex-col items-center mt-4">
         <span className="text-sm text-gray-500">
-          {questionCount.value} questions per selected topic, a total of {getTotalQuestions()} questions.
+          {questionCount.value} questions per selected topic, a total of{' '}
+          {getTotalQuestions()} questions.
         </span>
       </div>
     </>

@@ -1,11 +1,11 @@
-import {useContext, useEffect} from 'react';
+import { useContext, useEffect } from 'react';
 import Switcher from '../forms/Switcher.tsx';
-import {Topic} from '../../lib/model.ts';
-import {ConfigContext} from '../../context/InitialConfigurationContext.tsx';
+import { Topic } from '../../lib/model.ts';
+import { ConfigContext } from '../../context/InitialConfigurationContext.tsx';
 import QuizzModeButtons from '../forms/QuizzModeButtons.tsx';
-import {getSession} from "../../lib/sessionFunctions.ts";
-import {sendQuizConfiguration} from "../../lib/websocketClient.ts";
-import {ChatContext} from "../../context/ChatContext.tsx";
+import { getSession } from '../../lib/sessionFunctions.ts';
+import { sendQuizConfiguration } from '../../lib/websocketClient.ts';
+import { ChatContext } from '../../context/ChatContext.tsx';
 
 export const TOPIC_CHOICE_ID = 'topic-choice-dialog';
 
@@ -21,9 +21,9 @@ export function showTopicChoiceDialog() {
 }
 
 export default function ConfigDialog({}) {
-  const {socket} = useContext(ChatContext);
-  const {dispatch, state} = useContext(ConfigContext);
-  const {selectTopics, topics, quizzModes} = state;
+  const { socket } = useContext(ChatContext);
+  const { dispatch, state } = useContext(ConfigContext);
+  const { selectTopics, topics, quizzModes } = state;
 
   useEffect(() => {
     if (selectTopics) {
@@ -32,31 +32,31 @@ export default function ConfigDialog({}) {
   }, [selectTopics]);
 
   function onReset() {
-    dispatch({type: 'resetTopics'});
+    dispatch({ type: 'resetTopics' });
   }
 
   function onOk() {
-    const session = getSession()
+    const session = getSession();
     if (session) {
-      debugger
+      debugger;
       const saveConfigurationMessage = {
         session_id: session.id,
         topic_list: topics.filter((topic: Topic) => topic.checked),
-        quiz_mode_name: quizzModes.filter((quizzMode) => quizzMode.enabled)[0].name
-      }
-      console.log(saveConfigurationMessage)
-      const message = JSON.stringify(saveConfigurationMessage)
-      sendQuizConfiguration(socket.current, message)
-      dispatch({type: 'savingQuizConfiguration'});
+        quiz_mode_name: quizzModes.filter((quizzMode) => quizzMode.enabled)[0]
+          .name,
+      };
+      console.log(saveConfigurationMessage);
+      const message = JSON.stringify(saveConfigurationMessage);
+      sendQuizConfiguration(socket.current, message);
+      dispatch({ type: 'savingQuizConfiguration' });
     } else {
-      console.error("No session found")
+      console.error('No session found');
     }
   }
 
   return (
     <dialog id={TOPIC_CHOICE_ID} className="chatbot-dialog">
-      <div
-        className="flex flex-col items-center justify-center w-full h-full p-4 bg-white border border-gray-300 rounded shadow-lg">
+      <div className="flex flex-col items-center justify-center w-full h-full p-4 bg-white border border-gray-300 rounded shadow-lg">
         <div className="flex flex-col items-center justify-center w-full">
           <h1 className="mb-2 text-xl font-bold">
             Select Topics and Quizz Type
@@ -72,7 +72,7 @@ export default function ConfigDialog({}) {
                 key={topic.name}
                 className="inline-block w-full md:w-1/2 lg:w-1/3"
               >
-                <Switcher topic={topic}/>
+                <Switcher topic={topic} />
               </li>
             ))}
           </ul>
@@ -81,7 +81,7 @@ export default function ConfigDialog({}) {
           <p className="text-sm text-center">Select the your quizz type.</p>
         </div>
         <div className="flex flex-col items-center justify-center w-full mt-4">
-          <QuizzModeButtons/>
+          <QuizzModeButtons />
         </div>
         <div className="flex justify-between mt-4 w-full">
           <button className="button-cancel" onClick={onReset}>

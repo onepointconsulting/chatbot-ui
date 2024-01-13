@@ -1,12 +1,14 @@
-import { ConfigState, QuizzMode, Topic } from '../lib/model.ts';
-import { createContext, useReducer } from 'react';
-import { Props } from './commonModel.ts';
+import {ConfigState, QuizzMode, Topic} from '../lib/model.ts';
+import {createContext, useReducer} from 'react';
+import {Props} from './commonModel.ts';
 
 export type ConfigAction =
   | { type: 'initConfig'; data: { topics: string[]; quizz_modes: QuizzMode[] } }
   | { type: 'resetTopics' }
   | { type: 'switchTopic'; data: Topic }
-  | { type: 'selectQuizzMode'; data: QuizzMode };
+  | { type: 'selectQuizzMode'; data: QuizzMode }
+  | { type: 'savingQuizConfiguration' }
+  | { type: 'saveQuizConfigurationOk' };
 
 interface ConfigContextProps {
   state: ConfigState;
@@ -25,7 +27,7 @@ function configReducer(state: ConfigState, action: ConfigAction): ConfigState {
         })),
         quizzModes: action.data?.quizz_modes.map((quizzMode: QuizzMode) => {
           if (quizzMode.name === 'Medium') {
-            return { ...quizzMode, enabled: true };
+            return {...quizzMode, enabled: true};
           }
           return quizzMode;
         }),
@@ -35,7 +37,7 @@ function configReducer(state: ConfigState, action: ConfigAction): ConfigState {
         ...state,
         topics: state.topics.map((topic: Topic) => {
           if (topic.name === action.data.name) {
-            return { name: topic.name, checked: !topic.checked };
+            return {name: topic.name, checked: !topic.checked};
           }
           return topic;
         }),
@@ -44,35 +46,47 @@ function configReducer(state: ConfigState, action: ConfigAction): ConfigState {
       return {
         ...state,
         topics: state.topics.map((topic: Topic) => {
-          return { name: topic.name, checked: true };
+          return {name: topic.name, checked: true};
         }),
       };
     case 'selectQuizzMode':
       return {
         ...state,
         quizzModes: state.quizzModes.map((quizzMode: QuizzMode) => {
-          return { ...quizzMode, enabled: quizzMode.name === action.data.name };
+          return {...quizzMode, enabled: quizzMode.name === action.data.name};
         }),
       };
+    case 'savingQuizConfiguration':
+      return {
+        ...state,
+        savePending: true,
+      }
+    case 'saveQuizConfigurationOk':
+      return {
+        ...state,
+        sucessMessage: 'Quiz configuration saved successfully',
+        savePending: false,
+      }
     default:
       return state;
   }
 }
 
 export const ConfigContext = createContext<ConfigContextProps>({
-  state: { selectTopics: false, topics: [], quizzModes: [] },
+  state: {selectTopics: false, topics: [], quizzModes: [], savePending: false},
   dispatch: () => null,
 });
 
-export const ConfigContextProvider = ({ children }: Props) => {
+export const ConfigContextProvider = ({children}: Props) => {
   const [state, dispatch] = useReducer(configReducer, {
     topics: [],
     selectTopics: false,
     quizzModes: [],
+    savePending: false
   });
 
   return (
-    <ConfigContext.Provider value={{ state, dispatch }}>
+    <ConfigContext.Provider value={{state, dispatch}}>
       {children}
     </ConfigContext.Provider>
   );

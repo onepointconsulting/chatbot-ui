@@ -11,7 +11,9 @@ export const WEBSOCKET_SERVER_MESSAGE = 'server_message';
 
 export const WEBSOCKET_COMMAND = {
   START_SESSION: 'start_session',
-  QUIZZ_CONFIGURATION: 'quizz_configuration',
+  QUIZ_CONFIGURATION: 'quiz_configuration',
+  SAVE_CONFIGURATION: 'save_configuration',
+  QUIZ_CONFIGURATION_SAVE_OK: "quiz_configuration_save_ok"
 };
 
 export const WEBSOCKET_STOP_STREAMING_RESPONSE = 'stopstreaming';
@@ -44,6 +46,13 @@ export function sendStopStream(socket: Socket<any, any> | null) {
 export function sendStartSession(socket: Socket<any, any> | null) {
   const session = getSession();
   safeEmit(socket, WEBSOCKET_COMMAND.START_SESSION, session ? session.id : '');
+}
+
+export function sendQuizConfiguration(
+  socket: Socket<any, any> | null,
+  config: string,
+) {
+  safeEmit(socket, WEBSOCKET_COMMAND.SAVE_CONFIGURATION, config);
 }
 
 function safeEmit(

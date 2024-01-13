@@ -28,4 +28,6 @@ export type ConfigState = {
   selectTopics: boolean;
   topics: Topic[];
   quizzModes: QuizzMode[];
+  savePending: boolean;
+  sucessMessage?: string;
 };

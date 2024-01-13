@@ -6,7 +6,7 @@ import { useSignal } from '@preact/signals-react';
 export default function QuizzModeButtons() {
   const questionCount = useSignal(0);
   const { dispatch, state } = useContext(ConfigContext);
-  const { quizzModes } = state;
+  const { quizzModes, topics } = state;
 
   useEffect(() => {
     for (const quizzMode of quizzModes) {
@@ -19,6 +19,15 @@ export default function QuizzModeButtons() {
 
   function onSelectQuizzMode(quizzMode: QuizzMode) {
     dispatch({ type: 'selectQuizzMode', data: quizzMode });
+  }
+
+  function getTotalQuestions() {
+    return topics ? topics.reduce((total, topic) => {
+      if (topic.checked) {
+        return total + questionCount.value;
+      }
+      return total;
+    }, 0) : 0;
   }
 
   return (
@@ -51,7 +60,7 @@ export default function QuizzModeButtons() {
       </div>
       <div className="flex flex-col items-center mt-4">
         <span className="text-sm text-gray-500">
-          {questionCount.value} questions per selected topic
+          {questionCount.value} questions per selected topic, a total of {getTotalQuestions()} questions.
         </span>
       </div>
     </>

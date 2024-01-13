@@ -12,7 +12,7 @@ import loadHistory from '../lib/history.ts';
 import { debounce } from 'lodash';
 import ClearDialog from './dialogs/ClearDialog.tsx';
 import SuggestedResponsePanel from './SuggestedResponsePanel.tsx';
-import TopicChoiceDialog from './dialogs/TopicChoiceDialog.tsx';
+import ConfigDialog from './dialogs/ConfigDialog.tsx';
 import { ConfigContext } from '../context/InitialConfigurationContext.tsx';
 
 export function scrollToBottom(scrollBehavior: string = 'auto') {
@@ -74,7 +74,7 @@ export default function MainChat() {
   const handleHeader = streaming && !isLoading;
 
   if (selectTopics) {
-    return <TopicChoiceDialog />;
+    return <ConfigDialog />;
   }
 
   return (

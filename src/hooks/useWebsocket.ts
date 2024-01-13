@@ -52,16 +52,6 @@ export function useWebsocket({
       });
     };
 
-    function onSelectTopics(configData: string) {
-      if (!configData) return;
-      const data = JSON.parse(configData);
-      data.quizz_modes = data.quizz_modes.map((e: any) => ({
-        name: e.name,
-        questionCount: e.question_count,
-      }));
-      configDispatch({ type: 'initConfig', data });
-    }
-
     const onDisconnect = () => {
       console.log('disconnected');
       dispatch({ type: 'disconnect' });
@@ -81,6 +71,20 @@ export function useWebsocket({
       saveSession({ id: value, timestamp: new Date() });
     }
 
+    function onSelectTopics(configData: string) {
+      if (!configData) return;
+      const data = JSON.parse(configData);
+      data.quizz_modes = data.quizz_modes.map((e: any) => ({
+        name: e.name,
+        questionCount: e.question_count,
+      }));
+      configDispatch({ type: 'initConfig', data });
+    }
+
+    function onQuizConfigurationSaveOk() {
+      configDispatch({ type: 'saveQuizConfigurationOk' });
+    }
+
     const onConnectionError = (err: Error) => handleErrors(err);
     const onConnectionFailed = (err: Error) => handleErrors(err);
 
@@ -94,7 +98,8 @@ export function useWebsocket({
     socket.current.on(WEBSOCKET_STOP_STREAMING_RESPONSE, onStopStreaming);
 
     socket.current.on(WEBSOCKET_COMMAND.START_SESSION, onStartSession);
-    socket.current.on(WEBSOCKET_COMMAND.QUIZZ_CONFIGURATION, onSelectTopics);
+    socket.current.on(WEBSOCKET_COMMAND.QUIZ_CONFIGURATION, onSelectTopics);
+    socket.current.on(WEBSOCKET_COMMAND.QUIZ_CONFIGURATION_SAVE_OK, onQuizConfigurationSaveOk);
 
     return () => {
       socket.current?.off(WEBSOCKET_CONNECT, onConnect);
@@ -108,9 +113,10 @@ export function useWebsocket({
 
       socket.current?.off(WEBSOCKET_COMMAND.START_SESSION, onStartSession);
       socket.current?.off(
-        WEBSOCKET_COMMAND.QUIZZ_CONFIGURATION,
+        WEBSOCKET_COMMAND.QUIZ_CONFIGURATION,
         onSelectTopics,
       );
+      socket.current?.off(WEBSOCKET_COMMAND.QUIZ_CONFIGURATION_SAVE_OK, onQuizConfigurationSaveOk);
     };
   }, []);
   return socket;

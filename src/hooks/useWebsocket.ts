@@ -13,6 +13,7 @@ import {
 import { ChatContext } from '../context/ChatContext.tsx';
 import { Action } from '../context/MessageContext.tsx';
 import { saveSession } from '../lib/sessionFunctions.ts';
+import {ConfigContext} from "../context/InitialConfigurationContext.tsx";
 
 type useWebsocketParams = {
   websocketUrl: string;
@@ -25,6 +26,7 @@ export function useWebsocket({
 }: useWebsocketParams): React.MutableRefObject<Socket | null> {
   const { socket } = useContext(ChatContext);
   const { streaming } = useContext(ChatContext);
+  const { dispatch: configDispatch } = useContext(ConfigContext);
 
   useEffect(() => {
     socket.current = io(websocketUrl);
@@ -49,6 +51,16 @@ export function useWebsocket({
         },
       });
     };
+
+    function onSelectTopics(configData: string) {
+      if (!configData) return;
+      const data = JSON.parse(configData);
+      data.quizz_modes = data.quizz_modes.map((e: any) => ({
+        name: e.name,
+        questionCount: e.question_count,
+      }));
+      configDispatch({ type: 'initConfig', data });
+    }
 
     const onDisconnect = () => {
       console.log('disconnected');
@@ -82,6 +94,7 @@ export function useWebsocket({
     socket.current.on(WEBSOCKET_STOP_STREAMING_RESPONSE, onStopStreaming);
 
     socket.current.on(WEBSOCKET_COMMAND.START_SESSION, onStartSession);
+    socket.current.on(WEBSOCKET_COMMAND.QUIZZ_CONFIGURATION, onSelectTopics);
 
     return () => {
       socket.current?.off(WEBSOCKET_CONNECT, onConnect);
@@ -94,6 +107,7 @@ export function useWebsocket({
       socket.current?.off(WEBSOCKET_STOP_STREAMING_RESPONSE, onStopStreaming);
 
       socket.current?.off(WEBSOCKET_COMMAND.START_SESSION, onStartSession);
+      socket.current?.off(WEBSOCKET_COMMAND.QUIZZ_CONFIGURATION, onSelectTopics);
     };
   }, []);
   return socket;

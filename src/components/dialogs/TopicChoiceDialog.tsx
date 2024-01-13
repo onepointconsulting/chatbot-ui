@@ -2,8 +2,6 @@ import { useContext, useEffect } from 'react';
 import Switcher from '../forms/Switcher.tsx';
 import { Topic } from '../../lib/model.ts';
 import { ConfigContext } from '../../context/InitialConfigurationContext.tsx';
-import { WEBSOCKET_COMMAND } from '../../lib/websocketClient.ts';
-import { Socket } from 'socket.io-client';
 import QuizzModeButtons from '../forms/QuizzModeButtons.tsx';
 
 export const TOPIC_CHOICE_ID = 'topic-choice-dialog';
@@ -19,23 +17,9 @@ export function showTopicChoiceDialog() {
   dialogAction((dialog: any) => dialog.showModal());
 }
 
-export default function TopicChoiceDialog({
-  socket,
-}: {
-  socket: React.MutableRefObject<Socket | null>;
-}) {
+export default function TopicChoiceDialog({}) {
   const { dispatch, state } = useContext(ConfigContext);
   const { selectTopics, topics } = state;
-
-  useEffect(() => {
-    socket?.current?.on(WEBSOCKET_COMMAND.QUIZZ_CONFIGURATION, onSelectTopics);
-    return () => {
-      socket.current?.off(
-        WEBSOCKET_COMMAND.QUIZZ_CONFIGURATION,
-        onSelectTopics,
-      );
-    };
-  }, [socket.current]);
 
   useEffect(() => {
     if (selectTopics) {
@@ -52,16 +36,6 @@ export default function TopicChoiceDialog({
     console.log(topics);
   }
 
-  function onSelectTopics(configData: string) {
-    if (!configData) return;
-    const data = JSON.parse(configData);
-    data.quizz_modes = data.quizz_modes.map((e: any) => ({
-      name: e.name,
-      questionCount: e.question_count,
-    }));
-    dispatch({ type: 'initConfig', data });
-  }
-
   return (
     <dialog id={TOPIC_CHOICE_ID} className="chatbot-dialog">
       <div className="flex flex-col items-center justify-center w-full h-full p-4 bg-white border border-gray-300 rounded shadow-lg">
@@ -74,7 +48,7 @@ export default function TopicChoiceDialog({
           </p>
         </div>
         <div className="flex flex-col items-center">
-          <ul className="w-10/12 md:w-9/12">
+          <ul className="w-10/12 lg:9/12 xl:8/12">
             {topics.map((topic: Topic) => (
               <li
                 key={topic.name}

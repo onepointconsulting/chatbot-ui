@@ -1,19 +1,19 @@
-import { useContext, useEffect } from 'react';
-import { Socket } from 'socket.io-client';
-import { ChatContext } from '../context/ChatContext.tsx';
-import { Action, MessageContext } from '../context/MessageContext.tsx';
-import { useWebsocket } from '../hooks/useWebsocket.ts';
+import {useContext, useEffect} from 'react';
+import {Socket} from 'socket.io-client';
+import {ChatContext} from '../context/ChatContext.tsx';
+import {Action, MessageContext} from '../context/MessageContext.tsx';
+import {useWebsocket} from '../hooks/useWebsocket.ts';
 import AppInfo from './AppInfo.tsx';
 import Messages from './ChatMessages.tsx';
 import ErrorMessage from './ErrorMessage.tsx';
 import SearchInput from './SearchInput.tsx';
 import Spinner from './Spinner.tsx';
 import loadHistory from '../lib/history.ts';
-import { debounce } from 'lodash';
+import {debounce} from 'lodash';
 import ClearDialog from './dialogs/ClearDialog.tsx';
 import SuggestedResponsePanel from './SuggestedResponsePanel.tsx';
 import TopicChoiceDialog from './dialogs/TopicChoiceDialog.tsx';
-import { ConfigContextProvider } from '../context/InitialConfigurationContext.tsx';
+import {ConfigContext} from "../context/InitialConfigurationContext.tsx";
 
 export function scrollToBottom(scrollBehavior: string = 'auto') {
   const chatContainer = document.querySelector('.chat-container');
@@ -30,21 +30,23 @@ export function handleMessageDispatch(
 ) {
   dispatch({
     type: 'request',
-    message: { text, isUser: true, timestamp: new Date() },
+    message: {text, isUser: true, timestamp: new Date()},
   });
   if (streaming) {
     dispatch({
       type: 'startStreaming',
-      message: { text: '', isUser: false, timestamp: new Date() },
+      message: {text: '', isUser: false, timestamp: new Date()},
     });
   }
 }
 
 export default function MainChat() {
-  const { websocketUrl, setIsConnected, streaming, historySize } =
+  const {websocketUrl, setIsConnected, streaming, historySize} =
     useContext(ChatContext);
-  const { state, dispatch } = useContext(MessageContext);
-  const { data, isLoading, error, connected } = state;
+  const {state, dispatch} = useContext(MessageContext);
+  const { state: configState } = useContext(ConfigContext);
+  const { selectTopics } = configState;
+  const {data, isLoading, error, connected} = state;
 
   const socket: React.MutableRefObject<Socket | null> = useWebsocket({
     websocketUrl,
@@ -55,7 +57,7 @@ export default function MainChat() {
 
   useEffect(() => {
     const messages = loadHistory(historySize);
-    dispatch({ type: 'bulkLoad', messages });
+    dispatch({type: 'bulkLoad', messages});
   }, []);
 
   useEffect(() => {
@@ -71,6 +73,10 @@ export default function MainChat() {
   // Hide the question prompt when the user has typed something and streaming is enabled.
   const handleHeader = streaming && !isLoading;
 
+  if(selectTopics) {
+    return <TopicChoiceDialog />
+  }
+
   return (
     <>
       <AppInfo
@@ -79,19 +85,17 @@ export default function MainChat() {
         socket={socket}
         expandAppInfo={handleHeader}
       />
-      <ClearDialog />
-      <ConfigContextProvider>
-        <TopicChoiceDialog socket={socket} />
-      </ConfigContextProvider>
+      <ClearDialog/>
+
       {!!error && (
         <ErrorMessage
           message={error}
-          clearFunc={() => dispatch({ type: 'clearFailure' })}
+          clearFunc={() => dispatch({type: 'clearFailure'})}
         />
       )}
       <div className="overflow-auto chat-container grow bg-[#E6F3FB]">
-        <Messages />
-        {isLoading && <Spinner />}
+        <Messages/>
+        {isLoading && <Spinner/>}
       </div>
       {data && data.length > 0 && data[data.length - 1].suggestedResponses && (
         <SuggestedResponsePanel
@@ -99,7 +103,7 @@ export default function MainChat() {
         />
       )}
       {/* Search input */}
-      <SearchInput />
+      <SearchInput/>
     </>
   );
 }

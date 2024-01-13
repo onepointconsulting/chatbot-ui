@@ -9,7 +9,7 @@ export type QuizzMode = {
   name: string;
   questionCount: number;
   enabled?: boolean;
-}
+};
 
 export type State = {
   data: Message[];

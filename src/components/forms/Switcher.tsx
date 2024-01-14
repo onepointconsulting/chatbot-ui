@@ -1,6 +1,6 @@
 import { Topic } from '../../lib/model.ts';
 import { useContext } from 'react';
-import { ConfigContext } from '../../context/InitialConfigurationContext.tsx';
+import { ConfigContext } from '../../context/ConfigContext.tsx';
 
 export default function Switcher({ topic }: { topic: Topic }) {
   const { dispatch } = useContext(ConfigContext);

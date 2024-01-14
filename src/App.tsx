@@ -7,7 +7,7 @@ import Layout from './components/Layout.tsx';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import MainChatParent from './components/MainChatParent.tsx';
 import { MessageContextProvider } from './context/MessageContext.tsx';
-import { ConfigContextProvider } from './context/InitialConfigurationContext.tsx';
+import { ConfigContextProvider } from './context/ConfigContext.tsx';
 
 function App() {
   const queryClient = new QueryClient();

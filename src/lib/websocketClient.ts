@@ -14,6 +14,7 @@ export const WEBSOCKET_COMMAND = {
   QUIZ_CONFIGURATION: 'quiz_configuration',
   SAVE_CONFIGURATION: 'save_configuration',
   QUIZ_CONFIGURATION_SAVE_OK: 'quiz_configuration_save_ok',
+  QUIZ_CONFIGURATION_SAVE_ERROR: 'quiz_configuration_save_error',
 };
 
 export const WEBSOCKET_STOP_STREAMING_RESPONSE = 'stopstreaming';

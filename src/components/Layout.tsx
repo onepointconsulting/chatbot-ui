@@ -4,7 +4,7 @@ import { ChatContext } from '../context/ChatContext.tsx';
 import SideMenu from './SideMenu.tsx';
 import { signal } from '@preact/signals-react';
 import ProgressIframe, { showProgressChart } from './ProgressIframe.tsx';
-import { ConfigContext } from '../context/InitialConfigurationContext.tsx';
+import { ConfigContext } from '../context/ConfigContext.tsx';
 
 export const expanded = signal(false);
 
@@ -16,7 +16,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   const { title, logoImage, logoLink, isConnected, showSidebar } =
     useContext(ChatContext);
   const { state: configState } = useContext(ConfigContext);
-  const { selectTopics } = configState;
+  const { initConfig } = configState;
   return (
     <section className="flex flex-col bg-[#E6F3FB]">
       <section className="flex flex-row">
@@ -31,7 +31,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         )}
         <section
           className={`flex flex-col ${
-            !selectTopics && showProgressChart.value
+            !initConfig && showProgressChart.value
               ? 'w-full md:w-3/4 lg:w-4/6 xl:w-7/12'
               : 'w-full'
           } chat-main`}
@@ -44,7 +44,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
           />
           {children}
         </section>
-        {!selectTopics && (
+        {!initConfig && (
           <section
             className={`${
               showProgressChart.value

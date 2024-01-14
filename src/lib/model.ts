@@ -25,9 +25,11 @@ export type UploadedFile = {
 };
 
 export type ConfigState = {
-  selectTopics: boolean;
+  initConfig: boolean;
+  startSession?: boolean;
   topics: Topic[];
   quizzModes: QuizzMode[];
   savePending: boolean;
   sucessMessage?: string;
+  errorMessage?: string;
 };

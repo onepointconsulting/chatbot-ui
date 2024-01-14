@@ -1,5 +1,5 @@
 import { useContext, useEffect } from 'react';
-import { ConfigContext } from '../../context/InitialConfigurationContext.tsx';
+import { ConfigContext } from '../../context/ConfigContext.tsx';
 import { QuizzMode } from '../../lib/model.ts';
 import { useSignal } from '@preact/signals-react';
 

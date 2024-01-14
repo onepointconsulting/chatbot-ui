@@ -13,7 +13,7 @@ import { debounce } from 'lodash';
 import ClearDialog from './dialogs/ClearDialog.tsx';
 import SuggestedResponsePanel from './SuggestedResponsePanel.tsx';
 import ConfigDialog from './dialogs/ConfigDialog.tsx';
-import { ConfigContext } from '../context/InitialConfigurationContext.tsx';
+import { ConfigContext } from '../context/ConfigContext.tsx';
 
 export function scrollToBottom(scrollBehavior: string = 'auto') {
   const chatContainer = document.querySelector('.chat-container');
@@ -45,7 +45,7 @@ export default function MainChat() {
     useContext(ChatContext);
   const { state, dispatch } = useContext(MessageContext);
   const { state: configState } = useContext(ConfigContext);
-  const { selectTopics } = configState;
+  const { initConfig } = configState;
   const { data, isLoading, error, connected } = state;
 
   const socket: React.MutableRefObject<Socket | null> = useWebsocket({
@@ -73,7 +73,7 @@ export default function MainChat() {
   // Hide the question prompt when the user has typed something and streaming is enabled.
   const handleHeader = streaming && !isLoading;
 
-  if (selectTopics) {
+  if (initConfig) {
     return <ConfigDialog />;
   }
 

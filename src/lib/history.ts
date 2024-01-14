@@ -32,7 +32,8 @@ export function saveHistory(message: Message) {
     const entries = JSON.parse(history) as Message[];
 
     if (
-      entries.length > 0 && entries[entries.length - 1].timestamp.toString() ===
+      entries.length > 0 &&
+      entries[entries.length - 1].timestamp.toString() ===
         (message.timestamp as Date).toISOString() &&
       entries[entries.length - 1].text === message.text
     ) {

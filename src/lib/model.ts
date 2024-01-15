@@ -5,7 +5,7 @@ export type Topic = {
   checked: boolean;
 };
 
-export type QuizzMode = {
+export type QuizMode = {
   name: string;
   questionCount: number;
   enabled?: boolean;
@@ -28,7 +28,7 @@ export type ConfigState = {
   initConfig: boolean;
   startSession?: boolean;
   topics: Topic[];
-  quizzModes: QuizzMode[];
+  quizzModes: QuizMode[];
   savePending: boolean;
   sucessMessage?: string;
   errorMessage?: string;

@@ -2,7 +2,7 @@ import { useContext, useEffect } from 'react';
 import Switcher from '../forms/Switcher.tsx';
 import { Topic } from '../../lib/model.ts';
 import { ConfigContext } from '../../context/ConfigContext.tsx';
-import QuizzModeButtons from '../forms/QuizzModeButtons.tsx';
+import QuizModeButtons from '../forms/QuizModeButtons.tsx';
 import { getSession } from '../../lib/sessionFunctions.ts';
 import { sendQuizConfiguration } from '../../lib/websocketClient.ts';
 import { ChatContext } from '../../context/ChatContext.tsx';
@@ -56,7 +56,7 @@ export function ConfigPanel() {
   return (
     <div className="flex flex-col items-center justify-center w-full h-full p-4 bg-white border border-gray-300 rounded shadow-lg">
       <div className="flex flex-col items-center justify-center w-full">
-        <h1 className="mb-2 text-xl font-bold">Select Topics and Quizz Type</h1>
+        <h1 className="mb-2 text-xl font-bold">Select Topics and Depth</h1>
         <p className="mb-4 text-sm text-center">
           Select the topics you want to be assessed on.
         </p>
@@ -74,10 +74,10 @@ export function ConfigPanel() {
         </ul>
       </div>
       <div className="flex flex-col items-center justify-center w-full mt-6">
-        <p className="text-sm text-center">Select the your quizz type.</p>
+        <p className="text-sm text-center">Select the your depth of your assessment.</p>
       </div>
       <div className="flex flex-col items-center justify-center w-full mt-4">
-        <QuizzModeButtons />
+        <QuizModeButtons />
       </div>
       <div className="flex justify-between mt-4 w-full">
         <button className="button-cancel" onClick={onReset}>

@@ -1,9 +1,9 @@
 import { useContext, useEffect } from 'react';
 import { ConfigContext } from '../../context/ConfigContext.tsx';
-import { QuizzMode } from '../../lib/model.ts';
+import { QuizMode } from '../../lib/model.ts';
 import { useSignal } from '@preact/signals-react';
 
-export default function QuizzModeButtons() {
+export default function QuizModeButtons() {
   const questionCount = useSignal(0);
   const { dispatch, state } = useContext(ConfigContext);
   const { quizzModes, topics } = state;
@@ -17,7 +17,7 @@ export default function QuizzModeButtons() {
     }
   }, [quizzModes]);
 
-  function onSelectQuizzMode(quizzMode: QuizzMode) {
+  function onSelectQuizMode(quizzMode: QuizMode) {
     dispatch({ type: 'selectQuizzMode', data: quizzMode });
   }
 
@@ -35,14 +35,14 @@ export default function QuizzModeButtons() {
   return (
     <>
       <div className="inline-flex">
-        {quizzModes.map((quizzMode, index) => {
+        {quizzModes.map((quizMode, index) => {
           return (
             <a
-              key={`${index}_${quizzMode.name}`}
+              key={`${index}_${quizMode.name}`}
               href="#"
-              onClick={() => onSelectQuizzMode(quizzMode)}
+              onClick={() => onSelectQuizMode(quizMode)}
               className={`${
-                quizzMode.enabled
+                quizMode.enabled
                   ? 'border-primary bg-primary text-white'
                   : 'text-dark dark:text-white'
               } hover:border-primary 
@@ -55,7 +55,7 @@ export default function QuizzModeButtons() {
               } 
               border py-[11px] px-[12px] text-center text-base font-medium transition-all sm:px-6`}
             >
-              {quizzMode.name}
+              {quizMode.name}
             </a>
           );
         })}

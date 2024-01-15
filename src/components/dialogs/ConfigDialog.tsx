@@ -74,7 +74,9 @@ export function ConfigPanel() {
         </ul>
       </div>
       <div className="flex flex-col items-center justify-center w-full mt-6">
-        <p className="text-sm text-center">Select the your depth of your assessment.</p>
+        <p className="text-sm text-center">
+          Select the your depth of your assessment.
+        </p>
       </div>
       <div className="flex flex-col items-center justify-center w-full mt-4">
         <QuizModeButtons />

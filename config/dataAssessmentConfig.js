@@ -2,7 +2,7 @@ const protocol = 'http';
 const port = 8083;
 const server = 'localhost';
 
-const eventManagementChatConfig = {
+const dataAssessmentConfig = {
   streaming: false,
   // whether to show the sidebar or not
   showSidebar: false,
@@ -22,6 +22,7 @@ const eventManagementChatConfig = {
   reportUrl: `${protocol}://${server}:${port}/report`,
   uploadUrl: `${protocol}://${server}:${port}/upload`,
   chartProgressUrl: `${protocol}://${server}:${port}/spider_chart`,
+  barchartProgressUrl: `${protocol}://${server}:${port}/barchart`,
   defaultQuestionsPrompt: '',
   exampleQuestions: [],
 };

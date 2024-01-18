@@ -30,21 +30,19 @@ export function saveHistory(message: Message) {
   } else {
     const size = byteSize(history);
     const entries = JSON.parse(history) as Message[];
-
     if (
       entries.length > 0 &&
-      entries[entries.length - 1].timestamp.toString() ===
-        (message.timestamp as Date).toISOString() &&
       entries[entries.length - 1].text === message.text
     ) {
+      entries[entries.length - 1].timestamp = (message.timestamp as Date).toISOString();
       // If the last message is the same as the current one, don't save it
-      console.warn('Message already saved');
-      return;
+      console.warn('Message already saved. Updated timestamp');
+    } else {
+      if (size > SIZE_LIMIT) {
+        entries.shift();
+      }
+      entries.push(message);
     }
-    if (size > SIZE_LIMIT) {
-      entries.shift();
-    }
-    entries.push(message);
     localStorage.setItem(HISTORY_KEY, JSON.stringify(entries));
   }
 }

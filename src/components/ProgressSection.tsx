@@ -1,7 +1,7 @@
-import {signal} from '@preact/signals-react';
-import {FaCcDiscover, FaMinus} from 'react-icons/fa';
-import useProgressIndicator from "../hooks/useProgressIndicator.ts";
-import LightboxProgressSlider from "./LightboxProgressSlider.tsx";
+import { signal } from '@preact/signals-react';
+import { FaCcDiscover, FaMinus } from 'react-icons/fa';
+import useProgressIndicator from '../hooks/useProgressIndicator.ts';
+import LightboxProgressSlider from './LightboxProgressSlider.tsx';
 
 export const showProgressChart = signal(true);
 
@@ -12,7 +12,7 @@ export const showLightBox = signal(false);
  * @constructor
  */
 export default function ProgressSection() {
-  const {data, session, progressImages} = useProgressIndicator();
+  const { data, session, progressImages } = useProgressIndicator();
   if (!session || data.length < 2) {
     return <> </>;
   }
@@ -25,11 +25,11 @@ export default function ProgressSection() {
             className="w-full h-auto opacity-75 cursor-pointer"
             alt="Progress Indicator"
             onClick={() => {
-              showLightBox.value = true
+              showLightBox.value = true;
             }}
           />
         )}
-        {showLightBox.value && <LightboxProgressSlider /> }
+        {showLightBox.value && <LightboxProgressSlider />}
         <button
           onClick={() => (showProgressChart.value = !showProgressChart.value)}
         >

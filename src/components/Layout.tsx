@@ -1,11 +1,11 @@
 import Header from './Header.tsx';
-import {useContext} from 'react';
-import {ChatContext} from '../context/ChatContext.tsx';
+import { useContext } from 'react';
+import { ChatContext } from '../context/ChatContext.tsx';
 import SideMenu from './SideMenu.tsx';
-import {signal} from '@preact/signals-react';
-import ProgressSection, {showProgressChart} from './ProgressSection.tsx';
-import {ConfigContext} from '../context/ConfigContext.tsx';
-import MobileProgress from "./MobileProgress.tsx";
+import { signal } from '@preact/signals-react';
+import ProgressSection, { showProgressChart } from './ProgressSection.tsx';
+import { ConfigContext } from '../context/ConfigContext.tsx';
+import MobileProgress from './MobileProgress.tsx';
 
 export const expanded = signal(false);
 
@@ -13,11 +13,11 @@ function toggleExpanded() {
   expanded.value = !expanded.value;
 }
 
-export default function Layout({children}: { children: React.ReactNode }) {
-  const {title, logoImage, logoLink, isConnected, showSidebar} =
+export default function Layout({ children }: { children: React.ReactNode }) {
+  const { title, logoImage, logoLink, isConnected, showSidebar } =
     useContext(ChatContext);
-  const {state: configState} = useContext(ConfigContext);
-  const {initConfig} = configState;
+  const { state: configState } = useContext(ConfigContext);
+  const { initConfig } = configState;
   return (
     <section className="flex flex-col bg-[#E6F3FB]">
       <section className="flex flex-row">
@@ -27,7 +27,7 @@ export default function Layout({children}: { children: React.ReactNode }) {
         ${expanded.value ? 'expanded' : 'contracted'}`}
             onClick={toggleExpanded}
           >
-            <SideMenu/>
+            <SideMenu />
           </div>
         )}
         <section
@@ -54,7 +54,7 @@ export default function Layout({children}: { children: React.ReactNode }) {
                   : ''
               }`}
             >
-              <ProgressSection/>
+              <ProgressSection />
             </section>
             <MobileProgress />
           </>

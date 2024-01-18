@@ -34,7 +34,9 @@ export function saveHistory(message: Message) {
       entries.length > 0 &&
       entries[entries.length - 1].text === message.text
     ) {
-      entries[entries.length - 1].timestamp = (message.timestamp as Date).toISOString();
+      entries[entries.length - 1].timestamp = (
+        message.timestamp as Date
+      ).toISOString();
       // If the last message is the same as the current one, don't save it
       console.warn('Message already saved. Updated timestamp');
     } else {

@@ -30,8 +30,7 @@ export default function Switcher({ topic }: { topic: Topic }) {
           ></span>
         </span>
         <span className="label flex items-center text-sm font-medium text-black">
-          {topic.name}{' '}
-          <span className="pl-1"> {topic.checked ? 'On' : 'Off'} </span>
+          {topic.name}
         </span>
       </label>
     </>

@@ -54,7 +54,7 @@ export function ConfigPanel() {
   }
 
   return (
-    <div className="flex flex-col items-center justify-center w-full h-full p-4 bg-white border border-gray-300 rounded shadow-lg">
+    <div className="config-dialog">
       <div className="flex flex-col items-center justify-center w-full">
         <h1 className="mb-2 text-xl font-bold">Select Topics and Depth</h1>
         <p className="mb-4 text-sm text-center">

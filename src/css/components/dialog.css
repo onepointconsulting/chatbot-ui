@@ -1,3 +1,7 @@
 .chatbot-dialog {
-  @apply rounded-2xl w-11/12 md:w-10/12 lg:w-10/12 bg-white shadow-lg;
+  @apply rounded-2xl w-11/12 md:w-10/12 lg:w-10/12 bg-white shadow-lg max-w-6xl;
+}
+
+.config-dialog {
+  @apply flex flex-col items-center justify-center w-full h-full p-4 bg-white border border-gray-300 rounded shadow-lg max-w-6xl;
 }

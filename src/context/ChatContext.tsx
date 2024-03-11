@@ -64,7 +64,10 @@ export const ChatContextProvider = ({ children }: Props) => {
   const streaming = chatConfig?.streaming;
   const showSidebar = chatConfig?.showSidebar;
   const supportsSession = chatConfig?.supportsSession;
-  const showRefreshButton = typeof chatConfig?.showRefreshButton === "undefined" ? true : chatConfig?.showRefreshButton;
+  const showRefreshButton =
+    typeof chatConfig?.showRefreshButton === 'undefined'
+      ? true
+      : chatConfig?.showRefreshButton;
   const historySize = chatConfig?.historySize ?? 20;
   const [isConnected, setIsConnected] = useState(false);
   const socket: React.MutableRefObject<Socket | null> = useRef<Socket | null>(

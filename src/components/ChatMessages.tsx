@@ -118,7 +118,7 @@ function MessageDisplay({
   uploadedFilesUrl?: string;
   socket: React.MutableRefObject<Socket | null>;
 }) {
-  const { socket, streaming } = useContext(ChatContext);
+  const { socket, streaming, showRefreshButton } = useContext(ChatContext);
   const { dispatch } = useContext(MessageContext);
   const isUser = message.isUser ? 'text-white' : '';
 
@@ -217,7 +217,7 @@ function MessageDisplay({
         </div>
 
         {/* ReSubmit the history */}
-        {message.isUser && (
+        {message.isUser && showRefreshButton && (
           <button
             className="w-auto p-2 mx-4 bg-blue-500 rounded-full h-fit"
             onClick={() => reSubmit()}

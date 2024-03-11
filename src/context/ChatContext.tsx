@@ -23,6 +23,7 @@ interface ContextProps {
   readonly supportsSession: boolean;
   readonly defaultQuestionsPrompt?: string;
   readonly historySize?: number;
+  readonly showRefreshButton: boolean;
   isConnected?: boolean;
   setIsConnected?: (connected: boolean) => void;
   socket: React.MutableRefObject<Socket | null>;
@@ -41,6 +42,7 @@ export const ChatContext = createContext<ContextProps>({
   streaming: false,
   showSidebar: false,
   supportsSession: false,
+  showRefreshButton: true,
   historySize: 20,
   socket: { current: null },
 });
@@ -62,6 +64,7 @@ export const ChatContextProvider = ({ children }: Props) => {
   const streaming = chatConfig?.streaming;
   const showSidebar = chatConfig?.showSidebar;
   const supportsSession = chatConfig?.supportsSession;
+  const showRefreshButton = typeof chatConfig?.showRefreshButton === "undefined" ? true : chatConfig?.showRefreshButton;
   const historySize = chatConfig?.historySize ?? 20;
   const [isConnected, setIsConnected] = useState(false);
   const socket: React.MutableRefObject<Socket | null> = useRef<Socket | null>(
@@ -87,6 +90,7 @@ export const ChatContextProvider = ({ children }: Props) => {
         streaming,
         showSidebar,
         supportsSession,
+        showRefreshButton,
         historySize,
         defaultQuestionsPrompt,
         isConnected,

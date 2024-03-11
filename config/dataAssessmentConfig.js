@@ -7,6 +7,7 @@ const dataAssessmentConfig = {
   // whether to show the sidebar or not
   showSidebar: false,
   supportsSession: true,
+  showRefreshButton: false,
   botName: 'Data Assessment', // Name of the bot
   // Optional logo
   logoImage: '/logo-one-point-white.png',

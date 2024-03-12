@@ -7,6 +7,7 @@ export type SuggestedResponse = {
 export type Message = {
   text: string;
   sources?: string;
+  clarification?: string;
   suggestedResponses?: SuggestedResponse[];
   isUser: boolean;
   timestamp: Date | string;

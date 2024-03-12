@@ -1,31 +1,13 @@
-import { useContext, useState } from 'react';
-import Markdown from 'react-markdown';
-import { PrismAsync as SyntaxHighlighter } from 'react-syntax-highlighter';
-import { dracula } from 'react-syntax-highlighter/dist/esm/styles/prism';
-import remarkGfm from 'remark-gfm';
-import { Socket } from 'socket.io-client';
-import { ChatContext } from '../context/ChatContext.tsx';
-import { MessageContext } from '../context/MessageContext.tsx';
+import {useContext, useState} from 'react';
+import {Socket} from 'socket.io-client';
+import {ChatContext} from '../context/ChatContext.tsx';
+import {MessageContext} from '../context/MessageContext.tsx';
 import sendWSMessage from '../lib/websocketClient.ts';
-import { CodeProps } from '../model/chatMessage.ts';
-import { handleMessageDispatch } from './MainChat.tsx';
+import {handleMessageDispatch} from './MainChat.tsx';
 import Sources from './Sources.tsx';
-import { Message } from '../model/message.ts';
-
-function Code({ inline, children, ...props }: CodeProps) {
-  const match = /language-(\w+)/.exec(props.className || '') || 'Python';
-  return (
-    <SyntaxHighlighter
-      {...props}
-      children={String(children).replace(/\n$/, '')}
-      style={dracula}
-      customStyle={{ paddingRight: '2.5em' }}
-      wrapLongLines
-      language={match[1]}
-      PreTag="div"
-    />
-  );
-}
+import {Message} from '../model/message.ts';
+import ClarifyButton from "./buttons/ClarifyButton.tsx";
+import MarkdownSection from "./markdown/Markdown.tsx";
 
 // Handle the copy button
 async function handleCopy(
@@ -62,18 +44,18 @@ async function handleCopy(
 }
 
 // Copy button
-function CopyButton({ message }: { message: Message }) {
-  const { state } = useContext(MessageContext);
+function CopyButton({message}: { message: Message }) {
+  const {state} = useContext(MessageContext);
   const [copied, setCopied]: [
     boolean,
     (value: ((prevState: boolean) => boolean) | boolean) => void,
   ] = useState(false);
   const text =
     message.text + (!!message.sources ? `\n\nSources: ${message.sources}` : '');
-  if (state.isLoading) return <div />; // don't show copy button while loading
+  if (state.isLoading) return <div/>; // don't show copy button while loading
   console.log('message', message);
   return (
-    <div className="flex justify-start py-3 mx-3">
+    <>
       {/* Copy button */}
 
       <svg
@@ -95,7 +77,7 @@ function CopyButton({ message }: { message: Message }) {
       {copied && (
         <span className="mx-4 text-sm text-gray-400">Copied to clipboard!</span>
       )}
-    </div>
+    </>
   );
 }
 
@@ -107,20 +89,22 @@ function processHighlighting(message: Message) {
 
 // Display the messages in the chat window
 function MessageDisplay({
-  index,
-  message,
-  botName,
-  uploadedFilesUrl,
-}: {
+                          index,
+                          isLast,
+                          message,
+                          botName,
+                          uploadedFilesUrl,
+                        }: {
   index: number;
+  isLast: boolean;
   message: Message;
   botName: string | undefined;
   uploadedFilesUrl?: string;
   socket: React.MutableRefObject<Socket | null>;
 }) {
-  const { socket, streaming, showRefreshButton } = useContext(ChatContext);
-  const { dispatch } = useContext(MessageContext);
-  const isUser = message.isUser ? 'text-white' : '';
+  const {socket, streaming, showRefreshButton} = useContext(ChatContext);
+  const {dispatch} = useContext(MessageContext);
+  const userStyle = message.isUser ? 'text-white' : '';
 
   // Not fixed yet. onsubmit is not picking up the text value
   function reSubmit() {
@@ -151,10 +135,10 @@ function MessageDisplay({
         <div className="mr-5 grow">
           {/* Username/date */}
           <div className="flex flex-col ml-3">
-            <span className={`${isUser} mt-3 text-sm font-bold`}>
+            <span className={`${userStyle} mt-3 text-sm font-bold`}>
               {message.isUser ? 'You' : botName}
             </span>
-            <span className={`text-xs text-gray-400 ${isUser}`}>
+            <span className={`text-xs text-gray-400 ${userStyle}`}>
               {message?.timestamp instanceof Date
                 ? message.timestamp.toLocaleString()
                 : message?.timestamp}
@@ -168,52 +152,23 @@ function MessageDisplay({
             )}`}
           >
             <section>
-              <Markdown
-                className={`mt-1 text-gray-900 markdown-body ${isUser}`}
-                remarkPlugins={[remarkGfm]}
-                components={{
-                  ul: ({ ...props }) => (
-                    <ul
-                      className="mb-3 ml-5 space-y-1 text-gray-500 list-disc dark:text-gray-400"
-                      {...props}
-                    />
-                  ),
-                  ol: ({ ...props }) => (
-                    <ol
-                      className="mx-4 my-3 space-y-3 text-gray-500 list-decimal dark:text-gray-400"
-                      {...props}
-                    />
-                  ),
-                  li: ({ ...props }) => <li className="mt-0" {...props} />,
-                  p: ({ ...props }) => (
-                    <p className="pb-1 font-sans" {...props} />
-                  ),
-                  a: ({ children, ...props }) => (
-                    <a
-                      className="pb-4 font-sans underline sm:pb-2"
-                      {...props}
-                      target="_blank"
-                    >
-                      {children}
-                    </a>
-                  ),
-                  code({ ...props }) {
-                    // @ts-ignore
-                    return <Code {...props} />;
-                  },
-                }}
-              >
-                {message.text}
-              </Markdown>
-              {!!uploadedFilesUrl && <Sources message={message} />}
+              <MarkdownSection content={message.text} userStyle={userStyle}/>
+              {!!uploadedFilesUrl && <Sources message={message}/>}
             </section>
           </div>
 
-          {/* Handle the copy button */}
-          <div className="float-left w-full">
+          {/* Handle the buttons */}
+          {!message.isUser && <div className="float-left w-full">
             {/* Copy button */}
-            {!message.isUser && <CopyButton message={message} />}
-          </div>
+            <div className="flex justify-start py-3 mx-3">
+              {!message.clarification && isLast && <ClarifyButton message={message}/>}
+              <CopyButton message={message}/>
+            </div>
+          </div>}
+
+          {message.clarification && !message.isUser && <div className="w-full px-6">
+            <MarkdownSection content={message.clarification} userStyle={''}/>
+          </div>}
         </div>
 
         {/* ReSubmit the history */}
@@ -248,15 +203,16 @@ function MessageDisplay({
  * @constructor
  */
 export default function Messages() {
-  const { botName, uploadedFilesUrl, socket } = useContext(ChatContext);
-  const { state } = useContext(MessageContext);
-
+  const {botName, uploadedFilesUrl, socket} = useContext(ChatContext);
+  const {state} = useContext(MessageContext);
+  const messagesLength = state?.data.length || 0;
   return (
     <>
       {state?.data.map((message: Message, index: number) => {
         return (
           <MessageDisplay
             index={index}
+            isLast={index === messagesLength - 1}
             message={message}
             botName={botName}
             uploadedFilesUrl={uploadedFilesUrl}

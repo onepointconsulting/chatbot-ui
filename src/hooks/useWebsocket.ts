@@ -1,7 +1,7 @@
 import React, { useContext, useEffect } from 'react';
 import { io, Socket } from 'socket.io-client';
 import {
-  sendStartSession,
+  sendStartSession, WEBSOCKET_CLARIFICATION_MESSAGE,
   WEBSOCKET_COMMAND,
   WEBSOCKET_CONNECT,
   WEBSOCKET_CONNECTION_ERROR,
@@ -56,9 +56,17 @@ export function useWebsocket({
           isUser: false,
           timestamp: new Date(),
           sessionId,
+          clarification: '',
         },
       });
     };
+
+    const onClarify = (token: string) => {
+      dispatch({
+        type: 'clarify',
+        token,
+      });
+    }
 
     const onDisconnect = () => {
       console.log('disconnected');
@@ -108,6 +116,7 @@ export function useWebsocket({
     socket.current.on(WEBSOCKET_CONNECTION_FAILED, onConnectionFailed);
 
     socket.current.on(WEBSOCKET_SERVER_MESSAGE, onResponse);
+    socket.current.on(WEBSOCKET_CLARIFICATION_MESSAGE, onClarify);
     socket.current.on(WEBSOCKET_STOP_STREAMING_RESPONSE, onStopStreaming);
 
     socket.current.on(WEBSOCKET_COMMAND.START_SESSION, onStartSession);
@@ -129,6 +138,7 @@ export function useWebsocket({
       socket.current?.off(WEBSOCKET_CONNECTION_FAILED, onConnectionFailed);
 
       socket.current?.off(WEBSOCKET_SERVER_MESSAGE, onResponse);
+      socket.current?.off(WEBSOCKET_CLARIFICATION_MESSAGE, onClarify);
       socket.current?.off(WEBSOCKET_STOP_STREAMING_RESPONSE, onStopStreaming);
 
       socket.current?.off(WEBSOCKET_COMMAND.START_SESSION, onStartSession);

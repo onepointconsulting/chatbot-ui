@@ -9,12 +9,15 @@ export const WEBSOCKET_CONNECTION_FAILED = 'connect_failed';
 export const WEBSOCKET_CLIENT_MESSAGE = 'client_message';
 export const WEBSOCKET_SERVER_MESSAGE = 'server_message';
 
+export const WEBSOCKET_CLARIFICATION_MESSAGE = 'clarification_message';
+
 export const WEBSOCKET_COMMAND = {
   START_SESSION: 'start_session',
   QUIZ_CONFIGURATION: 'quiz_configuration',
   SAVE_CONFIGURATION: 'save_configuration',
   QUIZ_CONFIGURATION_SAVE_OK: 'quiz_configuration_save_ok',
   QUIZ_CONFIGURATION_SAVE_ERROR: 'quiz_configuration_save_error',
+  QUIZ_CLARIFY: 'clarify',
 };
 
 export const WEBSOCKET_STOP_STREAMING_RESPONSE = 'stopstreaming';
@@ -54,6 +57,13 @@ export function sendQuizConfiguration(
   config: string,
 ) {
   safeEmit(socket, WEBSOCKET_COMMAND.SAVE_CONFIGURATION, config);
+}
+
+export function sendClarification(
+  socket: Socket<any, any> | null,
+  clarification_request: string,
+) {
+  safeEmit(socket, WEBSOCKET_COMMAND.QUIZ_CLARIFY, clarification_request);
 }
 
 function safeEmit(

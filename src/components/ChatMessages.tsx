@@ -1,13 +1,13 @@
-import {useContext, useState} from 'react';
-import {Socket} from 'socket.io-client';
-import {ChatContext} from '../context/ChatContext.tsx';
-import {MessageContext} from '../context/MessageContext.tsx';
+import { useContext, useState } from 'react';
+import { Socket } from 'socket.io-client';
+import { ChatContext } from '../context/ChatContext.tsx';
+import { MessageContext } from '../context/MessageContext.tsx';
 import sendWSMessage from '../lib/websocketClient.ts';
-import {handleMessageDispatch} from './MainChat.tsx';
+import { handleMessageDispatch } from './MainChat.tsx';
 import Sources from './Sources.tsx';
-import {Message} from '../model/message.ts';
-import ClarifyButton from "./buttons/ClarifyButton.tsx";
-import MarkdownSection from "./markdown/Markdown.tsx";
+import { Message } from '../model/message.ts';
+import ClarifyButton from './buttons/ClarifyButton.tsx';
+import MarkdownSection from './markdown/Markdown.tsx';
 
 // Handle the copy button
 async function handleCopy(
@@ -44,15 +44,15 @@ async function handleCopy(
 }
 
 // Copy button
-function CopyButton({message}: { message: Message }) {
-  const {state} = useContext(MessageContext);
+function CopyButton({ message }: { message: Message }) {
+  const { state } = useContext(MessageContext);
   const [copied, setCopied]: [
     boolean,
     (value: ((prevState: boolean) => boolean) | boolean) => void,
   ] = useState(false);
   const text =
     message.text + (!!message.sources ? `\n\nSources: ${message.sources}` : '');
-  if (state.isLoading) return <div/>; // don't show copy button while loading
+  if (state.isLoading) return <div />; // don't show copy button while loading
   console.log('message', message);
   return (
     <>
@@ -89,12 +89,12 @@ function processHighlighting(message: Message) {
 
 // Display the messages in the chat window
 function MessageDisplay({
-                          index,
-                          isLast,
-                          message,
-                          botName,
-                          uploadedFilesUrl,
-                        }: {
+  index,
+  isLast,
+  message,
+  botName,
+  uploadedFilesUrl,
+}: {
   index: number;
   isLast: boolean;
   message: Message;
@@ -102,8 +102,8 @@ function MessageDisplay({
   uploadedFilesUrl?: string;
   socket: React.MutableRefObject<Socket | null>;
 }) {
-  const {socket, streaming, showRefreshButton} = useContext(ChatContext);
-  const {dispatch} = useContext(MessageContext);
+  const { socket, streaming, showRefreshButton } = useContext(ChatContext);
+  const { dispatch } = useContext(MessageContext);
   const userStyle = message.isUser ? 'text-white' : '';
 
   // Not fixed yet. onsubmit is not picking up the text value
@@ -152,23 +152,29 @@ function MessageDisplay({
             )}`}
           >
             <section>
-              <MarkdownSection content={message.text} userStyle={userStyle}/>
-              {!!uploadedFilesUrl && <Sources message={message}/>}
+              <MarkdownSection content={message.text} userStyle={userStyle} />
+              {!!uploadedFilesUrl && <Sources message={message} />}
             </section>
           </div>
 
           {/* Handle the buttons */}
-          {!message.isUser && <div className="float-left w-full">
-            {/* Copy button */}
-            <div className="flex justify-start py-3 mx-3">
-              {!message.clarification && isLast && <ClarifyButton message={message}/>}
-              <CopyButton message={message}/>
+          {!message.isUser && (
+            <div className="float-left w-full">
+              {/* Copy button */}
+              <div className="flex justify-start py-3 mx-3">
+                {!message.clarification && isLast && (
+                  <ClarifyButton message={message} />
+                )}
+                <CopyButton message={message} />
+              </div>
             </div>
-          </div>}
+          )}
 
-          {message.clarification && !message.isUser && <div className="w-full px-6">
-            <MarkdownSection content={message.clarification} userStyle={''}/>
-          </div>}
+          {message.clarification && !message.isUser && (
+            <div className="w-full px-6">
+              <MarkdownSection content={message.clarification} userStyle={''} />
+            </div>
+          )}
         </div>
 
         {/* ReSubmit the history */}
@@ -203,8 +209,8 @@ function MessageDisplay({
  * @constructor
  */
 export default function Messages() {
-  const {botName, uploadedFilesUrl, socket} = useContext(ChatContext);
-  const {state} = useContext(MessageContext);
+  const { botName, uploadedFilesUrl, socket } = useContext(ChatContext);
+  const { state } = useContext(MessageContext);
   const messagesLength = state?.data.length || 0;
   return (
     <>

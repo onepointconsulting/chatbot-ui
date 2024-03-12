@@ -1,8 +1,8 @@
-import {State} from '../lib/model.ts';
-import {createContext, useReducer} from 'react';
-import {Props} from './commonModel.ts';
-import {saveHistory} from '../lib/history.ts';
-import {Message} from '../model/message.ts';
+import { State } from '../lib/model.ts';
+import { createContext, useReducer } from 'react';
+import { Props } from './commonModel.ts';
+import { saveHistory } from '../lib/history.ts';
+import { Message } from '../model/message.ts';
 
 export type Action =
   | { type: 'request'; message: Message }
@@ -23,10 +23,13 @@ interface MessageContextProps {
   dispatch: React.Dispatch<Action>;
 }
 
-function appendToken(messages: Message[], token: string, field: string): Message[] {
+function appendToken(
+  messages: Message[],
+  token: string,
+  field: string,
+): Message[] {
   const copy = [...messages];
-  const concatMessage =
-    copy[messages.length - 1][field] + token;
+  const concatMessage = copy[messages.length - 1][field] + token;
   copy[messages.length - 1] = {
     ...copy[messages.length - 1],
     [field]: concatMessage,
@@ -54,7 +57,7 @@ export function messageReducer(state: State, action: Action): State {
       };
     case 'stopStreaming':
       saveHistory(state.data[state.data.length - 1]);
-      return {...state, isLoading: false};
+      return { ...state, isLoading: false };
     case 'successStreaming': {
       const copy = [...state.data];
       // Apend text token to the last message
@@ -64,33 +67,36 @@ export function messageReducer(state: State, action: Action): State {
         ...copy[state.data.length - 1],
         text: concatMessage,
       };
-      return {...state, data: [...copy]};
+      return { ...state, data: [...copy] };
     }
     case 'failure':
-      return {...state, isLoading: false, error: action.error};
+      return { ...state, isLoading: false, error: action.error };
     case 'clearFailure':
-      return {...state, error: ''};
+      return { ...state, error: '' };
     case 'clear':
-      return {...state, isLoading: false, data: [], error: ''};
+      return { ...state, isLoading: false, data: [], error: '' };
     case 'connect':
-      return {...state, connected: true, error: ''};
+      return { ...state, connected: true, error: '' };
     case 'disconnect':
-      return {...state, connected: false};
+      return { ...state, connected: false };
     case 'bulkLoad':
-      return {...state, data: action.messages};
+      return { ...state, data: action.messages };
     case 'clarify':
-      return {...state, data: appendToken(state.data, action.token, 'clarification')};
+      return {
+        ...state,
+        data: appendToken(state.data, action.token, 'clarification'),
+      };
     default:
       return state;
   }
 }
 
 export const MessageContext = createContext<MessageContextProps>({
-  state: {data: [], isLoading: false, connected: false, error: ''},
+  state: { data: [], isLoading: false, connected: false, error: '' },
   dispatch: () => null,
 });
 
-export const MessageContextProvider = ({children}: Props) => {
+export const MessageContextProvider = ({ children }: Props) => {
   const [state, dispatch] = useReducer(messageReducer, {
     data: [],
     isLoading: false,
@@ -99,7 +105,7 @@ export const MessageContextProvider = ({children}: Props) => {
   });
 
   return (
-    <MessageContext.Provider value={{state, dispatch}}>
+    <MessageContext.Provider value={{ state, dispatch }}>
       {children}
     </MessageContext.Provider>
   );

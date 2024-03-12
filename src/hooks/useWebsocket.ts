@@ -1,7 +1,8 @@
 import React, { useContext, useEffect } from 'react';
 import { io, Socket } from 'socket.io-client';
 import {
-  sendStartSession, WEBSOCKET_CLARIFICATION_MESSAGE,
+  sendStartSession,
+  WEBSOCKET_CLARIFICATION_MESSAGE,
   WEBSOCKET_COMMAND,
   WEBSOCKET_CONNECT,
   WEBSOCKET_CONNECTION_ERROR,
@@ -66,7 +67,7 @@ export function useWebsocket({
         type: 'clarify',
         token,
       });
-    }
+    };
 
     const onDisconnect = () => {
       console.log('disconnected');

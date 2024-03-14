@@ -47,7 +47,7 @@ export function useWebsocket({
     };
 
     const onResponse = (value: string) => {
-      const { response, sources, sessionId, suggestions } = JSON.parse(value);
+      const { response, sources, sessionId, suggestions, topic, finished_topic_count, topic_total } = JSON.parse(value);
       dispatch({
         type: streaming ? 'successStreaming' : 'success',
         message: {
@@ -58,6 +58,9 @@ export function useWebsocket({
           timestamp: new Date(),
           sessionId,
           clarification: '',
+          topic,
+          finishedTopicCount: finished_topic_count,
+          topicTotal: topic_total,
         },
       });
     };

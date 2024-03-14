@@ -87,6 +87,14 @@ function processHighlighting(message: Message) {
   return message.isUser ? '' : highlightColor;
 }
 
+function topicAdapter(message: Message, botName: string | undefined) {
+  if(message.topic && message.finishedTopicCount && message.topicTotal
+    && message.finishedTopicCount > 0 && message.topicTotal > 0) {
+    return `${message.topic} (${message.finishedTopicCount} / ${message.topicTotal})`
+  }
+  return botName
+}
+
 // Display the messages in the chat window
 function MessageDisplay({
   index,
@@ -136,7 +144,7 @@ function MessageDisplay({
           {/* Username/date */}
           <div className="flex flex-col ml-3">
             <span className={`${userStyle} mt-3 text-sm font-bold`}>
-              {message.isUser ? 'You' : botName}
+              {message.isUser ? 'You' : topicAdapter(message, botName)}
             </span>
             <span className={`text-xs text-gray-400 ${userStyle}`}>
               {message?.timestamp instanceof Date

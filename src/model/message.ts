@@ -12,4 +12,7 @@ export type Message = {
   isUser: boolean;
   timestamp: Date | string;
   sessionId?: string;
+  topic?: string;
+  finishedTopicCount?: number;
+  topicTotal?: number;
 };

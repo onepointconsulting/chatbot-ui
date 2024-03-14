@@ -42,13 +42,20 @@ export function messageReducer(state: State, action: Action): State {
 
   switch (action.type) {
     case 'request':
-    case 'success':
-      saveHistory(action.message);
+    case 'success': {
+      const lastMessage = state.data[state.data.length - 1]
+      if (typeof lastMessage === "undefined" || lastMessage.text !== action.message.text) {
+        saveHistory(action.message);
+        return {
+          ...state,
+          isLoading: action.type === request,
+          data: [...state.data, action.message],
+        };
+      }
       return {
-        ...state,
-        isLoading: action.type === request,
-        data: [...state.data, action.message],
-      };
+        ...state
+      }
+    }
     case 'startStreaming':
       return {
         ...state,

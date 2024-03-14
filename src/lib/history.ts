@@ -30,13 +30,15 @@ export function saveHistory(message: Message) {
   } else {
     const size = byteSize(history);
     const entries = JSON.parse(history) as Message[];
+    const lastMessage = entries[entries.length - 1];
     if (
       entries.length > 0 &&
-      entries[entries.length - 1].text === message.text
+      lastMessage.text === message.text
     ) {
-      entries[entries.length - 1].timestamp = (
+      lastMessage.timestamp = (
         message.timestamp as Date
       ).toISOString();
+      lastMessage.clarification = message.clarification;
       // If the last message is the same as the current one, don't save it
       console.warn('Message already saved. Updated timestamp');
     } else {

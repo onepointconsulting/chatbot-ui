@@ -88,11 +88,16 @@ function processHighlighting(message: Message) {
 }
 
 function topicAdapter(message: Message, botName: string | undefined) {
-  if(message.topic && message.finishedTopicCount && message.topicTotal
-    && message.finishedTopicCount > 0 && message.topicTotal > 0) {
-    return `${message.topic} (${message.finishedTopicCount} / ${message.topicTotal})`
+  if (
+    message.topic &&
+    message.finishedTopicCount &&
+    message.topicTotal &&
+    message.finishedTopicCount > 0 &&
+    message.topicTotal > 0
+  ) {
+    return `${message.topic} (${message.finishedTopicCount} / ${message.topicTotal})`;
   }
-  return botName
+  return botName;
 }
 
 // Display the messages in the chat window

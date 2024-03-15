@@ -12,7 +12,9 @@ export default function BackToBottom() {
 
   // Handle the scroll to the bottom button.
   useEffect(() => {
-    const feedContainer = document.querySelector('.chat-container') as HTMLElement;
+    const feedContainer = document.querySelector(
+      '.chat-container',
+    ) as HTMLElement;
 
     const handleScroll = () => {
       if (!!feedContainer) {

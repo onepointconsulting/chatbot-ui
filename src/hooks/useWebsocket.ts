@@ -56,6 +56,7 @@ export function useWebsocket({
         finished_topic_count,
         topic_total,
       } = JSON.parse(value);
+      console.log('suggestions', suggestions);
       dispatch({
         type: streaming ? 'successStreaming' : 'success',
         message: {

@@ -46,7 +46,8 @@ export function messageReducer(state: State, action: Action): State {
       const lastMessage = state.data[state.data.length - 1];
       if (
         typeof lastMessage === 'undefined' ||
-        lastMessage.text !== action.message.text
+        lastMessage.text !== action.message.text ||
+        lastMessage.suggestedResponses !== action.message.suggestedResponses
       ) {
         saveHistory(action.message);
         return {

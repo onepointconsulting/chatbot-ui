@@ -4,21 +4,21 @@ import { signal } from '@preact/signals-react';
 
 const chatAtBottom = signal(false);
 
+const CORRECTION = 50;
+
 // Back to bottom button
 export default function BackToBottom() {
   // Handle the back to bottom button with smooth scrolling
 
   // Handle the scroll to the bottom button.
   useEffect(() => {
-    const feedContainer = document.querySelector(
-      '.chat-container',
-    ) as HTMLElement;
+    const feedContainer = document.querySelector('.chat-container') as HTMLElement;
 
     const handleScroll = () => {
       if (!!feedContainer) {
         const isAtBottom =
           feedContainer.scrollHeight - feedContainer.scrollTop <=
-          feedContainer.clientHeight;
+          feedContainer.clientHeight + CORRECTION;
         console.log('feedContainer.scrollHeight', feedContainer.scrollHeight);
         console.log('feedContainer.scrollTop', feedContainer.scrollTop);
         console.log('feedContainer.clientHeight', feedContainer.clientHeight);

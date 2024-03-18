@@ -1,4 +1,4 @@
-import {useContext, useEffect} from 'react';
+import { useContext, useEffect } from 'react';
 import { MessageContext } from '../../context/MessageContext.tsx';
 import { Signal, signal } from '@preact/signals-react';
 import { SESSION_KEY } from '../../lib/sessionFunctions.ts';
@@ -52,7 +52,7 @@ export default function ClearDialog({}) {
   const { dispatch } = useContext(MessageContext);
 
   useEffect(() => {
-    if(deleteSession.value) {
+    if (deleteSession.value) {
       deleteHistory.value = true;
     }
   }, [deleteSession.value]);

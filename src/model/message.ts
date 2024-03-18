@@ -15,4 +15,6 @@ export type Message = {
   topic?: string;
   finishedTopicCount?: number;
   topicTotal?: number;
+  questionCount?: number;
+  totalQuestionsInTopic?: number;
 };

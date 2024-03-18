@@ -55,6 +55,8 @@ export function useWebsocket({
         topic,
         finished_topic_count,
         topic_total,
+        question_count,
+        total_questions_in_topic
       } = JSON.parse(value);
       console.log('suggestions', suggestions);
       dispatch({
@@ -70,6 +72,8 @@ export function useWebsocket({
           topic,
           finishedTopicCount: finished_topic_count,
           topicTotal: topic_total,
+          questionCount: question_count,
+          totalQuestionsInTopic: total_questions_in_topic,
         },
       });
     };

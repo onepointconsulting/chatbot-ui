@@ -147,10 +147,15 @@ function MessageDisplay({
 
         <div className="mr-5 grow">
           {/* Username/date */}
-          <div className="flex flex-col ml-3">
-            <span className={`${userStyle} mt-3 text-sm font-bold`}>
-              {message.isUser ? 'You' : topicAdapter(message, botName)}
-            </span>
+          <div className="flex flex-col ml-3 w-full">
+            <div className={`${userStyle} flex flex-row justify-between mt-3 w-full`}>
+              <span className="text-sm font-bold">
+                {message.isUser ? 'You' : topicAdapter(message, botName)}
+              </span>
+              {message.questionCount && <span className="text-sm mr-6">
+                Question {message.questionCount} of {message.totalQuestionsInTopic}
+              </span>}
+            </div>
             <span className={`text-xs text-gray-400 ${userStyle}`}>
               {message?.timestamp instanceof Date
                 ? message.timestamp.toLocaleString()

@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+import {useContext, useEffect} from 'react';
 import { MessageContext } from '../../context/MessageContext.tsx';
 import { Signal, signal } from '@preact/signals-react';
 import { SESSION_KEY } from '../../lib/sessionFunctions.ts';
@@ -51,6 +51,12 @@ export default function ClearDialog({}) {
   const { supportsSession } = useContext(ChatContext);
   const { dispatch } = useContext(MessageContext);
 
+  useEffect(() => {
+    if(deleteSession.value) {
+      deleteHistory.value = true;
+    }
+  }, [deleteSession.value]);
+
   function onClose() {
     const myDialog: any | null = document.getElementById(CLEAR_DIALOG_ID);
     if (myDialog) {
@@ -80,7 +86,7 @@ export default function ClearDialog({}) {
       {supportsSession && (
         <DeleteCheckbox
           boolSignal={deleteSession}
-          labelText="Delete session"
+          labelText="Delete session (restart session)"
           memberId={deleteSessionCheckId}
         />
       )}

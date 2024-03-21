@@ -76,7 +76,7 @@ export default function ClearDialog({}) {
   return (
     <dialog data-model={true} id={CLEAR_DIALOG_ID} className="chatbot-dialog">
       <div className="my-2">
-        Would you really like to delete the chat contents?
+        Would you really like to delete the history / restart session?
       </div>
       <DeleteCheckbox
         boolSignal={deleteHistory}
@@ -86,7 +86,7 @@ export default function ClearDialog({}) {
       {supportsSession && (
         <DeleteCheckbox
           boolSignal={deleteSession}
-          labelText="Delete session (restart session)"
+          labelText="Restart session"
           memberId={deleteSessionCheckId}
         />
       )}

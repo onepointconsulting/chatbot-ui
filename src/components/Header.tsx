@@ -49,11 +49,11 @@ export default function Header({
 }: HeaderType) {
   const { showSidebar } = useContext(ChatContext);
   return (
-    <div className="flex justify-between w-full p-2 chat-header bg-[#339ddf]">
+    <div className="flex justify-between w-full p-2 chat-header">
       {/* Logo */}
       <div className="block xl:flex xl:flex-row">
         <Logo logoLink={logoLink} logoImage={logoImage} />
-        <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white logo-title">
+        <h2 className="ml-3 text-2xl md:text-3xl lg:text-4xl font-bold text-white logo-title">
           {title}
         </h2>
       </div>

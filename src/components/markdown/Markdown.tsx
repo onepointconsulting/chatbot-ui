@@ -39,13 +39,13 @@ export default function MarkdownSection({
       components={{
         ul: ({ ...props }) => (
           <ul
-            className="mb-3 ml-5 space-y-1 text-gray-500 list-disc dark:text-gray-400"
+            className="mb-3 ml-5 space-y-1 text-gray-500 list-disc gray-color"
             {...props}
           />
         ),
         ol: ({ ...props }) => (
           <ol
-            className="mx-4 my-3 space-y-3 text-gray-500 list-decimal dark:text-gray-400"
+            className="mx-4 my-3 space-y-3 text-gray-500 list-decimal gray-color"
             {...props}
           />
         ),

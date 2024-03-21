@@ -14,6 +14,7 @@ import ClearDialog from './dialogs/ClearDialog.tsx';
 import SuggestedResponsePanel from './SuggestedResponsePanel.tsx';
 import ConfigDialog from './dialogs/ConfigDialog.tsx';
 import { ConfigContext } from '../context/ConfigContext.tsx';
+import {Message} from "../model/message.ts";
 
 export function scrollToBottom(scrollBehavior: string = 'auto') {
   const chatContainer = document.querySelector('.chat-container');
@@ -38,6 +39,10 @@ export function handleMessageDispatch(
       message: { text: '', isUser: false, timestamp: new Date() },
     });
   }
+}
+
+function hasDataAndSuggestedResponses(data: Message[]) {
+  return data && data.length > 0 && data[data.length - 1].suggestedResponses;
 }
 
 export default function MainChat() {
@@ -97,7 +102,7 @@ export default function MainChat() {
         <Messages />
         {isLoading && <Spinner />}
       </div>
-      {data && data.length > 0 && data[data.length - 1].suggestedResponses && (
+      {hasDataAndSuggestedResponses(data) && (
         <SuggestedResponsePanel
           possibleResponses={data[data.length - 1].suggestedResponses ?? []}
         />

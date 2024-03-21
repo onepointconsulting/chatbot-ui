@@ -83,7 +83,7 @@ export function ConfigPanel() {
       </div>
       <div className="flex justify-between mt-4 w-full">
         <button className="button-cancel" onClick={onReset}>
-          Reset
+          {topics.some(t => t.checked) ? 'Deselect all' : 'Select all'}
         </button>
         <button className="button-ok" onClick={onOk}>
           Save configuration

@@ -75,7 +75,7 @@ function CopyButton({ message }: { message: Message }) {
 
       {/* Display the Copied to clipboard text */}
       {copied && (
-        <span className="mx-4 text-sm text-gray-400">Copied to clipboard!</span>
+        <span className="mx-4 text-sm gray-color">Copied to clipboard!</span>
       )}
     </>
   );
@@ -131,8 +131,8 @@ function MessageDisplay({
     <section className="mx-2 lg:mx-5 mt-2" key={`message_${index}`}>
       <div
         className={`${
-          message.isUser ? 'bg-[#339DDF] text-white my-8' : ''
-        } chat-message py-4 flex flex-row rounded-2xl ${processHighlighting(
+          message.isUser ? 'user-chat-message text-white my-8' : ''
+        } chat-message py-4 flex flex-row ${processHighlighting(
           message,
         )}`}
       >
@@ -161,7 +161,7 @@ function MessageDisplay({
                 </span>
               )}
             </div>
-            <span className={`text-xs text-gray-400 ${userStyle}`}>
+            <span className={`text-xs ${userStyle}`}>
               {message?.timestamp instanceof Date
                 ? message.timestamp.toLocaleString()
                 : message?.timestamp}

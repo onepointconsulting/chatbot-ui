@@ -100,7 +100,7 @@ export default function SearchInput() {
       {/* Send button */}
       <button
         className={`flex-none mr-2 my-auto rounded-full hover:transform hover:bg-scale-100 hover:duration-200 ${
-          disabled ? 'bg-gray-500' : 'bg-[#339ddf]'
+          disabled ? 'bg-gray-500' : 'bg-gray-color'
         }`}
         disabled={disabled}
         onClick={sendMessage}

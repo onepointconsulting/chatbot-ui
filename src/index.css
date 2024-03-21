@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,wght@0,400;0,500;1,400;1,500&family=Lato&family=Montserrat:wght@500&family=Poppins&family=Sen:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap');
 @import url('css/components/buttons.css');
 @import url('css/components/dialog.css');
 @import url('css/colors.css');
@@ -21,6 +21,18 @@ html {
 
 .chat-header {
   -webkit-backface-visibility: hidden;
+}
+
+.user-chat-message, .chat-header {
+  background-color: #0084d7;
+}
+
+.gray-color {
+  color: #a6a6a6;
+}
+
+.bg-gray-color {
+  background-color: #0084d7;
 }
 
 .side-menu.expanded {
@@ -54,7 +66,7 @@ html {
 
 /** Font related **/
 body {
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Lato', sans-serif;
 }
 
 /** Markdown related **/

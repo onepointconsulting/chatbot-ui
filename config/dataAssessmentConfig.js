@@ -14,7 +14,7 @@ const dataAssessmentConfig = {
   // External link to a webpage
   logoLink: 'https://onepointltd.com/',
   // Optional title
-  title: 'Data Assessment Companion',
+  title: 'Data Wellness Self-diagnostic',
   // Number of history messages to load. 0 means no history.
   historySize: 10,
   // The socket to where to connect.

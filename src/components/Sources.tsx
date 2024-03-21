@@ -26,7 +26,7 @@ export default function Sources({ message }: { message: Message }) {
 
   if (!!message.sources) {
     return (
-      <div className="text-sm text-gray-400 mt-2">
+      <div className="text-sm gray-color mt-2">
         Sources:{' '}
         <span
           dangerouslySetInnerHTML={{

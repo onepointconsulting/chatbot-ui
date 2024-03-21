@@ -12,3 +12,7 @@
   @apply flex flex-col overflow-hidden w-full bg-white hover:bg-gray-50 px-4 py-2 rounded-2xl border-gray-300 border cursor-pointer font-sans
     transition duration-200 hover:scale-105;
 }
+
+.buttons-black-border {
+  @apply rounded-full border-2 border-black;
+}

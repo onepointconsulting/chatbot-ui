@@ -10,14 +10,13 @@ function showClearDialog() {
 export default function ClearButton() {
   return (
     <button
-      className="flex-none h-10 ml-1 mr-2 my-auto hover:transform rounded-2xl hover:bg-scale-100 hover:duration-200 outline-0"
+      className="flex-none h-10 ml-1 mr-2 my-auto hover:transform rounded-2xl hover:bg-scale-100 outline-0 hover:duration-200"
       onClick={showClearDialog}
     >
       <img
-        src="/clear.svg"
+        src="/start.svg"
         alt="Clear"
         title="clear the chat"
-        style={{ width: '38px' }}
       />
     </button>
   );

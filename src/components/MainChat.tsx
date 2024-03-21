@@ -14,7 +14,7 @@ import ClearDialog from './dialogs/ClearDialog.tsx';
 import SuggestedResponsePanel from './SuggestedResponsePanel.tsx';
 import ConfigDialog from './dialogs/ConfigDialog.tsx';
 import { ConfigContext } from '../context/ConfigContext.tsx';
-import {Message} from "../model/message.ts";
+import { Message } from '../model/message.ts';
 
 export function scrollToBottom(scrollBehavior: string = 'auto') {
   const chatContainer = document.querySelector('.chat-container');

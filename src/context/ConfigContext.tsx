@@ -23,7 +23,7 @@ function resetQuizzModes(quizzModes: QuizMode[]) {
   });
 }
 
-const DEFAULT_TOPIC_STATE = false
+const DEFAULT_TOPIC_STATE = false;
 
 function configReducer(state: ConfigState, action: ConfigAction): ConfigState {
   switch (action.type) {
@@ -56,11 +56,11 @@ function configReducer(state: ConfigState, action: ConfigAction): ConfigState {
         }),
       };
     case 'resetTopics': {
-      const newStatus = !state.topics.some(t => t.checked)
+      const newStatus = !state.topics.some((t) => t.checked);
       return {
         ...state,
         topics: state.topics.map((topic: Topic) => {
-          return {name: topic.name, checked: newStatus};
+          return { name: topic.name, checked: newStatus };
         }),
         quizzModes: resetQuizzModes(state.quizzModes),
       };

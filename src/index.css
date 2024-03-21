@@ -23,7 +23,8 @@ html {
   -webkit-backface-visibility: hidden;
 }
 
-.user-chat-message, .chat-header {
+.user-chat-message,
+.chat-header {
   background-color: #0084d7;
 }
 

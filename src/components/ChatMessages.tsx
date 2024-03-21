@@ -132,9 +132,7 @@ function MessageDisplay({
       <div
         className={`${
           message.isUser ? 'user-chat-message text-white my-8' : ''
-        } chat-message py-4 flex flex-row ${processHighlighting(
-          message,
-        )}`}
+        } chat-message py-4 flex flex-row ${processHighlighting(message)}`}
       >
         {/* User profile/avatar */}
         <div className="flex-none mt-3 ml-4 text-sm text-center text-gray-500 min-w-24">

@@ -1,6 +1,8 @@
 const protocol = 'http';
 const port = 8083;
+// const port = 8085;
 const server = 'localhost';
+// const server = '176.34.128.143';
 
 const dataAssessmentConfig = {
   streaming: false,

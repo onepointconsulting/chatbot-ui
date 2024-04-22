@@ -6,7 +6,7 @@ import { useWebsocket } from '../hooks/useWebsocket.ts';
 import AppInfo from './AppInfo.tsx';
 import Messages from './ChatMessages.tsx';
 import ErrorMessage from './ErrorMessage.tsx';
-import SearchInput from './SearchInput.tsx';
+import ChatInput from './ChatInput.tsx';
 import Spinner from './Spinner.tsx';
 import loadHistory from '../lib/history.ts';
 import { debounce } from 'lodash';
@@ -108,7 +108,7 @@ export default function MainChat() {
         />
       )}
       {/* Search input */}
-      <SearchInput />
+      <ChatInput />
     </>
   );
 }

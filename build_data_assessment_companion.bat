@@ -1,5 +1,6 @@
 SET CONFIG=..\config\dataAssessmentConfig.js
 SET BUILD_NAME=chat_build_data_assessment_companion.zip
+REM Just in case the UI folder exists on your computer
 SET UI_FOLDER=C:\development\playground\agents\data_assessment_agent\ui
 
 call yarn run build

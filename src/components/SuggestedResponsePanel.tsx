@@ -3,7 +3,7 @@ import { useContext } from 'react';
 import { MessageContext } from '../context/MessageContext.tsx';
 import { ChatContext } from '../context/ChatContext.tsx';
 import { handleMessageDispatch } from './MainChat.tsx';
-import { textSignal } from './SearchInput.tsx';
+import { textSignal } from './ChatInput.tsx';
 import sendWSMessage from '../lib/websocketClient.ts';
 import BackToBottom from './BackToBottom.tsx';
 

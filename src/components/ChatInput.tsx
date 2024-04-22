@@ -37,7 +37,7 @@ function StopStreaming() {
   );
 }
 
-export default function SearchInput() {
+export default function ChatInput() {
   const { streaming, socket, historySize } = useContext(ChatContext);
   const { state, dispatch } = useContext(MessageContext);
   const { connected, isLoading } = state;
@@ -57,18 +57,20 @@ export default function SearchInput() {
 
   // Send message on enter
   function sendEnterMessage(e: React.KeyboardEvent<HTMLTextAreaElement>) {
+    const value = textSignal.value;
     if (
       !e.shiftKey &&
       e.key === 'Enter' &&
-      textSignal.value.trim().length > 0
+      value.trim().length > 0
     ) {
       sendMessage();
       resetHeight();
     } else {
       const el = e.target as HTMLTextAreaElement;
-      if (textSignal.value.includes('\n')) {
-        textAreaRef.current!.style.height = `auto`;
-        textAreaRef.current!.style.height = `${el.scrollHeight}px`;
+      if (value.includes('\n')) {
+        const style = textAreaRef.current!.style;
+        style.height = `auto`;
+        style.height = `${el.scrollHeight}px`;
       } else {
         resetHeight();
       }

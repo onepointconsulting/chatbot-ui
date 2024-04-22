@@ -8,10 +8,16 @@ export function saveSession(session: Session) {
 export function getSession(): Session | null {
   const session = localStorage.getItem(SESSION_KEY);
   if (session) {
-    const sessionObj = JSON.parse(session);
-    if (typeof sessionObj.timestamp === 'string') {
-      sessionObj.timestamp = new Date(sessionObj.date);
-      return sessionObj as Session;
+    try {
+      const sessionObj = JSON.parse(session);
+      if (typeof sessionObj.timestamp === 'string') {
+        return {
+          id: sessionObj.id,
+          timestamp: new Date(sessionObj.timestamp),
+        };
+      }
+    } catch (e) {
+      console.error('Error getting session from local storage', e)
     }
   }
   return null;

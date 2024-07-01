@@ -58,11 +58,7 @@ export default function ChatInput() {
   // Send message on enter
   function sendEnterMessage(e: React.KeyboardEvent<HTMLTextAreaElement>) {
     const value = textSignal.value;
-    if (
-      !e.shiftKey &&
-      e.key === 'Enter' &&
-      value.trim().length > 0
-    ) {
+    if (!e.shiftKey && e.key === 'Enter' && value.trim().length > 0) {
       sendMessage();
       resetHeight();
     } else {

@@ -17,7 +17,7 @@ export function getSession(): Session | null {
         };
       }
     } catch (e) {
-      console.error('Error getting session from local storage', e)
+      console.error('Error getting session from local storage', e);
     }
   }
   return null;

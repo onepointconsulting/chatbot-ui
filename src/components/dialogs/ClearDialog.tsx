@@ -17,7 +17,7 @@ export function DeleteCheckbox({
   labelText,
   memberId,
   boolSignal,
-  disabled = false
+  disabled = false,
 }: {
   labelText: string;
   memberId: string;

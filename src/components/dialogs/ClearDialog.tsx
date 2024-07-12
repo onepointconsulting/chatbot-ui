@@ -17,10 +17,12 @@ export function DeleteCheckbox({
   labelText,
   memberId,
   boolSignal,
+  disabled = false
 }: {
   labelText: string;
   memberId: string;
   boolSignal: Signal<boolean>;
+  disabled?: boolean;
 }) {
   return (
     <div className="mb-1">
@@ -29,6 +31,7 @@ export function DeleteCheckbox({
         checked={boolSignal.value}
         onChange={() => (boolSignal.value = !boolSignal.value)}
         id={memberId}
+        disabled={disabled}
       />{' '}
       <label htmlFor={memberId} className="cursor-pointer">
         {labelText}
@@ -73,6 +76,8 @@ export default function ClearDialog({}) {
     onClose();
   }
 
+  const buttonDisabled = !deleteHistory.value && !deleteSession.value;
+
   return (
     <dialog data-model={true} id={CLEAR_DIALOG_ID} className="chatbot-dialog">
       <div className="my-2">
@@ -82,6 +87,7 @@ export default function ClearDialog({}) {
         boolSignal={deleteHistory}
         labelText="Delete history"
         memberId={deleteHistoryCheckId}
+        disabled={deleteSession.value}
       />
       {supportsSession && (
         <DeleteCheckbox
@@ -98,7 +104,7 @@ export default function ClearDialog({}) {
         >
           Close
         </button>
-        <button onClick={onOk} className="button-ok">
+        <button onClick={onOk} className="button-ok" disabled={buttonDisabled}>
           Ok
         </button>
       </div>

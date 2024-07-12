@@ -7,14 +7,16 @@ export const showProgressChart = signal(true);
 
 export const showLightBox = signal(false);
 
+const SHOW_THRESHOLD = 3;
+
 /**
  * Displays a chart representing the progress of the user.
  * @constructor
  */
 export default function ProgressSection() {
   const { data, session, progressImages } = useProgressIndicator();
-  if (!session || data.length < 2) {
-    return <> </>;
+  if (!session || data.length < SHOW_THRESHOLD) {
+    return <div className="flex flex-row items-start h-full bg-white"></div>;
   }
   return (
     <div className="flex flex-row items-start h-full bg-white">

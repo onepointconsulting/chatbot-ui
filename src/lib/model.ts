@@ -16,6 +16,7 @@ export type State = {
   isLoading: boolean;
   error?: string;
   connected: boolean;
+  finished: boolean;
 };
 
 export type UploadedFile = {

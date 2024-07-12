@@ -50,10 +50,12 @@ export function messageReducer(state: State, action: Action): State {
         lastMessage.suggestedResponses !== action.message.suggestedResponses
       ) {
         saveHistory(action.message);
+        const finished = action.message.finishedTopicCount === action.message.topicTotal
         return {
           ...state,
           isLoading: action.type === request,
           data: [...state.data, action.message],
+          finished
         };
       }
       return {
@@ -103,7 +105,7 @@ export function messageReducer(state: State, action: Action): State {
 }
 
 export const MessageContext = createContext<MessageContextProps>({
-  state: { data: [], isLoading: false, connected: false, error: '' },
+  state: { data: [], isLoading: false, connected: false, error: '', finished: false },
   dispatch: () => null,
 });
 
@@ -113,6 +115,7 @@ export const MessageContextProvider = ({ children }: Props) => {
     isLoading: false,
     connected: false,
     error: '',
+    finished: false,
   });
 
   return (

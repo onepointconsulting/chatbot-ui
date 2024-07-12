@@ -6,7 +6,6 @@ import { Session } from '../../model/session.ts';
 
 export default function ReportDownload() {
   const { reportUrl } = useContext(ChatContext);
-
   function downloadReport() {
     if (reportUrl) {
       const session: Session | null = getSession();

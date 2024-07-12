@@ -1,8 +1,8 @@
 const protocol = 'http';
-// const port = 8083;
-const port = 8085;
-// const server = 'localhost';
-const server = '176.34.128.143';
+const port = 8083;
+// const port = 8085;
+const server = 'localhost';
+// const server = '176.34.128.143';
 
 const dataAssessmentConfig = {
   streaming: false,
@@ -16,7 +16,7 @@ const dataAssessmentConfig = {
   // External link to a webpage
   logoLink: 'https://onepointltd.com/',
   // Optional title
-  title: 'Data Wellness Self-diagnostic',
+  title: 'D-Wise',
   // Number of history messages to load. 0 means no history.
   historySize: 10,
   // The socket to where to connect.

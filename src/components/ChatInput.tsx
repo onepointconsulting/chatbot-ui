@@ -135,7 +135,7 @@ export default function ChatInput() {
       {historySize && historySize > 0 ? (
         <>
           <ClearButton />
-          <ReportDownload />
+          {state.finished && !isLoading && <ReportDownload/>}
         </>
       ) : (
         <></>

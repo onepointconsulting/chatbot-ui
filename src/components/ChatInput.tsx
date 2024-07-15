@@ -38,13 +38,13 @@ function StopStreaming() {
 }
 
 function chatInputPlaceholder(isLoading: boolean, finished: boolean) {
-  if(isLoading) {
+  if (isLoading) {
     return 'Loading...';
   }
-  if(finished) {
-    return "D-Wise finished. Please restart D-Wise press the restart button."
+  if (finished) {
+    return 'D-Wise finished. Please restart D-Wise press the restart button.';
   }
-  return "Type your message here and press ENTER..."
+  return 'Type your message here and press ENTER...';
 }
 
 export default function ChatInput() {

@@ -37,6 +37,16 @@ function StopStreaming() {
   );
 }
 
+function chatInputPlaceholder(isLoading: boolean, finished: boolean) {
+  if(isLoading) {
+    return 'Loading...';
+  }
+  if(finished) {
+    return "D-Wise finished. Please restart D-Wise press the restart button."
+  }
+  return "Type your message here and press ENTER..."
+}
+
 export default function ChatInput() {
   const { streaming, socket, historySize } = useContext(ChatContext);
   const { state, dispatch } = useContext(MessageContext);
@@ -83,11 +93,11 @@ export default function ChatInput() {
           aria-invalid="false"
           autoComplete="false"
           id="chat-input"
-          placeholder="Type your message here and press ENTER..."
+          placeholder={chatInputPlaceholder(isLoading, state.finished)}
           value={textSignal.value}
           onChange={(e) => (textSignal.value = e.target.value)}
           onKeyUp={sendEnterMessage}
-          disabled={isLoading || !connected}
+          disabled={state.finished || isLoading || !connected}
           className="block w-full h-12 px-2 py-2 m-3 overflow-hidden text-sm text-gray-900 rounded-lg resize-none md:py-3 max-h-44 outline outline-offset-2 outline-1 focus:outline-offset-2 focus:outline-2 outline-gray-400"
           ref={textAreaRef}
         ></textarea>

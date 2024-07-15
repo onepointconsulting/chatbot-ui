@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react';
+import {useContext, useMemo, useState} from 'react';
 import { Socket } from 'socket.io-client';
 import { ChatContext } from '../context/ChatContext.tsx';
 import { MessageContext } from '../context/MessageContext.tsx';
@@ -232,7 +232,7 @@ function MessageDisplay({
 export default function Messages() {
   const { botName, uploadedFilesUrl, socket } = useContext(ChatContext);
   const { state } = useContext(MessageContext);
-  const messagesLength = state?.data.length || 0;
+  const messagesLength = useMemo(() => state?.data.length || 0, [state?.data])
   return (
     <>
       {state?.data.map((message: Message, index: number) => {

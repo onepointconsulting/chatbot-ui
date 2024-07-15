@@ -47,15 +47,16 @@ export function messageReducer(state: State, action: Action): State {
       if (
         typeof lastMessage === 'undefined' ||
         lastMessage.text !== action.message.text ||
-        lastMessage.suggestedResponses !== action.message.suggestedResponses
+        lastMessage.suggestedResponses?.join("\n") !== action.message.suggestedResponses?.join("\n")
       ) {
-        saveHistory(action.message);
-        const finished =
-          action.message.finishedTopicCount === action.message.topicTotal;
+        const message = action.message
+        saveHistory(message);
+        const finished = message.finishedTopicCount === message.topicTotal
+          && message.questionCount === message.totalQuestionsInTopic && message.text.includes('Thank you for');
         return {
           ...state,
           isLoading: action.type === request,
-          data: [...state.data, action.message],
+          data: [...state.data, message],
           finished,
         };
       }

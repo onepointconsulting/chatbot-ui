@@ -92,7 +92,8 @@ export function messageReducer(state: State, action: Action): State {
     case 'clearFailure':
       return { ...state, error: '' };
     case 'clear':
-      return { ...state, isLoading: false, data: [], error: '' };
+      const newData = state.data.length > 0 ? [state.data[state.data.length - 1]] : []
+      return { ...state, isLoading: false, data: newData, error: '' };
     case 'connect':
       return { ...state, connected: true, error: '' };
     case 'disconnect':

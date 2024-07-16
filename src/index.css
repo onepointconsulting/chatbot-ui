@@ -1,6 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap');
 @import url('css/components/buttons.css');
 @import url('css/components/dialog.css');
+@import url('css/markdown.css');
 @import url('css/colors.css');
 
 @tailwind base;
@@ -68,24 +69,6 @@ html {
 /** Font related **/
 body {
   font-family: 'Lato', sans-serif;
-}
-
-/** Markdown related **/
-
-.markdown-body li p,
-.markdown-body p {
-  white-space: pre-wrap;
-}
-
-.markdown-body img {
-  max-width: 1280px;
-  width: 58%; /* Reduced the image size which render in the chat response */
-  margin: auto;
-  display: block;
-}
-
-.markdown-body ul {
-  list-style-type: '- ';
 }
 
 ::-webkit-scrollbar {

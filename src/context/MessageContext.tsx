@@ -37,12 +37,19 @@ function appendToken(
   return copy;
 }
 
+function isFinished(message: Message) {
+  return message.finishedTopicCount === message.topicTotal &&
+    message.questionCount === message.totalQuestionsInTopic &&
+    message.text.includes('Thank you for');
+}
+
 export function messageReducer(state: State, action: Action): State {
   const request = 'request';
 
   switch (action.type) {
     case 'request':
     case 'success': {
+      const message = action.message;
       const lastMessage = state.data[state.data.length - 1];
       if (
         typeof lastMessage === 'undefined' ||
@@ -50,12 +57,8 @@ export function messageReducer(state: State, action: Action): State {
         lastMessage.suggestedResponses?.join('\n') !==
           action.message.suggestedResponses?.join('\n')
       ) {
-        const message = action.message;
         saveHistory(message);
-        const finished =
-          message.finishedTopicCount === message.topicTotal &&
-          message.questionCount === message.totalQuestionsInTopic &&
-          message.text.includes('Thank you for');
+        const finished = isFinished(message);
         return {
           ...state,
           isLoading: action.type === request,
@@ -63,8 +66,10 @@ export function messageReducer(state: State, action: Action): State {
           finished,
         };
       }
+      const finished = isFinished(message);
       return {
         ...state,
+        finished
       };
     }
     case 'startStreaming':
@@ -92,7 +97,8 @@ export function messageReducer(state: State, action: Action): State {
     case 'clearFailure':
       return { ...state, error: '' };
     case 'clear':
-      const newData = state.data.length > 0 ? [state.data[state.data.length - 1]] : []
+      const newData =
+        state.data.length > 0 ? [state.data[state.data.length - 1]] : [];
       return { ...state, isLoading: false, data: newData, error: '' };
     case 'connect':
       return { ...state, connected: true, error: '' };

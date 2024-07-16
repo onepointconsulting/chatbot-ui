@@ -172,7 +172,7 @@ function MessageDisplay({
               message,
             )}`}
           >
-            <section>
+            <section className="w-full">
               <MarkdownSection content={message.text} userStyle={userStyle} />
               {!!uploadedFilesUrl && <Sources message={message} />}
             </section>

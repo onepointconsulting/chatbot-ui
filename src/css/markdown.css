@@ -1,25 +1,28 @@
-
 /** Markdown related **/
 
 .markdown-body li p,
 .markdown-body p {
-    white-space: pre-wrap;
+  white-space: pre-wrap;
 }
 
 .markdown-body img {
-    max-width: 1280px;
-    margin: auto;
-    display: block;
+  max-width: 1280px;
+  margin: auto;
+  display: block;
 }
 
 .markdown-body ul {
-    list-style-type: '- ';
+  list-style-type: '- ';
 }
 
 .markdown-body table {
-    @apply mt-6
+  @apply mt-6;
+}
+
+.markdown-body table td strong {
+  @apply text-center block;
 }
 
 .markdown-body img {
-    @apply w-full md:w-[80%] md:max-w-[1024px]
+  @apply w-full md:w-[80%] md:max-w-[1024px];
 }

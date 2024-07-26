@@ -1,4 +1,5 @@
 const protocol = 'http';
+const websocketProtocol = 'ws';
 const port = 8083;
 // const port = 8085;
 const server = 'localhost';
@@ -20,7 +21,7 @@ const dataAssessmentConfig = {
   // Number of history messages to load. 0 means no history.
   historySize: 10,
   // The socket to where to connect.
-  websocketUrl: `ws://${server}:${port}`,
+  websocketUrl: `${websocketProtocol}://${server}:${port}`,
   sourceDownloadUrl: `${protocol}://${server}:${port}/files`,
   reportUrl: `${protocol}://${server}:${port}/report`,
   uploadUrl: `${protocol}://${server}:${port}/upload`,

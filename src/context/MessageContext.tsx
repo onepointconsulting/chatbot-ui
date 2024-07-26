@@ -38,9 +38,11 @@ function appendToken(
 }
 
 function isFinished(message: Message) {
-  return message.finishedTopicCount === message.topicTotal &&
+  return (
+    message.finishedTopicCount === message.topicTotal &&
     message.questionCount === message.totalQuestionsInTopic &&
-    message.text.includes('Thank you for');
+    message.text.includes('Thank you for')
+  );
 }
 
 export function messageReducer(state: State, action: Action): State {
@@ -69,7 +71,7 @@ export function messageReducer(state: State, action: Action): State {
       const finished = isFinished(message);
       return {
         ...state,
-        finished
+        finished,
       };
     }
     case 'startStreaming':

@@ -81,7 +81,7 @@ function CopyButton({ message }: { message: Message }) {
   );
 }
 
-const highlightColor = 'bg-white';
+const highlightColor = 'bg-[#f6f6f6]';
 
 function processHighlighting(message: Message) {
   return message.isUser ? '' : highlightColor;
@@ -117,7 +117,7 @@ function MessageDisplay({
 }) {
   const { socket, streaming, showRefreshButton } = useContext(ChatContext);
   const { dispatch } = useContext(MessageContext);
-  const userStyle = message.isUser ? 'text-white' : '';
+  const userStyle = message.isUser ? 'text-[#4a4a4a]' : '';
 
   // Not fixed yet. onsubmit is not picking up the text value
   function reSubmit() {
@@ -128,26 +128,26 @@ function MessageDisplay({
   }
 
   return (
-    <section className="mx-2 lg:mx-5 mt-2" key={`message_${index}`}>
+    <section className="" key={`message_${index}`}>
       <div
         className={`${
-          message.isUser ? 'user-chat-message text-white my-8' : ''
-        } chat-message py-4 flex flex-row ${processHighlighting(message)}`}
+          message.isUser ? 'user-chat-message text-[#4a4a4a]' : ''
+        } chat-message flex flex-row gap-2 p-4 ${processHighlighting(message)}`}
       >
         {/* User profile/avatar */}
-        <div className="flex-none mt-3 ml-4 text-sm text-center text-gray-500 min-w-24">
+        <div className="flex-none text-sm text-center text-gray-500 min-w-24">
           <img
-            src={message.isUser ? '/user.png' : '/bot.png'}
+            src={message.isUser ? '/d-wise-user.svg' : '/d-wise-bot.svg'}
             alt={message.isUser ? 'user' : botName}
-            className="w-6 h-6 mx-auto md:w-8 md:h-8"
+            className="w-5 h-6 mx-auto md:w-7 md:h-8"
           />
         </div>
 
-        <div className="mr-5 grow">
+        <div className="grow flex flex-col gap-2">
           {/* Username/date */}
-          <div className="flex flex-col ml-3 w-full">
+          <div className="flex flex-col w-full text-[#4a4a4a]">
             <div
-              className={`${userStyle} flex flex-row justify-between mt-3 w-full`}
+              className={`${userStyle} flex flex-row justify-between w-full`}
             >
               <span className="text-sm font-bold">
                 {message.isUser ? 'You' : topicAdapter(message, botName)}
@@ -168,7 +168,7 @@ function MessageDisplay({
 
           {/* Response text */}
           <div
-            className={`chat-message flex flex-row mt-1 mx-3 ${processHighlighting(
+            className={`chat-message flex flex-row ${processHighlighting(
               message,
             )}`}
           >
@@ -182,7 +182,7 @@ function MessageDisplay({
           {!message.isUser && (
             <div className="float-left w-full">
               {/* Copy button */}
-              <div className="flex justify-start py-3 mx-3">
+              <div className="flex justify-start">
                 {!message.clarification && isLast && (
                   <ClarifyButton message={message} />
                 )}

@@ -25,7 +25,7 @@ export default function SuggestedResponsePanel({
   return (
     <>
       <BackToBottom />
-      <div className="grid w-full grid-flow-row grid-cols-[repeat(auto-fit,minmax(250px,1fr))] gap-2 mt-2 box-border pl-1 pr-3 lg:pl-5 lg:pr-8">
+      <div className="grid w-full grid-flow-row grid-cols-[repeat(auto-fit,minmax(250px,1fr))] gap-2 p-4 box-border">
         {possibleResponses.map((response, index) => (
           <button
             onClick={() => handleSuggestedResponseClick(response)}
@@ -33,7 +33,7 @@ export default function SuggestedResponsePanel({
             className={`button-possible-response`}
             title={response.body}
           >
-            <div className="text-left w-full">
+            <div className="text-left w-full text-[#4a4a4a] hover:text-[#0084d7]">
               <div className="font-bold text-base">{response.title}</div>
               <div className="truncate text-sm opacity-50">
                 {response.subtitle ?? response.body}

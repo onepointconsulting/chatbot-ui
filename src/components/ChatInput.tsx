@@ -21,8 +21,8 @@ function SendButton({
   }
   return (
     <button
-      className={`flex-none mr-2 my-auto rounded-full hover:transform hover:bg-scale-100 hover:duration-200 ${
-        disabled ? 'bg-gray-500' : 'bg-gray-color'
+      className={`flex-none my-auto hover:transform hover:bg-scale-100 hover:duration-200 ${
+        disabled ? 'bg-[#a6a6a6]' : 'bg-gray-color'
       }`}
       disabled={disabled}
       onClick={sendMessage}
@@ -142,8 +142,8 @@ export default function ChatInput() {
   );
 
   return (
-    <div className="sticky bottom-0 flex w-full gap-2 mt-2 bg-white chat-input rounded-tr-3xl rounded-tl-3xl">
-      <div className="relative w-full mr-4">
+    <div className="sticky bottom-0 flex w-full gap-4 p-4 chat-input">
+      <div className="relative w-full">
         <textarea
           aria-invalid="false"
           autoComplete="false"
@@ -153,7 +153,7 @@ export default function ChatInput() {
           onChange={(e) => (textSignal.value = e.target.value)}
           onKeyUp={sendEnterMessage}
           disabled={state.finished || isLoading || !connected}
-          className="block w-full h-12 px-2 py-2 m-3 overflow-hidden text-sm text-gray-900 rounded-lg resize-none md:py-3 max-h-44 outline outline-offset-2 outline-1 focus:outline-offset-2 focus:outline-2 outline-gray-400"
+          className="block w-full h-12 p-2 overflow-hidden text-sm text-gray-900 resize-none md:py-3 max-h-44 outline outline-1 focus:outline-offset-2 focus:outline-2 outline-[#4a4a4a]"
           ref={textAreaRef}
         ></textarea>
         {/* Stop streaming */}

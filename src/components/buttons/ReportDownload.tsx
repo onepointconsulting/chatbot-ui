@@ -18,7 +18,7 @@ export default function ReportDownload() {
   if (!reportUrl) return <></>;
   return (
     <button
-      className="my-auto p-2 mr-2 buttons-black-border"
+      className="my-auto p-2 buttons-black-border"
       onClick={downloadReport}
     >
       <FaDownload size={20} title="Download report" />

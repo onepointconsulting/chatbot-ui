@@ -19,7 +19,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   const { state: configState } = useContext(ConfigContext);
   const { initConfig } = configState;
   return (
-    <section className="flex flex-col bg-[#E6F3FB]">
+    <section className="flex flex-col">
       <section className="flex flex-row">
         {showSidebar && (
           <div

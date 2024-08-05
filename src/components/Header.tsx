@@ -18,7 +18,7 @@ function Logo({
   logoLink?: string;
 }) {
   const logoImageElement = !!logoImage && (
-    <img src={logoImage} alt="logo" className="h-8 m-1 pr-2 md:h-10" />
+    <img src={logoImage} alt="logo" className="w-52" />
   );
 
   return (
@@ -49,13 +49,13 @@ export default function Header({
 }: HeaderType) {
   const { showSidebar } = useContext(ChatContext);
   return (
-    <div className="flex justify-between w-full p-2 chat-header">
+    <div className="flex justify-between w-full p-4 chat-header">
       {/* Logo */}
       <div className="block xl:flex xl:flex-row">
         <Logo logoLink={logoLink} logoImage={logoImage} />
-        <h2 className="ml-3 text-2xl md:text-3xl lg:text-4xl font-bold text-white logo-title">
+        {/* <h2 className="ml-3 text-2xl md:text-3xl lg:text-4xl font-bold text-white logo-title">
           {title}
-        </h2>
+        </h2> */}
       </div>
 
       {/* Sidebar and mobile menu */}
@@ -82,7 +82,7 @@ export default function Header({
       )}
 
       {/* Server status */}
-      <span className="hidden text-sm text-white sm:block">
+      <span className="hidden text-sm sm:block">
         {connected === null
           ? ''
           : connected === true

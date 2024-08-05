@@ -1,8 +1,8 @@
-const protocol = 'http';
-const websocketProtocol = 'ws';
-const port = 8083;
+const protocol = 'https';
+const websocketProtocol = 'wss';
+const port = 443;
 // const port = 8085;
-const server = 'localhost';
+const server = 'd-wise.onepointltd.ai';
 // const server = '176.34.128.143';
 
 const dataAssessmentConfig = {
@@ -13,7 +13,7 @@ const dataAssessmentConfig = {
   showRefreshButton: false,
   botName: 'Data Assessment', // Name of the bot
   // Optional logo
-  logoImage: '/logo-one-point-white.png',
+  logoImage: '/logo.svg',
   // External link to a webpage
   logoLink: 'https://onepointltd.com/',
   // Optional title

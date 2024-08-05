@@ -12,6 +12,11 @@
   --animtime: 0.25s;
 }
 
+#root {
+  @apply flex flex-col
+  bg-gradient-to-b from-[#ffffff] from-15% to-[#edf7fc] min-h-screen gap-10;
+}
+
 html {
   scroll-behavior: smooth;
 }
@@ -24,9 +29,9 @@ html {
   -webkit-backface-visibility: hidden;
 }
 
-.user-chat-message,
-.chat-header {
-  background-color: #0084d7;
+.user-chat-message/** ,
+.chat-header **/{
+  background-color: #E6F3FB;
 }
 
 .gray-color {

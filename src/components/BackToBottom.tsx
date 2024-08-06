@@ -45,7 +45,7 @@ export default function BackToBottom() {
     <div className="relative">
       {!chatAtBottom.value && (
         <button
-          className="absolute left-1/2 bottom-[4rem] z-10 hover:scale-105 hover:duration-200 transform text-gray-600 border rounded-full cursor-pointer bg-[#0084d7]"
+          className="absolute left-1/2 bottom-8 z-10 hover:scale-105 hover:duration-200 transform text-gray-600 border cursor-pointer bg-[#0084d7]"
           onClick={() => scrollToBottom('smooth')}
           title="Back to bottom"
         >

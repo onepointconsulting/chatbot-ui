@@ -1,5 +1,5 @@
 import { signal } from '@preact/signals-react';
-import { FaCcDiscover, FaMinus } from 'react-icons/fa';
+import { FaMinus, FaChartPie } from 'react-icons/fa';
 import useProgressIndicator from '../hooks/useProgressIndicator.ts';
 import LightboxProgressSlider from './LightboxProgressSlider.tsx';
 
@@ -16,15 +16,15 @@ const SHOW_THRESHOLD = 3;
 export default function ProgressSection() {
   const { data, session, progressImages } = useProgressIndicator();
   if (!session || data.length < SHOW_THRESHOLD) {
-    return <div className="flex flex-row items-start h-full bg-white"></div>;
+    return <div className="flex flex-row items-center bg-white"></div>;
   }
   return (
-    <div className="flex flex-row items-start h-full bg-white">
+    <div className="flex flex-row items-center">
       <div>
         {showProgressChart.value && (
           <img
             src={progressImages[0].url}
-            className="w-full h-auto opacity-75 cursor-pointer"
+            className="w-full h-auto opacity-75 cursor-pointer p-4 m-4 border border-[#d9d9d9] bg-white"
             alt="Progress Indicator"
             onClick={() => {
               showLightBox.value = true;
@@ -37,15 +37,15 @@ export default function ProgressSection() {
         >
           {showProgressChart.value && (
             <FaMinus
-              className="absolute top-0 text-gray-500 right-0 m-2 cursor-pointer"
+              className="absolute top-0 text-[#4a4a4a] right-0 m-8 mt-12 cursor-pointer"
               size={20}
               title="Hide progress"
             />
           )}
           {!showProgressChart.value && (
-            <FaCcDiscover
-              className="absolute text-white top-0 right-0 m-2 cursor-pointer mt-8"
-              size={20}
+            <FaChartPie
+              className="absolute text-[#4a4a4a] top-0 right-0 m-4 cursor-pointer mt-12"
+              size={30}
               title="Show progress"
             />
           )}

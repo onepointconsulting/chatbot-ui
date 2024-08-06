@@ -42,7 +42,6 @@ function onMenuHeaderClick(e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) {
 }
 
 export default function Header({
-  title,
   logoImage,
   logoLink,
   connected,
@@ -53,9 +52,6 @@ export default function Header({
       {/* Logo */}
       <div className="block xl:flex xl:flex-row">
         <Logo logoLink={logoLink} logoImage={logoImage} />
-        {/* <h2 className="ml-3 text-2xl md:text-3xl lg:text-4xl font-bold text-white logo-title">
-          {title}
-        </h2> */}
       </div>
 
       {/* Sidebar and mobile menu */}
@@ -82,7 +78,7 @@ export default function Header({
       )}
 
       {/* Server status */}
-      <span className="hidden text-sm sm:block">
+      <span className="text-sm block">
         {connected === null
           ? ''
           : connected === true

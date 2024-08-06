@@ -33,7 +33,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         <section
           className={`flex flex-col ${
             !initConfig && showProgressChart.value
-              ? 'w-full md:w-3/4 lg:w-4/6 xl:w-7/12'
+              ? 'w-full md:w-3/5 xl:w-[59%]'
               : 'w-full'
           } chat-main`}
         >
@@ -50,7 +50,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
             <section
               className={`${
                 showProgressChart.value
-                  ? 'hidden md:block md:w-1/4 lg:w-2/6  xl:w-5/12'
+                  ? 'hidden md:block md:w-[37%] xl:w-[39%]'
                   : ''
               }`}
             >

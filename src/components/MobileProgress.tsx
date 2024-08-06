@@ -5,7 +5,7 @@ import { showLightBox } from './ProgressSection.tsx';
 export default function MobileProgress() {
   const { session, progressImages } = useProgressIndicator();
   return (
-    <div className="block md:hidden absolute right-0">
+    <div className="block md:hidden absolute right-0 m-4 py-4">
       {session && (
         <img
           src={progressImages[0].url}

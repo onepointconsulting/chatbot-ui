@@ -41,11 +41,7 @@ function onMenuHeaderClick(e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) {
   menuHeaderExpanded.value = !menuHeaderExpanded.value;
 }
 
-export default function Header({
-  logoImage,
-  logoLink,
-  connected,
-}: HeaderType) {
+export default function Header({ logoImage, logoLink, connected }: HeaderType) {
   const { showSidebar } = useContext(ChatContext);
   return (
     <div className="flex justify-between w-full p-4 chat-header">

@@ -37,7 +37,7 @@ export default function ProgressSection() {
         >
           {showProgressChart.value && (
             <FaMinus
-              className="absolute top-0 text-[#4a4a4a] right-0 m-8 mt-12 cursor-pointer"
+              className="absolute top-0 text-[#4a4a4a] right-6 m-8 cursor-pointer"
               size={20}
               title="Hide progress"
             />

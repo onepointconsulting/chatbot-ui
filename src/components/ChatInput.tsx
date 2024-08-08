@@ -22,15 +22,14 @@ function SendButton({
   return (
     <button
       className={`w-12 h-12 p-1 border ${
-        disabled ? 'border-[#4a4a4a] fill-[#4a4a4a]' : 'border-[#0084d7] fill-[#0084d7]'
+        disabled
+          ? 'border-[#4a4a4a] fill-[#4a4a4a]'
+          : 'border-[#0084d7] fill-[#0084d7]'
       }`}
       disabled={disabled}
       onClick={sendMessage}
     >
-      <svg
-        viewBox="0 0 42 42"
-        xmlns="http://www.w3.org/2000/svg"
-      >
+      <svg viewBox="0 0 42 42" xmlns="http://www.w3.org/2000/svg">
         <g clipPath="url(#clip0_7_30)">
           <path
             fillRule="evenodd"

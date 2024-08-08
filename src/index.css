@@ -30,8 +30,8 @@ html {
 }
 
 .user-chat-message/** ,
-.chat-header **/{
-  background-color: #E6F3FB;
+.chat-header **/ {
+  background-color: #e6f3fb;
 }
 
 .gray-color {

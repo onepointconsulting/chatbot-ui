@@ -14,8 +14,7 @@ function toggleExpanded() {
 }
 
 export default function Layout({ children }: { children: React.ReactNode }) {
-  const { title, logoImage, logoLink, isConnected, showSidebar } =
-    useContext(ChatContext);
+  const { title, isConnected, showSidebar } = useContext(ChatContext);
   const { state: configState } = useContext(ConfigContext);
   const { initConfig } = configState;
   return (
@@ -37,12 +36,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
               : 'w-full'
           } chat-main`}
         >
-          <Header
-            title={title}
-            logoImage={logoImage}
-            logoLink={logoLink}
-            connected={isConnected}
-          />
+          <Header title={title} connected={isConnected} />
           {children}
         </section>
         {!initConfig && (

@@ -12,9 +12,9 @@ import loadHistory from '../lib/history.ts';
 import { debounce } from 'lodash';
 import ClearDialog from './dialogs/ClearDialog.tsx';
 import SuggestedResponsePanel from './SuggestedResponsePanel.tsx';
-import ConfigDialog from './dialogs/ConfigDialog.tsx';
 import { ConfigContext } from '../context/ConfigContext.tsx';
 import { Message } from '../model/message.ts';
+import ConfigScreen from './config/ConfigScreen.tsx';
 
 export function scrollToBottom(scrollBehavior: string = 'auto') {
   const chatContainer = document.querySelector('.chat-container');
@@ -79,7 +79,7 @@ export default function MainChat() {
   const handleHeader = streaming && !isLoading;
 
   if (initConfig) {
-    return <ConfigDialog />;
+    return <ConfigScreen />;
   }
 
   return (

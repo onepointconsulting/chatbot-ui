@@ -2,37 +2,12 @@ import { signal } from '@preact/signals-react';
 import SideMenu from './SideMenu.tsx';
 import { useContext } from 'react';
 import { ChatContext } from '../context/ChatContext.tsx';
+import Logo from './Logo.tsx';
 
 type HeaderType = {
   title?: string;
-  logoImage?: string;
-  logoLink?: string;
   connected?: boolean;
 };
-
-function Logo({
-  logoImage,
-  logoLink,
-}: {
-  logoImage?: string;
-  logoLink?: string;
-}) {
-  const logoImageElement = !!logoImage && (
-    <img src={logoImage} alt="logo" className="w-52" />
-  );
-
-  return (
-    <div>
-      {!logoLink ? (
-        logoImageElement
-      ) : (
-        <a href={logoLink} target="_blank">
-          {logoImageElement}
-        </a>
-      )}
-    </div>
-  );
-}
 
 const menuHeaderExpanded = signal(false);
 
@@ -41,13 +16,13 @@ function onMenuHeaderClick(e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) {
   menuHeaderExpanded.value = !menuHeaderExpanded.value;
 }
 
-export default function Header({ logoImage, logoLink, connected }: HeaderType) {
+export default function Header({ connected }: HeaderType) {
   const { showSidebar } = useContext(ChatContext);
   return (
     <div className="flex justify-between w-full p-4 chat-header">
       {/* Logo */}
       <div className="block xl:flex xl:flex-row">
-        <Logo logoLink={logoLink} logoImage={logoImage} />
+        <Logo />
       </div>
 
       {/* Sidebar and mobile menu */}

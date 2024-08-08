@@ -29,8 +29,10 @@ export type ConfigState = {
   initConfig: boolean;
   startSession?: boolean;
   topics: Topic[];
+  selectAllTopics: boolean;
   quizzModes: QuizMode[];
+  questionCount: number;
   savePending: boolean;
-  sucessMessage?: string;
+  successMessage?: string;
   errorMessage?: string;
 };

@@ -1,6 +1,6 @@
-import { ConfigState, QuizMode, Topic } from '../lib/model.ts';
-import { createContext, useReducer } from 'react';
-import { Props } from './commonModel.ts';
+import {ConfigState, QuizMode, Topic} from '../lib/model.ts';
+import {createContext, useEffect, useReducer} from 'react';
+import {Props} from './commonModel.ts';
 
 export type ConfigAction =
   | { type: 'initConfig'; data: { topics: string[]; quizz_modes: QuizMode[] } }
@@ -10,7 +10,9 @@ export type ConfigAction =
   | { type: 'savingQuizConfiguration' }
   | { type: 'saveQuizConfigurationOk' }
   | { type: 'saveQuizConfigurationError'; data: string }
-  | { type: 'finishConfig' };
+  | { type: 'finishConfig' }
+  | { type: 'selectAllTopics' }
+  | { type: 'deSelectAllTopics' };
 
 interface ConfigContextProps {
   state: ConfigState;
@@ -19,11 +21,18 @@ interface ConfigContextProps {
 
 function resetQuizzModes(quizzModes: QuizMode[]) {
   return quizzModes.map((quizzMode: QuizMode) => {
-    return { ...quizzMode, enabled: quizzMode.name === 'Medium' };
+    return {...quizzMode, enabled: quizzMode.name === 'Medium'};
   });
 }
 
 const DEFAULT_TOPIC_STATE = false;
+
+function getQuestionCount(newQuizzModes: QuizMode[]) {
+  return (
+    newQuizzModes.find((quizzMode: QuizMode) => quizzMode.enabled)
+      ?.questionCount || 0
+  );
+}
 
 function configReducer(state: ConfigState, action: ConfigAction): ConfigState {
   switch (action.type) {
@@ -36,6 +45,7 @@ function configReducer(state: ConfigState, action: ConfigAction): ConfigState {
           checked: DEFAULT_TOPIC_STATE,
         })),
         quizzModes: resetQuizzModes(action.data?.quizz_modes),
+        questionCount: getQuestionCount(action.data?.quizz_modes),
       };
     case 'finishConfig':
       return {
@@ -45,33 +55,55 @@ function configReducer(state: ConfigState, action: ConfigAction): ConfigState {
         topics: [],
         quizzModes: [],
       };
-    case 'switchTopic':
+    case 'switchTopic': {
+      const newTopics = state.topics.map((topic: Topic) => {
+        if (topic.name === action.data.name) {
+          return {name: topic.name, checked: !topic.checked};
+        }
+        return topic;
+      });
+      return {
+        ...state,
+        topics: newTopics,
+        selectAllTopics: newTopics.every((topic: Topic) => topic.checked),
+      };
+    }
+    case 'selectAllTopics':
       return {
         ...state,
         topics: state.topics.map((topic: Topic) => {
-          if (topic.name === action.data.name) {
-            return { name: topic.name, checked: !topic.checked };
-          }
-          return topic;
+          return {name: topic.name, checked: true};
         }),
+        selectAllTopics: true,
+      };
+    case 'deSelectAllTopics':
+      return {
+        ...state,
+        topics: state.topics.map((topic: Topic) => {
+          return {name: topic.name, checked: false};
+        }),
+        selectAllTopics: false,
       };
     case 'resetTopics': {
       const newStatus = !state.topics.some((t) => t.checked);
       return {
         ...state,
         topics: state.topics.map((topic: Topic) => {
-          return { name: topic.name, checked: newStatus };
+          return {name: topic.name, checked: newStatus};
         }),
         quizzModes: resetQuizzModes(state.quizzModes),
       };
     }
-    case 'selectQuizzMode':
+    case 'selectQuizzMode': {
+      const newQuizzModes = state.quizzModes.map((quizzMode: QuizMode) => {
+        return {...quizzMode, enabled: quizzMode.name === action.data.name};
+      });
       return {
         ...state,
-        quizzModes: state.quizzModes.map((quizzMode: QuizMode) => {
-          return { ...quizzMode, enabled: quizzMode.name === action.data.name };
-        }),
+        quizzModes: newQuizzModes,
+        questionCount: getQuestionCount(newQuizzModes),
       };
+    }
     case 'savingQuizConfiguration':
       return {
         ...state,
@@ -80,14 +112,14 @@ function configReducer(state: ConfigState, action: ConfigAction): ConfigState {
     case 'saveQuizConfigurationOk':
       return {
         ...state,
-        sucessMessage: 'Quiz configuration saved successfully!',
+        successMessage: 'Quiz configuration saved successfully!',
         errorMessage: undefined,
         savePending: false,
       };
     case 'saveQuizConfigurationError':
       return {
         ...state,
-        sucessMessage: undefined,
+        successMessage: undefined,
         errorMessage: action.data,
         savePending: false,
       };
@@ -102,20 +134,35 @@ export const ConfigContext = createContext<ConfigContextProps>({
     topics: [],
     quizzModes: [],
     savePending: false,
+    selectAllTopics: false,
+    questionCount: 0,
   },
   dispatch: () => null,
 });
 
-export const ConfigContextProvider = ({ children }: Props) => {
+export const ConfigContextProvider = ({children}: Props) => {
   const [state, dispatch] = useReducer(configReducer, {
     topics: [],
     initConfig: false,
     quizzModes: [],
     savePending: false,
+    selectAllTopics: false,
+    questionCount: 0,
   });
 
+  useEffect(() => {
+    if (state.questionCount === 0) {
+      for (const quizMode of state.quizzModes) {
+        if (quizMode.enabled) {
+          dispatch({type: 'selectQuizzMode', data: quizMode});
+          break;
+        }
+      }
+    }
+  }, [state.quizzModes, state.questionCount]);
+
   return (
-    <ConfigContext.Provider value={{ state, dispatch }}>
+    <ConfigContext.Provider value={{state, dispatch}}>
       {children}
     </ConfigContext.Provider>
   );

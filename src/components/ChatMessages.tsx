@@ -87,19 +87,6 @@ function processHighlighting(message: Message) {
   return message.isUser ? '' : highlightColor;
 }
 
-function topicAdapter(message: Message, botName: string | undefined) {
-  if (
-    message.topic &&
-    message.finishedTopicCount &&
-    message.topicTotal &&
-    message.finishedTopicCount > 0 &&
-    message.topicTotal > 0
-  ) {
-    return `${message.topic} (${message.finishedTopicCount} out of ${message.topicTotal})`;
-  }
-  return botName;
-}
-
 // Display the messages in the chat window
 function MessageDisplay({
   index,
@@ -150,14 +137,14 @@ function MessageDisplay({
               className={`${userStyle} flex flex-row justify-between w-full`}
             >
               <span className="text-sm font-bold">
-                {message.isUser ? 'You' : topicAdapter(message, botName)}
+                {message.isUser ? 'You' : message.topic}
               </span>
             </div>
 
             <span className={`text-xs ${userStyle}`}>
               {message.questionCount && (
                 <span className="mr-6 text-sm">
-                  question {message.questionCount} out of
+                  Topic {message.finishedTopicCount} out of {message.topicTotal} - question {message.questionCount} out of {' '}
                   {message.totalQuestionsInTopic}
                 </span>
               )}

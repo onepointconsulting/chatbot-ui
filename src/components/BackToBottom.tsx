@@ -2,7 +2,7 @@ import { scrollToBottom } from './MainChat.tsx';
 import { useEffect } from 'react';
 import { signal } from '@preact/signals-react';
 
-const chatAtBottom = signal(false);
+const chatAtBottom = signal(true);
 
 const CORRECTION = 50;
 

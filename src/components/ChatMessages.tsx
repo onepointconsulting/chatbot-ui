@@ -144,7 +144,8 @@ function MessageDisplay({
             <span className={`text-xs ${userStyle}`}>
               {message.questionCount && (
                 <span className="mr-6 text-sm">
-                  Topic {message.finishedTopicCount} out of {message.topicTotal} - question {message.questionCount} out of {' '}
+                  Topic {message.finishedTopicCount} out of {message.topicTotal}{' '}
+                  - question {message.questionCount} out of{' '}
                   {message.totalQuestionsInTopic}
                 </span>
               )}

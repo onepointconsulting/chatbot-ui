@@ -95,7 +95,7 @@ function topicAdapter(message: Message, botName: string | undefined) {
     message.finishedTopicCount > 0 &&
     message.topicTotal > 0
   ) {
-    return `${message.topic} (${message.finishedTopicCount} / ${message.topicTotal})`;
+    return `${message.topic} (${message.finishedTopicCount} out of ${message.topicTotal})`;
   }
   return botName;
 }
@@ -143,7 +143,7 @@ function MessageDisplay({
           />
         </div>
 
-        <div className="grow flex flex-col gap-2">
+        <div className="flex flex-col gap-2 grow">
           {/* Username/date */}
           <div className="flex flex-col w-full text-[#4a4a4a]">
             <div
@@ -152,17 +152,15 @@ function MessageDisplay({
               <span className="text-sm font-bold">
                 {message.isUser ? 'You' : topicAdapter(message, botName)}
               </span>
+            </div>
+
+            <span className={`text-xs ${userStyle}`}>
               {message.questionCount && (
-                <span className="text-sm mr-6">
-                  Question {message.questionCount} of{' '}
+                <span className="mr-6 text-sm">
+                  question {message.questionCount} out of
                   {message.totalQuestionsInTopic}
                 </span>
               )}
-            </div>
-            <span className={`text-xs ${userStyle}`}>
-              {message?.timestamp instanceof Date
-                ? message.timestamp.toLocaleString()
-                : message?.timestamp}
             </span>
           </div>
 

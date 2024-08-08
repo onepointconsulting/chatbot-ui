@@ -61,7 +61,7 @@ function StopStreaming() {
         sendStopStream(socket.current);
       }}
       type="button"
-      className="absolute right-0 bottom-[0.6rem] z-50 p-1 mb-3 border-2 border-blue-300 rounded-full hover:bg-gray-200 hover:duration-200"
+      className="absolute right-[6px] bottom-[1px] z-50 p-1 mb-3 border-2 border-blue-300 rounded-full hover:bg-gray-200 hover:duration-200"
       aria-label="Stop streaming"
       title="Stop streaming"
     >

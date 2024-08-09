@@ -15,7 +15,10 @@ export default function TopicTabs() {
               ? 'font-bold border-b-4 border-b-[#3982d1]'
               : ''
           }`}
-          onClick={() => dispatch({ type: 'setCurrentTopic', topic })}
+          onClick={() => {
+            dispatch({type: 'setCurrentTopic', topic})
+            document.getElementsByClassName("chat-container")[0].scrollTo(0, 0)
+          }}
         >
           {topic}
         </div>

@@ -1,9 +1,12 @@
-const protocol = 'https';
-const websocketProtocol = 'wss';
-const port = 443;
-// const port = 8085;
-const server = 'd-wise.onepointltd.ai';
-// const server = 'localhost';
+// const protocol = 'https';
+// const websocketProtocol = 'wss';
+// const port = 443;
+// const server = 'd-wise.onepointltd.ai';
+
+const protocol = 'http';
+const websocketProtocol = 'ws';
+const port = 8083;
+const server = 'localhost';
 
 const dataAssessmentConfig = {
   streaming: false,

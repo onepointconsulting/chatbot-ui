@@ -32,12 +32,12 @@ export function handleMessageDispatch(
 ) {
   dispatch({
     type: 'request',
-    message: { text, isUser: true, timestamp: new Date() },
+    message: { text, isUser: true, timestamp: new Date(), finalMessage: false },
   });
   if (streaming) {
     dispatch({
       type: 'startStreaming',
-      message: { text: '', isUser: false, timestamp: new Date() },
+      message: { text: '', isUser: false, timestamp: new Date(), finalMessage: false },
     });
   }
 }

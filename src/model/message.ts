@@ -17,4 +17,5 @@ export type Message = {
   topicTotal?: number;
   questionCount?: number;
   totalQuestionsInTopic?: number;
+  finalMessage: boolean;
 };

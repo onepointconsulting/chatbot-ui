@@ -19,12 +19,12 @@ export default function ProgressSection() {
     return <div className="flex flex-row items-center bg-white"></div>;
   }
   return (
-    <div className="flex flex-row items-center">
+    <div className="relative flex flex-row items-center lg:mr-4">
       <div>
         {showProgressChart.value && (
           <img
             src={progressImages[0].url}
-            className="w-full h-auto opacity-75 cursor-pointer p-4 m-4 border border-[#d9d9d9] bg-white"
+            className="w-full h-auto opacity-75 cursor-pointer p-4 border border-[#d9d9d9] bg-white"
             alt="Progress Indicator"
             onClick={() => {
               showLightBox.value = true;
@@ -37,14 +37,16 @@ export default function ProgressSection() {
         >
           {showProgressChart.value && (
             <FaMinus
-              className="absolute top-0 text-[#4a4a4a] right-6 m-8 cursor-pointer"
+              className="absolute top-0 text-[#4a4a4a] right-3 m-3 cursor-pointer"
               size={20}
               title="Hide progress"
             />
           )}
+
+          {/* Show progress bar when the progress char is hidden. */}
           {!showProgressChart.value && (
             <FaChartPie
-              className="absolute text-[#4a4a4a] top-0 right-0 m-4 cursor-pointer mt-12"
+              className="text-[#4a4a4a] m-4 cursor-pointer mt-12"
               size={30}
               title="Show progress"
             />

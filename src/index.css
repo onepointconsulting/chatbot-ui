@@ -17,7 +17,7 @@
 }
 
 #root {
-  @apply flex flex-col back-gradient h-[100vh] gap-10;
+  @apply flex flex-col min-h-screen gap-10 back-gradient;
 }
 
 html {

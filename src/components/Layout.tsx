@@ -18,8 +18,9 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   const { state: configState } = useContext(ConfigContext);
   const { initConfig } = configState;
   return (
-    <section className="flex flex-col">
-      <section className="flex flex-row">
+    <section className="relative flex flex-col 2xl:container 2xl:mx-auto">
+      <section>
+        <Header title={title} connected={isConnected} />
         {showSidebar && (
           <div
             className={`side-menu w-12 md:w-14  hidden sm:block
@@ -29,30 +30,35 @@ export default function Layout({ children }: { children: React.ReactNode }) {
             <SideMenu />
           </div>
         )}
-        <section
-          className={`flex flex-col ${
-            !initConfig && showProgressChart.value
-              ? 'w-full md:w-3/5 xl:w-[59%]'
-              : 'w-full'
-          } chat-main`}
-        >
-          <Header title={title} connected={isConnected} />
-          {children}
-        </section>
-        {!initConfig && (
-          <>
-            <section
-              className={`${
-                showProgressChart.value
-                  ? 'hidden md:block md:w-[37%] xl:w-[39%]'
-                  : ''
-              }`}
-            >
-              <ProgressSection />
-            </section>
-            <MobileProgress />
-          </>
-        )}
+
+        {/* Main */}
+        <div className="flex items-start w-full mt-8">
+          {/* Progress chart */}
+          <section
+            className={`flex flex-col ${
+              !initConfig && showProgressChart.value
+                ? 'w-full md:w-3/5 xl:w-[59%]'
+                : 'w-full'
+            } chat-main`}
+          >
+            {children}
+          </section>
+
+          {!initConfig && (
+            <>
+              <section
+                className={`${
+                  showProgressChart.value
+                    ? 'hidden md:block md:w-[37%] xl:w-[39%] mt-[2.6rem] bg-white h-full'
+                    : ''
+                }`}
+              >
+                <ProgressSection />
+              </section>
+              <MobileProgress />
+            </>
+          )}
+        </div>
       </section>
     </section>
   );

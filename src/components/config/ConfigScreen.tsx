@@ -41,7 +41,7 @@ function ToggleButton({
   return (
     <div
       className={`block text-center border border-[black] py-5 text-xl font-bold cursor-pointer hover:text-[#0084d7] ${
-        checked ? 'bg-sky-100 lg:bg-blue-50' : ''
+        checked ? 'bg-sky-200' : ''
       }`}
       onClick={onClick}
     >

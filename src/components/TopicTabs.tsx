@@ -16,8 +16,8 @@ export default function TopicTabs() {
               : ''
           }`}
           onClick={() => {
-            dispatch({type: 'setCurrentTopic', topic})
-            document.getElementsByClassName("chat-container")[0].scrollTo(0, 0)
+            dispatch({ type: 'setCurrentTopic', topic });
+            document.getElementsByClassName('chat-container')[0].scrollTo(0, 0);
           }}
         >
           {topic}

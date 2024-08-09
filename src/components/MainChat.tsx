@@ -37,7 +37,12 @@ export function handleMessageDispatch(
   if (streaming) {
     dispatch({
       type: 'startStreaming',
-      message: { text: '', isUser: false, timestamp: new Date(), finalMessage: false },
+      message: {
+        text: '',
+        isUser: false,
+        timestamp: new Date(),
+        finalMessage: false,
+      },
     });
   }
 }

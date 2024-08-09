@@ -1,28 +1,32 @@
-import {useContext} from 'react';
-import {Socket} from 'socket.io-client';
-import {ChatContext} from '../context/ChatContext.tsx';
-import {MessageContext} from '../context/MessageContext.tsx';
+import { useContext } from 'react';
+import { Socket } from 'socket.io-client';
+import { ChatContext } from '../context/ChatContext.tsx';
+import { MessageContext } from '../context/MessageContext.tsx';
 import sendWSMessage from '../lib/websocketClient.ts';
-import {handleMessageDispatch} from './MainChat.tsx';
+import { handleMessageDispatch } from './MainChat.tsx';
 import Sources from './Sources.tsx';
-import {Message} from '../model/message.ts';
+import { Message } from '../model/message.ts';
 import ClarifyButton from './buttons/ClarifyButton.tsx';
 import MarkdownSection from './markdown/Markdown.tsx';
 
 const HIGHLIGHT_COLOR = 'bg-[#f6f6f6]';
 
 function processHighlighting(message: Message) {
-  return message.finalMessage ? "bg-green-50" : message.isUser ? '' : HIGHLIGHT_COLOR;
+  return message.finalMessage
+    ? 'bg-green-50'
+    : message.isUser
+      ? ''
+      : HIGHLIGHT_COLOR;
 }
 
 // Display the messages in the chat window
 function MessageDisplay({
-                          index,
-                          isLast,
-                          message,
-                          botName,
-                          uploadedFilesUrl,
-                        }: {
+  index,
+  isLast,
+  message,
+  botName,
+  uploadedFilesUrl,
+}: {
   index: number;
   isLast: boolean;
   message: Message;
@@ -30,8 +34,8 @@ function MessageDisplay({
   uploadedFilesUrl?: string;
   socket: React.MutableRefObject<Socket | null>;
 }) {
-  const {socket, streaming, showRefreshButton} = useContext(ChatContext);
-  const {dispatch} = useContext(MessageContext);
+  const { socket, streaming, showRefreshButton } = useContext(ChatContext);
+  const { dispatch } = useContext(MessageContext);
   const userStyle = message.isUser ? 'text-[#4a4a4a]' : '';
 
   // Not fixed yet. onsubmit is not picking up the text value
@@ -87,8 +91,8 @@ function MessageDisplay({
             )}`}
           >
             <section className="w-full">
-              <MarkdownSection content={message.text} userStyle={userStyle}/>
-              {!!uploadedFilesUrl && <Sources message={message}/>}
+              <MarkdownSection content={message.text} userStyle={userStyle} />
+              {!!uploadedFilesUrl && <Sources message={message} />}
             </section>
           </div>
 
@@ -98,7 +102,7 @@ function MessageDisplay({
               {/* Clarify button */}
               <div className="flex justify-start">
                 {!message.clarification && isLast && (
-                  <ClarifyButton message={message}/>
+                  <ClarifyButton message={message} />
                 )}
               </div>
             </div>
@@ -106,7 +110,7 @@ function MessageDisplay({
 
           {message.clarification && !message.isUser && (
             <div className="w-full px-6">
-              <MarkdownSection content={message.clarification} userStyle={''}/>
+              <MarkdownSection content={message.clarification} userStyle={''} />
             </div>
           )}
         </div>
@@ -143,27 +147,28 @@ function MessageDisplay({
  * @constructor
  */
 export default function Messages() {
-  const {botName, uploadedFilesUrl, socket} = useContext(ChatContext);
-  const {state} = useContext(MessageContext);
-  const {currentTopic} = state;
+  const { botName, uploadedFilesUrl, socket } = useContext(ChatContext);
+  const { state } = useContext(MessageContext);
+  const { currentTopic } = state;
   const messagesLength = state?.data?.length || 0;
   return (
     <>
       {state?.data
         .map((message, index) => {
-          return {message: message, index: index}
+          return { message: message, index: index };
         })
-        .filter(
-          (messageIndex, index) => {
-            const message = messageIndex['message']
-            return message.topic === currentTopic ||
-              (index > 0 && state.data[index - 1].topic === currentTopic) ||
-              (message.finalMessage && state.data[index - 2].topic === currentTopic)
-          }
-        )
+        .filter((messageIndex, index) => {
+          const message = messageIndex['message'];
+          return (
+            message.topic === currentTopic ||
+            (index > 0 && state.data[index - 1].topic === currentTopic) ||
+            (message.finalMessage &&
+              state.data[index - 2].topic === currentTopic)
+          );
+        })
         .map((messageIndex) => {
-          const message = messageIndex['message']
-          const index = messageIndex['index']
+          const message = messageIndex['message'];
+          const index = messageIndex['index'];
           return (
             <MessageDisplay
               index={index}

@@ -1,4 +1,4 @@
-import { useContext, useMemo, useRef } from 'react';
+import { useContext, useRef } from 'react';
 import { ChatContext } from '../context/ChatContext.tsx';
 import { MessageContext } from '../context/MessageContext.tsx';
 import sendWSMessage, { sendStopStream } from '../lib/websocketClient.ts';
@@ -127,14 +127,11 @@ export default function ChatInput() {
   }
 
   // Handle the send icon.
-  const disabled = useMemo(
-    () =>
-      isLoading ||
-      !textSignal.value ||
-      textSignal.value.trim().length === 0 ||
-      !connected,
-    [isLoading, textSignal.value, connected],
-  );
+  const disabled =
+    isLoading ||
+    !textSignal.value ||
+    textSignal.value.trim().length === 0 ||
+    !connected;
 
   return (
     <div className="sticky bottom-0 flex w-full gap-4 p-4 chat-input">

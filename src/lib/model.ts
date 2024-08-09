@@ -13,6 +13,8 @@ export type QuizMode = {
 
 export type State = {
   data: Message[];
+  topics: string[];
+  currentTopic?: string;
   isLoading: boolean;
   error?: string;
   connected: boolean;

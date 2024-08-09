@@ -3,7 +3,7 @@ const websocketProtocol = 'wss';
 const port = 443;
 // const port = 8085;
 const server = 'd-wise.onepointltd.ai';
-// const server = '176.34.128.143';
+// const server = 'localhost';
 
 const dataAssessmentConfig = {
   streaming: false,
@@ -19,7 +19,7 @@ const dataAssessmentConfig = {
   // Optional title
   title: 'D-Wise',
   // Number of history messages to load. 0 means no history.
-  historySize: 10,
+  historySize: 500,
   // The socket to where to connect.
   websocketUrl: `${websocketProtocol}://${server}:${port}`,
   sourceDownloadUrl: `${protocol}://${server}:${port}/files`,

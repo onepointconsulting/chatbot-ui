@@ -15,6 +15,7 @@ import SuggestedResponsePanel from './SuggestedResponsePanel.tsx';
 import { ConfigContext } from '../context/ConfigContext.tsx';
 import { Message } from '../model/message.ts';
 import ConfigScreen from './config/ConfigScreen.tsx';
+import TopicTabs from './TopicTabs.tsx';
 
 export function scrollToBottom(scrollBehavior: string = 'auto') {
   const chatContainer = document.querySelector('.chat-container');
@@ -50,13 +51,12 @@ export default function MainChat() {
     useContext(ChatContext);
   const { state, dispatch } = useContext(MessageContext);
   const { state: configState } = useContext(ConfigContext);
-  const { initConfig } = configState;
-  const { data, isLoading, error, connected } = state;
-
   const socket: React.MutableRefObject<Socket | null> = useWebsocket({
     websocketUrl,
     dispatch,
   });
+  const { initConfig } = configState;
+  const { data, isLoading, error, connected } = state;
 
   const debouncedScrollToBottom = debounce(scrollToBottom, 500);
 
@@ -98,6 +98,7 @@ export default function MainChat() {
           clearFunc={() => dispatch({ type: 'clearFailure' })}
         />
       )}
+      <TopicTabs />
       <div className="overflow-auto chat-container grow p-4 m-4 bg-white border border-[#d9d9d9] flex flex-col gap-4">
         <Messages />
         {isLoading && <Spinner />}

@@ -1,4 +1,4 @@
-import { useContext, useMemo } from 'react';
+import { useContext } from 'react';
 import { Socket } from 'socket.io-client';
 import { ChatContext } from '../context/ChatContext.tsx';
 import { MessageContext } from '../context/MessageContext.tsx';
@@ -145,22 +145,29 @@ function MessageDisplay({
 export default function Messages() {
   const { botName, uploadedFilesUrl, socket } = useContext(ChatContext);
   const { state } = useContext(MessageContext);
-  const messagesLength = useMemo(() => state?.data.length || 0, [state?.data]);
+  const { currentTopic } = state;
+  const messagesLength = state?.data?.length || 0;
   return (
     <>
-      {state?.data.map((message: Message, index: number) => {
-        return (
-          <MessageDisplay
-            index={index}
-            isLast={index === messagesLength - 1}
-            message={message}
-            botName={botName}
-            uploadedFilesUrl={uploadedFilesUrl}
-            socket={socket}
-            key={`message_${index}`}
-          />
-        );
-      })}
+      {state?.data
+        .filter(
+          (message, index) =>
+            message.topic === currentTopic ||
+            (index > 0 && state.data[index - 1].topic === currentTopic),
+        )
+        .map((message: Message, index: number) => {
+          return (
+            <MessageDisplay
+              index={index}
+              isLast={index === messagesLength - 1}
+              message={message}
+              botName={botName}
+              uploadedFilesUrl={uploadedFilesUrl}
+              socket={socket}
+              key={`message_${index}`}
+            />
+          );
+        })}
     </>
   );
 }

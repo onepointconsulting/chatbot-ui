@@ -16,7 +16,8 @@ export type Action =
   | { type: 'connect' }
   | { type: 'disconnect' }
   | { type: 'clear' }
-  | { type: 'clarify'; token: string };
+  | { type: 'clarify'; token: string }
+  | { type: 'setCurrentTopic'; topic: string };
 
 interface MessageContextProps {
   state: State;
@@ -45,9 +46,25 @@ function isFinished(message: Message) {
   );
 }
 
+function getTopics(newData: Message[]): string[] {
+  return (
+    newData
+      ?.filter((m) => !!m.topic)
+      .reduce((a, m) => {
+        if (!!m.topic && !a.includes(m.topic)) {
+          a.push(m.topic);
+        }
+        return a;
+      }, [] as string[]) ?? []
+  );
+}
+
+function getCurrentTopic(topics: string[]): string {
+  return topics.length > 0 ? topics[topics.length - 1] : '';
+}
+
 export function messageReducer(state: State, action: Action): State {
   const request = 'request';
-
   switch (action.type) {
     case 'request':
     case 'success': {
@@ -61,10 +78,14 @@ export function messageReducer(state: State, action: Action): State {
       ) {
         saveHistory(message);
         const finished = isFinished(message);
+        const newData = [...state.data, message];
+        const topics = getTopics(newData);
         return {
           ...state,
           isLoading: action.type === request,
-          data: [...state.data, message],
+          data: newData,
+          topics,
+          currentTopic: getCurrentTopic(topics),
           finished,
         };
       }
@@ -101,17 +122,35 @@ export function messageReducer(state: State, action: Action): State {
     case 'clear':
       const newData =
         state.data.length > 0 ? [state.data[state.data.length - 1]] : [];
-      return { ...state, isLoading: false, data: newData, error: '' };
+      return {
+        ...state,
+        isLoading: false,
+        data: newData,
+        error: '',
+        topics: getTopics(newData),
+      };
     case 'connect':
       return { ...state, connected: true, error: '' };
     case 'disconnect':
       return { ...state, connected: false };
-    case 'bulkLoad':
-      return { ...state, data: action.messages };
+    case 'bulkLoad': {
+      const topics = getTopics(action.messages);
+      return {
+        ...state,
+        data: action.messages,
+        topics,
+        currentTopic: getCurrentTopic(topics),
+      };
+    }
     case 'clarify':
       return {
         ...state,
         data: appendToken(state.data, action.token, 'clarification'),
+      };
+    case 'setCurrentTopic':
+      return {
+        ...state,
+        currentTopic: action.topic,
       };
     default:
       return state;
@@ -121,6 +160,8 @@ export function messageReducer(state: State, action: Action): State {
 export const MessageContext = createContext<MessageContextProps>({
   state: {
     data: [],
+    topics: [],
+    currentTopic: '',
     isLoading: false,
     connected: false,
     error: '',
@@ -132,6 +173,8 @@ export const MessageContext = createContext<MessageContextProps>({
 export const MessageContextProvider = ({ children }: Props) => {
   const [state, dispatch] = useReducer(messageReducer, {
     data: [],
+    topics: [],
+    currentTopic: '',
     isLoading: false,
     connected: false,
     error: '',

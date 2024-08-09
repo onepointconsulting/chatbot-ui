@@ -1,11 +1,11 @@
-import {useContext, useMemo} from 'react';
-import {Socket} from 'socket.io-client';
-import {ChatContext} from '../context/ChatContext.tsx';
-import {MessageContext} from '../context/MessageContext.tsx';
+import { useContext, useMemo } from 'react';
+import { Socket } from 'socket.io-client';
+import { ChatContext } from '../context/ChatContext.tsx';
+import { MessageContext } from '../context/MessageContext.tsx';
 import sendWSMessage from '../lib/websocketClient.ts';
-import {handleMessageDispatch} from './MainChat.tsx';
+import { handleMessageDispatch } from './MainChat.tsx';
 import Sources from './Sources.tsx';
-import {Message} from '../model/message.ts';
+import { Message } from '../model/message.ts';
 import ClarifyButton from './buttons/ClarifyButton.tsx';
 import MarkdownSection from './markdown/Markdown.tsx';
 

@@ -6,6 +6,7 @@ import { signal } from '@preact/signals-react';
 import ProgressSection, { showProgressChart } from './ProgressSection.tsx';
 import { ConfigContext } from '../context/ConfigContext.tsx';
 import MobileProgress from './MobileProgress.tsx';
+import { Toaster } from "./ui/toaster"
 
 export const expanded = signal(false);
 
@@ -14,12 +15,12 @@ function toggleExpanded() {
 }
 
 export default function Layout({ children }: { children: React.ReactNode }) {
-  const { isConnected, showSidebar } = useContext(ChatContext);
+  const { showSidebar } = useContext(ChatContext);
   const { state: configState } = useContext(ConfigContext);
   const { initConfig } = configState;
   return (
     <section className="flex flex-col">
-      <Header connected={isConnected} />
+      <Header />
       <section className="flex flex-row">
         {showSidebar && (
           <div
@@ -54,6 +55,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
           </>
         )}
       </section>
+      <Toaster />
     </section>
   );
 }

@@ -8,7 +8,7 @@ import { Message } from '../../model/message.ts';
  */
 export default function ClarifyButton({ message }: { message: Message }) {
   const { socket } = useContext(ChatContext);
-  console.log('ClarifyButton');
+
   const content = {
     topic: '',
     question: message.text,

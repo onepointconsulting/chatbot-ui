@@ -19,7 +19,7 @@ export default function ProgressSection() {
     return <div className="flex flex-row items-center bg-white"></div>;
   }
   return (
-    <div className="flex flex-row items-center relative">
+    <div className="flex flex-row items-center relative mt-[27px]">
       <div>
         {showProgressChart.value && (
           <img

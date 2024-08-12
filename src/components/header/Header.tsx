@@ -1,13 +1,9 @@
 import { signal } from '@preact/signals-react';
-import SideMenu from './SideMenu.tsx';
+import SideMenu from '../SideMenu.tsx';
 import { useContext } from 'react';
-import { ChatContext } from '../context/ChatContext.tsx';
-import Logo from './Logo.tsx';
-
-type HeaderType = {
-  title?: string;
-  connected?: boolean;
-};
+import { ChatContext } from '../../context/ChatContext.tsx';
+import Logo from '../Logo.tsx';
+import HamburgerMenu from '../menu/HamburgerMenu.tsx';
 
 const menuHeaderExpanded = signal(false);
 
@@ -16,7 +12,7 @@ function onMenuHeaderClick(e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) {
   menuHeaderExpanded.value = !menuHeaderExpanded.value;
 }
 
-export default function Header({ connected }: HeaderType) {
+export default function Header() {
   const { showSidebar } = useContext(ChatContext);
   return (
     <header className="flex flex-row justify-between w-full p-4 chat-header">
@@ -49,14 +45,7 @@ export default function Header({ connected }: HeaderType) {
       )}
 
       {/* Server status */}
-      <span className="text-sm block">
-        {connected === null
-          ? ''
-          : connected === true
-            ? 'connected'
-            : 'disconnected'}
-      </span>
-      {/*TODO: Add menu items here*/}
+      <HamburgerMenu />
     </header>
   );
 }

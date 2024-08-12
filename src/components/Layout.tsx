@@ -1,4 +1,4 @@
-import Header from './Header.tsx';
+import Header from './header/Header.tsx';
 import { useContext } from 'react';
 import { ChatContext } from '../context/ChatContext.tsx';
 import SideMenu from './SideMenu.tsx';
@@ -14,11 +14,12 @@ function toggleExpanded() {
 }
 
 export default function Layout({ children }: { children: React.ReactNode }) {
-  const { title, isConnected, showSidebar } = useContext(ChatContext);
+  const { isConnected, showSidebar } = useContext(ChatContext);
   const { state: configState } = useContext(ConfigContext);
   const { initConfig } = configState;
   return (
     <section className="flex flex-col">
+      <Header connected={isConnected} />
       <section className="flex flex-row">
         {showSidebar && (
           <div
@@ -36,7 +37,6 @@ export default function Layout({ children }: { children: React.ReactNode }) {
               : 'w-full'
           } chat-main`}
         >
-          <Header title={title} connected={isConnected} />
           {children}
         </section>
         {!initConfig && (

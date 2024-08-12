@@ -6,7 +6,7 @@ import { signal } from '@preact/signals-react';
 import ProgressSection, { showProgressChart } from './ProgressSection.tsx';
 import { ConfigContext } from '../context/ConfigContext.tsx';
 import MobileProgress from './MobileProgress.tsx';
-import { Toaster } from "./ui/toaster"
+import { Toaster } from './ui/toaster';
 
 export const expanded = signal(false);
 

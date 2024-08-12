@@ -1,14 +1,13 @@
-import {useContext} from 'react';
-import {ChatContext} from '../../context/ChatContext.tsx';
-import {showDialogue} from '../../lib/dialogFunctions.ts';
-import {RESTART_DIALOGUE_ID} from '../dialogs/RestartDialogue.tsx';
+import { useContext } from 'react';
+import { ChatContext } from '../../context/ChatContext.tsx';
+import { showDialogue } from '../../lib/dialogFunctions.ts';
+import { RESTART_DIALOGUE_ID } from '../dialogs/RestartDialogue.tsx';
 import MenuItemTemplate from './MenuItemTemplate.tsx';
-import {useToast} from "../../components/ui/use-toast.ts";
-
+import { useToast } from '../../components/ui/use-toast.ts';
 
 export default function StartMenuItem() {
-  const {isConnected} = useContext(ChatContext);
-  const { toast } = useToast()
+  const { isConnected } = useContext(ChatContext);
+  const { toast } = useToast();
 
   function showStartDialogue() {
     showDialogue(RESTART_DIALOGUE_ID);
@@ -17,13 +16,13 @@ export default function StartMenuItem() {
   function processPopup() {
     return !isConnected
       ? () => {
-        console.warn('You are not connected', isConnected)
-        toast({
-          title: 'You are disconnected.',
-          description:
-            'You are disconnected. The Data Wellness Companion needs to be connected to restart.',
-        });
-      }
+          console.warn('You are not connected', isConnected);
+          toast({
+            title: 'You are disconnected.',
+            description:
+              'You are disconnected. The Data Wellness Companion needs to be connected to restart.',
+          });
+        }
       : showStartDialogue;
   }
 
@@ -45,7 +44,7 @@ export default function StartMenuItem() {
           </g>
           <defs>
             <clipPath id="clip0_801_992">
-              <rect width="21" height="21" fill="white"/>
+              <rect width="21" height="21" fill="white" />
             </clipPath>
           </defs>
         </svg>

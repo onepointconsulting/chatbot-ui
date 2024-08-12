@@ -25,7 +25,7 @@ export default function SuggestedResponsePanel({
   return (
     <>
       <BackToBottom />
-      <div className="grid w-full grid-flow-row grid-cols-[repeat(auto-fit,minmax(250px,1fr))] gap-2 px-4 box-border">
+      <div className="grid w-full grid-flow-row grid-cols-[repeat(auto-fit,minmax(200px,1fr))] gap-2 px-4 box-border">
         {possibleResponses.map((response, index) => (
           <button
             onClick={() => handleSuggestedResponseClick(response)}

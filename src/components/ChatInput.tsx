@@ -1,10 +1,10 @@
-import {useContext, useRef} from 'react';
-import {ChatContext} from '../context/ChatContext.tsx';
-import {MessageContext} from '../context/MessageContext.tsx';
-import sendWSMessage, {sendStopStream} from '../lib/websocketClient.ts';
-import {handleMessageDispatch} from './MainChat.tsx';
+import { useContext, useRef } from 'react';
+import { ChatContext } from '../context/ChatContext.tsx';
+import { MessageContext } from '../context/MessageContext.tsx';
+import sendWSMessage, { sendStopStream } from '../lib/websocketClient.ts';
+import { handleMessageDispatch } from './MainChat.tsx';
 import ReportDownload from './buttons/ReportDownload.tsx';
-import {signal} from '@preact/signals-react';
+import { signal } from '@preact/signals-react';
 
 export const textSignal = signal('');
 
@@ -156,9 +156,7 @@ export default function ChatInput() {
 
       {/* Clear button */}
       {historySize && historySize > 0 ? (
-        <>
-          {state.finished && !isLoading && <ReportDownload />}
-        </>
+        <>{state.finished && !isLoading && <ReportDownload />}</>
       ) : (
         <></>
       )}

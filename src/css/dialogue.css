@@ -37,7 +37,7 @@ dialog::backdrop {
   @apply dark:fill-white;
 }
 
-label[for="expectedInteviewSteps"] {
+label[for='expectedInteviewSteps'] {
   @apply py-1 pr-2;
 }
 

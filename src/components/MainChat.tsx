@@ -1,21 +1,21 @@
-import {useContext, useEffect} from 'react';
-import {Socket} from 'socket.io-client';
-import {ChatContext} from '../context/ChatContext.tsx';
-import {Action, MessageContext} from '../context/MessageContext.tsx';
-import {useWebsocket} from '../hooks/useWebsocket.ts';
+import { useContext, useEffect } from 'react';
+import { Socket } from 'socket.io-client';
+import { ChatContext } from '../context/ChatContext.tsx';
+import { Action, MessageContext } from '../context/MessageContext.tsx';
+import { useWebsocket } from '../hooks/useWebsocket.ts';
 import AppInfo from './AppInfo.tsx';
 import Messages from './ChatMessages.tsx';
 import ErrorMessage from './ErrorMessage.tsx';
 import ChatInput from './ChatInput.tsx';
 import Spinner from './Spinner.tsx';
 import loadHistory from '../lib/history.ts';
-import {debounce} from 'lodash';
+import { debounce } from 'lodash';
 import SuggestedResponsePanel from './SuggestedResponsePanel.tsx';
-import {ConfigContext} from '../context/ConfigContext.tsx';
-import {Message} from '../model/message.ts';
+import { ConfigContext } from '../context/ConfigContext.tsx';
+import { Message } from '../model/message.ts';
 import ConfigScreen from './config/ConfigScreen.tsx';
 import TopicTabs from './TopicTabs.tsx';
-import RestartDialogue from "./dialogs/RestartDialogue.tsx";
+import RestartDialogue from './dialogs/RestartDialogue.tsx';
 
 export function scrollToBottom(scrollBehavior: string = 'auto') {
   const chatContainer = document.querySelector('.chat-container');

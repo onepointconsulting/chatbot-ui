@@ -1,4 +1,4 @@
-import {useContext, useEffect, useRef, useState} from 'react';
+import { useContext, useEffect, useRef, useState } from 'react';
 import { ChatContext } from '../../context/ChatContext.tsx';
 import StartMenuItem from './StartMenuItem.tsx';
 
@@ -22,11 +22,11 @@ export default function HamburgerMenu() {
 
   useEffect(() => {
     // Add event listener when the component mounts
-    document.addEventListener("mousedown", handleClickOutside);
+    document.addEventListener('mousedown', handleClickOutside);
 
     // Remove event listener when the component unmounts
     return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener('mousedown', handleClickOutside);
     };
   }, [handleClickOutside]);
 

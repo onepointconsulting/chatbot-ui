@@ -19,7 +19,7 @@ function onMenuHeaderClick(e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) {
 export default function Header({ connected }: HeaderType) {
   const { showSidebar } = useContext(ChatContext);
   return (
-    <div className="flex justify-between w-full p-4 chat-header">
+    <header className="flex flex-row justify-between w-full p-4 chat-header">
       {/* Logo */}
       <div className="block xl:flex xl:flex-row">
         <Logo />
@@ -57,6 +57,6 @@ export default function Header({ connected }: HeaderType) {
             : 'disconnected'}
       </span>
       {/*TODO: Add menu items here*/}
-    </div>
+    </header>
   );
 }

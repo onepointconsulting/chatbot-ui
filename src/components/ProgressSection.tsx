@@ -19,7 +19,7 @@ export default function ProgressSection() {
     return <div className="flex flex-row items-center bg-white"></div>;
   }
   return (
-    <div className="flex flex-row items-center">
+    <div className="flex flex-row items-center relative">
       <div>
         {showProgressChart.value && (
           <img
@@ -37,7 +37,7 @@ export default function ProgressSection() {
         >
           {showProgressChart.value && (
             <FaMinus
-              className="absolute top-0 text-[#4a4a4a] right-6 m-8 cursor-pointer"
+              className="absolute top-0 text-[#4a4a4a] right-0 mt-8 cursor-pointer"
               size={20}
               title="Hide progress"
             />

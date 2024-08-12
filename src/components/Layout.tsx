@@ -45,7 +45,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
             <section
               className={`${
                 showProgressChart.value
-                  ? 'hidden md:block md:w-[37%] xl:w-[39%]'
+                  ? 'hidden md:block md:w-[35%] xl:w-[36%] 2xl:[40%]'
                   : ''
               }`}
             >

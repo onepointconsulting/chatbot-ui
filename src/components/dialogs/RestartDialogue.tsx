@@ -98,7 +98,7 @@ export default function RestartDialogue() {
       </DialogueHeader>
       <div className="companion-dialogue-content">
         <section className="mt-4">
-          <p>"Would you like to restart the companion?"</p>
+          <p>Would you like to restart D-Wise?</p>
         </section>
       </div>
 

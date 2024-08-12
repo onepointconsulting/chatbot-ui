@@ -1,4 +1,4 @@
-import { useContext, useRef, useState } from 'react';
+import {useContext, useEffect, useRef, useState} from 'react';
 import { ChatContext } from '../../context/ChatContext.tsx';
 import StartMenuItem from './StartMenuItem.tsx';
 
@@ -8,10 +8,48 @@ export default function HamburgerMenu() {
   const { isConnected } = useContext(ChatContext);
   const [open, setOpen] = useState(false);
   const menuRef = useRef<HTMLMenuElement>(null);
+  const imgRef = useRef<HTMLImageElement>(null);
+
+  const handleClickOutside = (event: MouseEvent) => {
+    const target = event.target as HTMLElement;
+    if (
+      !menuRef.current?.contains(target) &&
+      !imgRef.current?.contains(target)
+    ) {
+      setOpen(false);
+    }
+  };
+
+  useEffect(() => {
+    // Add event listener when the component mounts
+    document.addEventListener("mousedown", handleClickOutside);
+
+    // Remove event listener when the component unmounts
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [handleClickOutside]);
+
+  useEffect(() => {
+    // Define the handler function
+    const handleKeyDown = (event) => {
+      if (event.key === 'Escape') {
+        setOpen(false);
+      }
+    };
+
+    // Add the event listener
+    window.addEventListener('keydown', handleKeyDown);
+
+    // Cleanup the event listener on component unmount
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, []);
 
   return (
     <section className="hamburger-menu">
-      <section>
+      <section ref={imgRef}>
         <svg
           width="27"
           height="30"

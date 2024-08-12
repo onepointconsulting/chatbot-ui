@@ -1,11 +1,11 @@
-import {useContext, useRef, useState} from 'react';
-import {ChatContext} from '../../context/ChatContext.tsx';
-import StartMenuItem from "./StartMenuItem.tsx";
+import { useContext, useRef, useState } from 'react';
+import { ChatContext } from '../../context/ChatContext.tsx';
+import StartMenuItem from './StartMenuItem.tsx';
 
 const SHOW_CONNECTED = false;
 
 export default function HamburgerMenu() {
-  const {isConnected} = useContext(ChatContext);
+  const { isConnected } = useContext(ChatContext);
   const [open, setOpen] = useState(false);
   const menuRef = useRef<HTMLMenuElement>(null);
 
@@ -37,17 +37,17 @@ export default function HamburgerMenu() {
       </section>
       {open && (
         <menu ref={menuRef} className="animate-fade-down">
-          <StartMenuItem/>
+          <StartMenuItem />
         </menu>
       )}
       {SHOW_CONNECTED && (
         <span className="text-sm block">
-            {isConnected === null
-              ? ''
-              : isConnected
-                ? 'connected'
-                : 'disconnected'}
-          </span>
+          {isConnected === null
+            ? ''
+            : isConnected
+              ? 'connected'
+              : 'disconnected'}
+        </span>
       )}
     </section>
   );

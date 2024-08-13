@@ -11,7 +11,10 @@ export default function TopicTabs() {
 
   const scrollRef: MutableRefObject<HTMLUListElement | null> = useRef(null);
 
-  const handleArrowScroll = (e: React.MouseEvent, direction: 'left' | 'right'): void => {
+  const handleArrowScroll = (
+    e: React.MouseEvent,
+    direction: 'left' | 'right',
+  ): void => {
     e.preventDefault();
     if (scrollRef.current) {
       const scrollAmount = direction === 'left' ? -200 : 200;

@@ -1,7 +1,23 @@
 import { MessageContext } from '../context/MessageContext.tsx';
-import { useContext, useEffect, useState } from 'react';
+import {useContext, useEffect, useLayoutEffect, useState} from 'react';
 import { MutableRefObject, useRef } from 'react';
 import { MdKeyboardArrowLeft, MdKeyboardArrowRight } from 'react-icons/md';
+
+function activateRightArrow(scrollRef: React.MutableRefObject<HTMLUListElement | null>, setShowRightArrow: (value: (((prevState: boolean) => boolean) | boolean)) => void) {
+  return () => {
+    const scrollContainer = scrollRef.current;
+    if (!scrollContainer) return;
+
+    const scrollWidth = scrollContainer.scrollWidth;
+    const clientWidth = scrollContainer.clientWidth;
+
+    const sumOfScrollAndClientWidth = clientWidth + scrollContainer.scrollLeft;
+
+    setShowRightArrow(
+      scrollWidth > clientWidth && sumOfScrollAndClientWidth + 5 < scrollWidth,
+    );
+  };
+}
 
 export default function TopicTabs() {
   const { state, dispatch } = useContext(MessageContext);
@@ -46,19 +62,16 @@ export default function TopicTabs() {
     }
   }, []);
 
-  useEffect(() => {
-    const scrollContainer = scrollRef.current;
-    if (!scrollContainer) return;
+  useEffect(activateRightArrow(scrollRef, setShowRightArrow));
 
-    const scrollWidth = scrollContainer.scrollWidth;
-    const clientWidth = scrollContainer.clientWidth;
-
-    const sumOfScrollAndClientWidth = clientWidth + scrollContainer.scrollLeft;
-
-    setShowRightArrow(
-      scrollWidth > clientWidth && sumOfScrollAndClientWidth + 5 < scrollWidth,
-    );
-  });
+  useLayoutEffect(() => {
+    function processRightArrow() {
+      activateRightArrow(scrollRef, setShowRightArrow)()
+    }
+    window.addEventListener('resize', processRightArrow);
+    processRightArrow();
+    return () => window.removeEventListener('resize', processRightArrow);
+  }, []);
 
   return (
     <section className={`relative flex flex-row w-full`}>

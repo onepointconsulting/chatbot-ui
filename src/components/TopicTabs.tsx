@@ -11,7 +11,8 @@ export default function TopicTabs() {
 
   const scrollRef: MutableRefObject<HTMLUListElement | null> = useRef(null);
 
-  const handleArrowScroll = (direction: 'left' | 'right'): void => {
+  const handleArrowScroll = (e: React.MouseEvent, direction: 'left' | 'right'): void => {
+    e.preventDefault();
     if (scrollRef.current) {
       const scrollAmount = direction === 'left' ? -200 : 200;
       scrollRef.current.scrollBy({ left: scrollAmount, behavior: 'smooth' });
@@ -62,7 +63,7 @@ export default function TopicTabs() {
       {showLeftArrow && (
         <MdKeyboardArrowLeft
           className="absolute top-0 left-0 mt-0 ml-2 text-2xl cursor-pointer"
-          onClick={() => handleArrowScroll('left')}
+          onClick={(e) => handleArrowScroll(e, 'left')}
         />
       )}
 
@@ -94,7 +95,7 @@ export default function TopicTabs() {
       {showRightArrow && (
         <MdKeyboardArrowRight
           className="absolute top-0 right-0 mt-0 mr-2 text-2xl cursor-pointer"
-          onClick={() => handleArrowScroll('right')}
+          onClick={(e) => handleArrowScroll(e, 'right')}
         />
       )}
     </section>

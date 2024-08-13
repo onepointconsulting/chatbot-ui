@@ -21,13 +21,6 @@ export default function BackToBottom() {
         const isAtBottom =
           feedContainer.scrollHeight - feedContainer.scrollTop <=
           feedContainer.clientHeight + CORRECTION;
-        console.log('feedContainer.scrollHeight', feedContainer.scrollHeight);
-        console.log('feedContainer.scrollTop', feedContainer.scrollTop);
-        console.log('feedContainer.clientHeight', feedContainer.clientHeight);
-        console.log(
-          'feedContainer.scrollHeight - feedContainer.scrollTop',
-          feedContainer.scrollHeight - feedContainer.scrollTop,
-        );
         chatAtBottom.value = isAtBottom;
       }
     };

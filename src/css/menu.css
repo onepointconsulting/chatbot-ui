@@ -23,11 +23,11 @@
 }
 
 .menu-item {
-  @apply flex flex-row cursor-pointer w-full hover:bg-gray-50 dark:hover:bg-gray-600 py-4;
+  @apply flex flex-row w-full py-4 cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-600;
 }
 
 .menu-item svg {
-  @apply pl-3 w-8 h-8;
+  @apply w-8 h-8 pl-3;
 }
 
 .menu-item svg path {
@@ -35,5 +35,14 @@
 }
 
 .menu-select {
-  @apply py-1 border-b border-black w-full;
+  @apply w-full py-1 border-b border-black;
+}
+
+/* Hide scrollbar */
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+.scrollbar-hide {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
 }

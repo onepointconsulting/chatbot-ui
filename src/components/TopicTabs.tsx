@@ -1,9 +1,14 @@
 import { MessageContext } from '../context/MessageContext.tsx';
-import {useContext, useEffect, useLayoutEffect, useState} from 'react';
+import { useContext, useEffect, useLayoutEffect, useState } from 'react';
 import { MutableRefObject, useRef } from 'react';
 import { MdKeyboardArrowLeft, MdKeyboardArrowRight } from 'react-icons/md';
 
-function activateRightArrow(scrollRef: React.MutableRefObject<HTMLUListElement | null>, setShowRightArrow: (value: (((prevState: boolean) => boolean) | boolean)) => void) {
+function activateRightArrow(
+  scrollRef: React.MutableRefObject<HTMLUListElement | null>,
+  setShowRightArrow: (
+    value: ((prevState: boolean) => boolean) | boolean,
+  ) => void,
+) {
   return () => {
     const scrollContainer = scrollRef.current;
     if (!scrollContainer) return;
@@ -66,7 +71,7 @@ export default function TopicTabs() {
 
   useLayoutEffect(() => {
     function processRightArrow() {
-      activateRightArrow(scrollRef, setShowRightArrow)()
+      activateRightArrow(scrollRef, setShowRightArrow)();
     }
     window.addEventListener('resize', processRightArrow);
     processRightArrow();

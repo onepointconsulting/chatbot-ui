@@ -28,7 +28,11 @@ function SendButton({
       disabled={disabled}
       onClick={sendMessage}
     >
-      <svg viewBox="0 0 42 42" xmlns="http://www.w3.org/2000/svg">
+      <svg
+        viewBox="0 0 42 42"
+        xmlns="http://www.w3.org/2000/svg"
+        className="dark:fill-white"
+      >
         <g clipPath="url(#clip0_7_30)">
           <path
             fillRule="evenodd"
@@ -144,7 +148,7 @@ export default function ChatInput() {
           onChange={(e) => (textSignal.value = e.target.value)}
           onKeyUp={sendEnterMessage}
           disabled={state.finished || isLoading || !connected}
-          className="block w-full h-12 p-2 overflow-hidden text-sm text-gray-900 resize-none md:py-3 max-h-44 outline outline-1 focus:outline-offset-2 focus:outline-2 outline-[#4a4a4a]"
+          className="block w-full h-12 p-2 overflow-hidden text-sm text-gray-900 resize-none md:py-3 max-h-44 outline outline-1 focus:outline-offset-2 focus:outline-2 outline-[#4a4a4a] dark:outline-gray-500 dark:bg-gray-600"
           ref={textAreaRef}
         ></textarea>
         {/* Stop streaming */}

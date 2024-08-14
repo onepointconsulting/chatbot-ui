@@ -24,7 +24,7 @@ export default function ProgressSection() {
         {showProgressChart.value && (
           <img
             src={progressImages[0].url}
-            className="w-full h-auto opacity-75 cursor-pointer p-4 m-4 border border-[#d9d9d9] bg-white"
+            className="w-full h-auto opacity-75 cursor-pointer p-4 m-4 border border-[#d9d9d9] bg-white dark:bg-gray-400"
             alt="Progress Indicator"
             onClick={() => {
               showLightBox.value = true;

@@ -30,12 +30,12 @@ export default function SuggestedResponsePanel({
           <button
             onClick={() => handleSuggestedResponseClick(response)}
             key={index}
-            className={`button-possible-response`}
+            className={`button-possible-response dark:bg-gray-800`}
             title={response.body}
           >
-            <div className="text-left w-full text-[#4a4a4a] hover:text-[#0084d7]">
-              <div className="font-bold text-base">{response.title}</div>
-              <div className="truncate text-sm opacity-50">
+            <div className="text-left w-full text-[#4a4a4a] dark:text-gray-100 hover:text-[#0084d7]">
+              <div className="text-base font-bold">{response.title}</div>
+              <div className="text-sm truncate opacity-50">
                 {response.subtitle ?? response.body}
               </div>
             </div>

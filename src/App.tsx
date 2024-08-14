@@ -8,6 +8,7 @@ import { QueryClient, QueryClientProvider } from 'react-query';
 import MainChatParent from './components/MainChatParent.tsx';
 import { MessageContextProvider } from './context/MessageContext.tsx';
 import { ConfigContextProvider } from './context/ConfigContext.tsx';
+import { DarkModeContextProvider } from './context/DarkModeContext.tsx';
 
 function App() {
   const queryClient = new QueryClient();
@@ -18,12 +19,14 @@ function App() {
         <BrowserRouter>
           <MessageContextProvider>
             <ConfigContextProvider>
-              <Layout>
-                <Routes>
-                  <Route path="/upload" element={<Upload />} />
-                  <Route path="*" element={<MainChatParent />} />
-                </Routes>
-              </Layout>
+              <DarkModeContextProvider>
+                <Layout>
+                  <Routes>
+                    <Route path="/upload" element={<Upload />} />
+                    <Route path="*" element={<MainChatParent />} />
+                  </Routes>
+                </Layout>
+              </DarkModeContextProvider>
             </ConfigContextProvider>
           </MessageContextProvider>
         </BrowserRouter>

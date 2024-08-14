@@ -1,6 +1,7 @@
 import { useContext, useEffect, useRef, useState } from 'react';
 import { ChatContext } from '../../context/ChatContext.tsx';
 import StartMenuItem from './StartMenuItem.tsx';
+import DarkModeButton from './DarkModeButton.tsx';
 
 const SHOW_CONNECTED = false;
 
@@ -76,10 +77,11 @@ export default function HamburgerMenu() {
       {open && (
         <menu ref={menuRef} className="animate-fade-down">
           <StartMenuItem />
+          <DarkModeButton />
         </menu>
       )}
       {SHOW_CONNECTED && (
-        <span className="text-sm block">
+        <span className="block text-sm">
           {isConnected === null
             ? ''
             : isConnected

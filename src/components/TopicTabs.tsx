@@ -95,7 +95,7 @@ export default function TopicTabs() {
         {topics.map((topic, index) => (
           <div
             key={`topic_tab_${index}`}
-            className={`px-4 cursor-pointer ${
+            className={`px-4 cursor-pointer dark:text-gray-100 ${
               currentTopic === topic
                 ? 'font-bold border-b-4 border-b-[#3982d1]'
                 : ''

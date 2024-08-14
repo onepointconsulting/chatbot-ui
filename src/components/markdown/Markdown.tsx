@@ -34,7 +34,7 @@ export default function MarkdownSection({
 }) {
   return (
     <Markdown
-      className={`mt-1 text-[#4a4a4a] markdown-body ${userStyle}`}
+      className={`mt-1 text-[#4a4a4a] dark:text-gray-100 markdown-body ${userStyle}`}
       remarkPlugins={[remarkGfm]}
       components={{
         ul: ({ ...props }) => (

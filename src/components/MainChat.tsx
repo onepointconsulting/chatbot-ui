@@ -104,7 +104,7 @@ export default function MainChat() {
         />
       )}
       <TopicTabs />
-      <div className="overflow-auto chat-container grow p-4 m-4 bg-white border border-[#d9d9d9] flex flex-col gap-4">
+      <div className="overflow-auto chat-container grow p-4 m-4 border border-[#d9d9d9] flex flex-col gap-4">
         <Messages />
         {isLoading && <Spinner />}
       </div>

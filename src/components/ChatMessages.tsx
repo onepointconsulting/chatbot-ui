@@ -9,7 +9,7 @@ import { Message } from '../model/message.ts';
 import ClarifyButton from './buttons/ClarifyButton.tsx';
 import MarkdownSection from './markdown/Markdown.tsx';
 
-const HIGHLIGHT_COLOR = 'bg-[#f6f6f6]';
+const HIGHLIGHT_COLOR = 'bg-[#f6f6f6] dark:bg-slate-700';
 
 function processHighlighting(message: Message) {
   return message.finalMessage
@@ -50,7 +50,9 @@ function MessageDisplay({
     <section className="" key={`message_${index}`}>
       <div
         className={`${
-          message.isUser ? 'user-chat-message text-[#4a4a4a]' : ''
+          message.isUser
+            ? 'user-chat-message text-[#4a4a4a] dark:text-gray-100 dark:bg-gray-800'
+            : ''
         } chat-message flex flex-row gap-2 p-4 ${processHighlighting(message)}`}
       >
         {/* User profile/avatar */}
@@ -64,11 +66,11 @@ function MessageDisplay({
 
         <div className="flex flex-col gap-2 grow">
           {/* Username/date */}
-          <div className="flex flex-col w-full text-[#4a4a4a]">
+          <div className="flex flex-col w-full text-[#4a4a4a] dark:text-gray-100">
             <div
               className={`${userStyle} flex flex-row justify-between w-full`}
             >
-              <span className="text-sm font-bold">
+              <span className="text-sm font-bol dark:text-gray-100 dar">
                 {message.isUser ? 'You' : message.topic}
               </span>
             </div>

@@ -16,7 +16,7 @@
 }
 
 .back-gradient {
-  @apply bg-gradient-to-b from-[#ffffff] from-15% to-[#edf7fc];
+  @apply bg-gradient-to-b from-[#ffffff] from-15% to-[#edf7fc] dark:from-[#1a202c] dark:to-[#2d3748];
 }
 
 #root {

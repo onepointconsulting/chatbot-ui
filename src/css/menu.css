@@ -11,7 +11,7 @@
 }
 
 .hamburger-menu > menu {
-  @apply flex flex-col items-start absolute right-5 top-[30px] md:top-[35px] w-80 py-6 px-8 rounded-lg border shadow-muted bg-white dark:bg-gray-700 dark:text-white;
+  @apply flex flex-col items-start absolute right-5 top-[30px] md:top-[52px] w-80 py-6 px-8 rounded-lg border shadow-muted bg-white dark:bg-gray-700 dark:text-white;
 }
 
 .hamburger-menu > menu img {

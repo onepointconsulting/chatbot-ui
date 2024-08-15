@@ -77,6 +77,7 @@ export default function HamburgerMenu() {
       {open && (
         <menu ref={menuRef} className="animate-fade-down">
           <StartMenuItem />
+          <hr className="mt-6 mb-6 h-[1px] bg-black dark:bg-gray-100 w-full" />
           <DarkModeButton />
         </menu>
       )}

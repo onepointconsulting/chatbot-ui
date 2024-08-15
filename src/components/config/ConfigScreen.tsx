@@ -9,7 +9,7 @@ const GRID_COL_CLASS = 'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4';
 
 const BASE_MESSAGE_CSS = 'col-span-4 text-xl p-5 mb-8 border';
 
-const DARK_TEXT_COLOR = "dark:text-gray-100"
+const DARK_TEXT_COLOR = 'dark:text-gray-100';
 
 function getTotalQuestions(topics: Topic[], questionCount: number): number {
   return topics
@@ -133,8 +133,12 @@ export default function ConfigScreen() {
 
   return (
     <section className="max-w-[1280px] max-h-[100vh] overflow-auto mx-auto w-full px-6 pt-8">
-      <h1 className={`text-2xl lg:text-3xl py-3 ${DARK_TEXT_COLOR}`}>Select Topics and Depth</h1>
-      <section className={`flex flex-row justify-between items-center text-xl pt-3 lg-pt-4 pb-6 ${DARK_TEXT_COLOR}`}>
+      <h1 className={`text-2xl lg:text-3xl py-3 ${DARK_TEXT_COLOR}`}>
+        Select Topics and Depth
+      </h1>
+      <section
+        className={`flex flex-row justify-between items-center text-xl pt-3 lg-pt-4 pb-6 ${DARK_TEXT_COLOR}`}
+      >
         <div>Select the topics you want to be assessed on.</div>
         <div>
           {!selectAllTopics && (

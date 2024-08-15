@@ -25,10 +25,10 @@ export default function ErrorMessage({
   clearFunc: () => void;
   isError?: boolean;
 }) {
-  const ool = isError ? 'red' : 'green';
+  const col = isError ? 'red' : 'green';
   return (
     <div
-      className={`bg-${ool}-100 border border-${ool}-500 text-${ool}-700 p-4 m-4`}
+      className={`bg-${col}-100 border border-${col}-500 text-${col}-700 p-4 m-4 dark:text-gray-100`}
       role="alert"
     >
       <div className="flex justify-between">

@@ -13,7 +13,7 @@ const HIGHLIGHT_COLOR = 'bg-[#f6f6f6] dark:bg-slate-700';
 
 function processHighlighting(message: Message) {
   return message.finalMessage
-    ? 'bg-green-50'
+    ? 'bg-green-50 dark:bg-green-900'
     : message.isUser
       ? ''
       : HIGHLIGHT_COLOR;

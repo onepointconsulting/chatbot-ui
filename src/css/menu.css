@@ -6,7 +6,7 @@
   @apply cursor-pointer mr-2.5;
 }
 
-.hamburger-menu > div > svg > path {
+.hamburger-menu > section > svg > path {
   @apply dark:!fill-gray-100;
 }
 

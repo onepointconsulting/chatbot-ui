@@ -20,7 +20,7 @@ function SendButton({
   }
   return (
     <button
-      className={`w-12 h-12 p-1 border ${
+      className={`w-12 h-12 p-1 dark:border-gray-100 border ${
         disabled
           ? 'border-[#4a4a4a] fill-[#4a4a4a]'
           : 'border-[#0084d7] fill-[#0084d7]'
@@ -148,7 +148,7 @@ export default function ChatInput() {
           onChange={(e) => (textSignal.value = e.target.value)}
           onKeyUp={sendEnterMessage}
           disabled={state.finished || isLoading || !connected}
-          className="block w-full h-12 p-2 overflow-hidden text-sm text-gray-900 resize-none md:py-3 max-h-44 outline outline-1 focus:outline-offset-2 focus:outline-2 outline-[#4a4a4a] dark:outline-gray-500 dark:bg-gray-600"
+          className="block w-full h-12 p-2 overflow-hidden text-sm text-gray-900 resize-none md:py-3 max-h-44 outline outline-1 focus:outline-offset-2 focus:outline-2 outline-[#4a4a4a] dark:outline-gray-500 dark:bg-gray-600 dark:text-gray-100"
           ref={textAreaRef}
         ></textarea>
         {/* Stop streaming */}

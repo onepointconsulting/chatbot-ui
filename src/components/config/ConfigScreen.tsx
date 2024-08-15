@@ -9,6 +9,8 @@ const GRID_COL_CLASS = 'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4';
 
 const BASE_MESSAGE_CSS = 'col-span-4 text-xl p-5 mb-8 border';
 
+const DARK_TEXT_COLOR = "dark:text-gray-100"
+
 function getTotalQuestions(topics: Topic[], questionCount: number): number {
   return topics
     ? topics.reduce((total, topic) => {
@@ -40,8 +42,8 @@ function ToggleButton({
 }) {
   return (
     <div
-      className={`block text-center border border-[black] py-5 text-xl font-bold cursor-pointer hover:text-[#0084d7] ${
-        checked ? 'bg-sky-200' : ''
+      className={`block text-center border border-[black] dark:border-gray-100 py-5 text-xl font-bold cursor-pointer hover:text-[#0084d7] ${DARK_TEXT_COLOR} ${
+        checked ? 'bg-sky-200 dark:bg-gray-400' : ''
       }`}
       onClick={onClick}
     >
@@ -77,7 +79,7 @@ function MessageDisplay({
   return (
     <section className={GRID_COL_CLASS}>
       <div
-        className={`${BASE_MESSAGE_CSS} border-[${chooseColor()}] text-${chooseColor()}-600`}
+        className={`${BASE_MESSAGE_CSS} border-[${chooseColor()}] text-${chooseColor()}-600 dark:text-gray-100`}
       >
         {savePending && <span>Saving configuration ...</span>}
         {successMessage && <span>{successMessage}</span>}
@@ -105,7 +107,7 @@ export default function ConfigScreen() {
     if (!!successMessage && successMessage.length > 0 && !savePending) {
       setTimeout(() => {
         dispatch({ type: 'finishConfig' });
-      }, 1000);
+      }, 2000);
     }
   }, [successMessage]);
 
@@ -131,13 +133,13 @@ export default function ConfigScreen() {
 
   return (
     <section className="max-w-[1280px] max-h-[100vh] overflow-auto mx-auto w-full px-6 pt-8">
-      <h1 className="text-2xl lg:text-3xl py-3">Select Topics and Depth</h1>
-      <section className="flex flex-row justify-between items-center text-xl pt-3 lg-pt-4 pb-6">
+      <h1 className={`text-2xl lg:text-3xl py-3 ${DARK_TEXT_COLOR}`}>Select Topics and Depth</h1>
+      <section className={`flex flex-row justify-between items-center text-xl pt-3 lg-pt-4 pb-6 ${DARK_TEXT_COLOR}`}>
         <div>Select the topics you want to be assessed on.</div>
         <div>
           {!selectAllTopics && (
             <a
-              className="underline"
+              className={`underline ${DARK_TEXT_COLOR}`}
               href="#"
               onClick={() => dispatch({ type: 'selectAllTopics' })}
             >
@@ -146,7 +148,7 @@ export default function ConfigScreen() {
           )}
           {selectAllTopics && (
             <a
-              className="underline"
+              className={`underline ${DARK_TEXT_COLOR}`}
               href="#"
               onClick={() => dispatch({ type: 'deSelectAllTopics' })}
             >
@@ -165,7 +167,7 @@ export default function ConfigScreen() {
           />
         ))}
       </section>
-      <section className="block text-xl pt-8 lg-pt-4 pb-6">
+      <section className={`block text-xl pt-8 lg-pt-4 pb-6 ${DARK_TEXT_COLOR}`}>
         <div>Select depth of your assessment.</div>
       </section>
       <section className={GRID_COL_CLASS}>
@@ -180,7 +182,7 @@ export default function ConfigScreen() {
           />
         ))}
       </section>
-      <section className="block text-xl pt-8 lg-pt-4 pb-6">
+      <section className={`block text-xl pt-8 lg-pt-4 pb-6 ${DARK_TEXT_COLOR}`}>
         {questionCount} questions per selected topic, a total of{' '}
         {getTotalQuestions(topics, questionCount)} questions.
       </section>
@@ -192,7 +194,8 @@ export default function ConfigScreen() {
       <section className={`${GRID_COL_CLASS} mb-4`}>
         <div className="col-span-3" />
         <button
-          className="border border-[#3982d1] p-5 text-xl text-[#275c90] font-bold hover:bg-blue-50 disabled:opacity-50 disabled:cursor-not-allowed"
+          className="border border-[#3982d1] p-5 text-xl text-[#275c90] font-bold hover:bg-blue-50 disabled:opacity-50 disabled:cursor-not-allowed
+            dark:bg-gray-200 dark:hover:bg-gray-50"
           onClick={saveConfiguration}
           disabled={countTopics(topics) < MIN_TOPICS}
         >

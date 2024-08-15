@@ -83,7 +83,7 @@ export default function TopicTabs() {
       {/* Arrow left */}
       {showLeftArrow && (
         <MdKeyboardArrowLeft
-          className="absolute top-0 left-0 mt-0 ml-2 text-2xl cursor-pointer"
+          className="absolute top-0 left-0 mt-0 ml-2 text-2xl cursor-pointer dark:text-white"
           onClick={(e) => handleArrowScroll(e, 'left')}
         />
       )}
@@ -115,7 +115,7 @@ export default function TopicTabs() {
       {/* Arrow right */}
       {showRightArrow && (
         <MdKeyboardArrowRight
-          className="absolute top-0 right-0 mt-0 mr-2 text-2xl cursor-pointer"
+          className="absolute top-0 right-0 mt-0 mr-2 text-2xl cursor-pointer dark:text-white"
           onClick={(e) => handleArrowScroll(e, 'right')}
         />
       )}

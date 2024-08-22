@@ -24,6 +24,8 @@ interface ContextProps {
   readonly defaultQuestionsPrompt?: string;
   readonly historySize?: number;
   readonly showRefreshButton: boolean;
+  displayRegistrationMessage: boolean;
+  setDisplayRegistrationMessage: (displayRegistrationMessage: boolean) => void;
   isConnected?: boolean;
   setIsConnected?: (connected: boolean) => void;
   socket: React.MutableRefObject<Socket | null>;
@@ -45,6 +47,8 @@ export const ChatContext = createContext<ContextProps>({
   showRefreshButton: true,
   historySize: 20,
   socket: { current: null },
+  displayRegistrationMessage: false,
+  setDisplayRegistrationMessage: (_) => {},
 });
 
 export const ChatContextProvider = ({ children }: Props) => {
@@ -70,6 +74,8 @@ export const ChatContextProvider = ({ children }: Props) => {
       : chatConfig?.showRefreshButton;
   const historySize = chatConfig?.historySize ?? 20;
   const [isConnected, setIsConnected] = useState(false);
+  const [displayRegistrationMessage, setDisplayRegistrationMessage] =
+    useState(false);
   const socket: React.MutableRefObject<Socket | null> = useRef<Socket | null>(
     null,
   );
@@ -99,6 +105,8 @@ export const ChatContextProvider = ({ children }: Props) => {
         isConnected,
         setIsConnected,
         socket,
+        displayRegistrationMessage,
+        setDisplayRegistrationMessage,
       }}
     >
       {children}

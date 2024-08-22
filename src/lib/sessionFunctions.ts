@@ -7,7 +7,7 @@ export function saveSession(session: Session) {
 
 export function getSession(): Session | null {
   const session = localStorage.getItem(SESSION_KEY);
-  if (session) {
+  if (!!session) {
     try {
       const sessionObj = JSON.parse(session);
       if (typeof sessionObj.timestamp === 'string') {

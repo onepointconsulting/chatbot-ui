@@ -8,7 +8,7 @@ import Messages from './ChatMessages.tsx';
 import ErrorMessage from './ErrorMessage.tsx';
 import ChatInput from './ChatInput.tsx';
 import Spinner from './Spinner.tsx';
-import loadHistory from '../lib/history.ts';
+import loadHistory, { getSessionHistory } from '../lib/history.ts';
 import { debounce } from 'lodash';
 import SuggestedResponsePanel from './SuggestedResponsePanel.tsx';
 import { ConfigContext } from '../context/ConfigContext.tsx';
@@ -16,6 +16,7 @@ import { Message } from '../model/message.ts';
 import ConfigScreen from './config/ConfigScreen.tsx';
 import TopicTabs from './TopicTabs.tsx';
 import RestartDialogue from './dialogs/RestartDialogue.tsx';
+import { extractIdParam } from '../lib/urlParamExtraction.ts';
 
 export function scrollToBottom(scrollBehavior: string = 'auto') {
   const chatContainer = document.querySelector('.chat-container');
@@ -51,6 +52,29 @@ function hasDataAndSuggestedResponses(data: Message[]) {
   return data && data.length > 0 && data[data.length - 1].suggestedResponses;
 }
 
+function MessageArea() {
+  const { state } = useContext(MessageContext);
+  const { displayRegistrationMessage } = useContext(ChatContext);
+  const { data, isLoading } = state;
+  if (displayRegistrationMessage) return null;
+  return (
+    <>
+      <TopicTabs />
+      <div className="overflow-auto chat-container grow p-4 m-4 border border-[#d9d9d9] flex flex-col gap-4">
+        <Messages />
+        {isLoading && <Spinner />}
+      </div>
+      {hasDataAndSuggestedResponses(data) && (
+        <SuggestedResponsePanel
+          possibleResponses={data[data.length - 1].suggestedResponses ?? []}
+        />
+      )}
+      {/* Search input */}
+      <ChatInput />
+    </>
+  );
+}
+
 export default function MainChat() {
   const { websocketUrl, setIsConnected, streaming, historySize } =
     useContext(ChatContext);
@@ -66,8 +90,11 @@ export default function MainChat() {
   const debouncedScrollToBottom = debounce(scrollToBottom, 500);
 
   useEffect(() => {
-    const messages = loadHistory(historySize);
-    dispatch({ type: 'bulkLoad', messages });
+    const shouldRegister = getSessionHistory().length > 0 && !extractIdParam();
+    if (!shouldRegister) {
+      const messages = loadHistory(historySize);
+      dispatch({ type: 'bulkLoad', messages });
+    }
   }, []);
 
   useEffect(() => {
@@ -103,18 +130,7 @@ export default function MainChat() {
           clearFunc={() => dispatch({ type: 'clearFailure' })}
         />
       )}
-      <TopicTabs />
-      <div className="overflow-auto chat-container grow p-4 m-4 border border-[#d9d9d9] flex flex-col gap-4">
-        <Messages />
-        {isLoading && <Spinner />}
-      </div>
-      {hasDataAndSuggestedResponses(data) && (
-        <SuggestedResponsePanel
-          possibleResponses={data[data.length - 1].suggestedResponses ?? []}
-        />
-      )}
-      {/* Search input */}
-      <ChatInput />
+      <MessageArea />
     </>
   );
 }

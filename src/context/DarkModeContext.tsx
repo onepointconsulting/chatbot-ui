@@ -1,5 +1,5 @@
-import { createContext, useEffect, useState } from "react";
-import { Props } from "./commonModel.ts";
+import { createContext, useEffect, useState } from 'react';
+import { Props } from './commonModel.ts';
 
 interface DarkState {
   dark: boolean;
@@ -14,10 +14,10 @@ export const DarkModeContext = createContext<DarkState>({
 export const DarkModeContextProvider = ({ children }: Props) => {
   const [dark, setDark] = useState<boolean>(false);
   useEffect(() => {
-    const isDark = window.localStorage["dark"] === "true";
+    const isDark = window.localStorage['dark'] === 'true';
     setDark(isDark);
     if (isDark) {
-      document.body.classList.add("dark");
+      document.body.classList.add('dark');
     }
   }, []);
   return (

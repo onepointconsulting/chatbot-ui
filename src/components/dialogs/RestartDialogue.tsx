@@ -1,10 +1,7 @@
-import { useContext } from 'react';
 import onCloseDialogue from '../../lib/dialogFunctions.ts';
 import DialogueHeader from './DialogueHeader.tsx';
-import { MessageContext } from '../../context/MessageContext.tsx';
-import { SESSION_KEY } from '../../lib/sessionFunctions.ts';
-import { HISTORY_KEY } from '../../lib/history.ts';
 import ButtonPanel from '../buttons/ButtonPanel.tsx';
+import useRestart from '../../hooks/useRestart.ts';
 
 export const RESTART_DIALOGUE_ID = 'restart-dialogue';
 
@@ -12,22 +9,8 @@ function onClose() {
   onCloseDialogue(RESTART_DIALOGUE_ID);
 }
 
-function clearLocalStorage(key) {
-  localStorage.removeItem(key);
-}
-
 export default function RestartDialogue() {
-  const { dispatch } = useContext(MessageContext);
-
-  function onOk() {
-    dispatch({
-      type: 'clear',
-    });
-    clearLocalStorage(SESSION_KEY);
-    clearLocalStorage(HISTORY_KEY);
-    onClose();
-    location.reload();
-  }
+  const { onRestart } = useRestart();
 
   return (
     <dialog
@@ -102,7 +85,7 @@ export default function RestartDialogue() {
         </section>
       </div>
 
-      <ButtonPanel onOk={onOk} okText="ok" disabled={false} />
+      <ButtonPanel onOk={onRestart} okText="ok" disabled={false} />
     </dialog>
   );
 }

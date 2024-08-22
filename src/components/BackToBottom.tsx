@@ -18,12 +18,13 @@ export default function BackToBottom() {
 
     const handleScroll = () => {
       if (!!feedContainer) {
-        const isAtBottom =
+        chatAtBottom.value =
           feedContainer.scrollHeight - feedContainer.scrollTop <=
           feedContainer.clientHeight + CORRECTION;
-        chatAtBottom.value = isAtBottom;
       }
     };
+
+    if (!feedContainer) return;
 
     // Listen for the scroll event on the chat container
     feedContainer.addEventListener('scroll', handleScroll);

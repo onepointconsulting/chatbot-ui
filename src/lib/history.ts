@@ -2,6 +2,8 @@ import { Message } from '../model/message.ts';
 
 export const HISTORY_KEY = 'history';
 
+export const SESSION_HISTORY_KEY = 'sessionHistory';
+
 const SIZE_LIMIT = 1024 * 1024 * 4; // 4MB
 
 const byteSize = (str: string) => new Blob([str]).size;
@@ -44,4 +46,22 @@ export function saveHistory(message: Message) {
     }
     localStorage.setItem(HISTORY_KEY, JSON.stringify(entries));
   }
+}
+
+export function getSessionHistory(): string[] {
+  const sessionHistory = localStorage.getItem(SESSION_HISTORY_KEY);
+  if (sessionHistory === null) {
+    return [];
+  }
+  return JSON.parse(sessionHistory) as string[];
+}
+
+export function addToHistory(sessionId: string) {
+  const sessionHistory = getSessionHistory();
+  sessionHistory.push(sessionId);
+  localStorage.setItem(SESSION_HISTORY_KEY, JSON.stringify(sessionHistory));
+}
+
+export function clearLocalStorage(key) {
+  localStorage.removeItem(key);
 }

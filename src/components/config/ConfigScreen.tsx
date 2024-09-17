@@ -134,7 +134,7 @@ export default function ConfigScreen() {
   return (
     <section className="max-w-[1280px] max-h-[100vh] overflow-auto mx-auto w-full px-6 pt-8">
       <h1 className={`text-2xl lg:text-3xl py-3 ${DARK_TEXT_COLOR}`}>
-        Select Topics and Depth
+        Select topics and depth
       </h1>
       <section
         className={`flex flex-row justify-between items-center text-xl pt-3 lg-pt-4 pb-6 ${DARK_TEXT_COLOR}`}

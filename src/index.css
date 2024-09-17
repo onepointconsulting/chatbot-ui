@@ -19,6 +19,14 @@
   @apply bg-gradient-to-b from-[#ffffff] from-15% to-[#edf7fc] dark:from-[#1a202c] dark:to-[#2d3748];
 }
 
+body.dark {
+  @apply bg-[#2d3748]
+}
+
+body {
+  @apply bg-[#edf7fc]
+}
+
 #root {
   @apply flex flex-col back-gradient h-[100vh] gap-10 dark:text-gray-100;
 }

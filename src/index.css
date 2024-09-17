@@ -20,11 +20,11 @@
 }
 
 body.dark {
-  @apply bg-[#2d3748]
+  @apply bg-[#2d3748];
 }
 
 body {
-  @apply bg-[#edf7fc]
+  @apply bg-[#edf7fc];
 }
 
 #root {

@@ -24,6 +24,7 @@ interface ContextProps {
   readonly defaultQuestionsPrompt?: string;
   readonly historySize?: number;
   readonly showRefreshButton: boolean;
+  tokenValidationUrl: string;
   displayRegistrationMessage: boolean;
   setDisplayRegistrationMessage: (displayRegistrationMessage: boolean) => void;
   isConnected?: boolean;
@@ -46,6 +47,7 @@ export const ChatContext = createContext<ContextProps>({
   supportsSession: false,
   showRefreshButton: true,
   historySize: 20,
+  tokenValidationUrl: '',
   socket: { current: null },
   displayRegistrationMessage: false,
   setDisplayRegistrationMessage: (_) => {},
@@ -68,6 +70,7 @@ export const ChatContextProvider = ({ children }: Props) => {
   const streaming = chatConfig?.streaming;
   const showSidebar = chatConfig?.showSidebar;
   const supportsSession = chatConfig?.supportsSession;
+  const tokenValidationUrl = chatConfig?.tokenValidationUrl || '';
   const showRefreshButton =
     typeof chatConfig?.showRefreshButton === 'undefined'
       ? true
@@ -100,6 +103,7 @@ export const ChatContextProvider = ({ children }: Props) => {
         showSidebar,
         supportsSession,
         showRefreshButton,
+        tokenValidationUrl,
         historySize,
         defaultQuestionsPrompt,
         isConnected,

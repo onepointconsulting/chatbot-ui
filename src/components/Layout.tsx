@@ -1,5 +1,5 @@
 import Header from './header/Header.tsx';
-import { useContext, useEffect } from 'react';
+import { useContext } from 'react';
 import { ChatContext } from '../context/ChatContext.tsx';
 import SideMenu from './SideMenu.tsx';
 import { signal } from '@preact/signals-react';
@@ -7,7 +7,7 @@ import ProgressSection, { showProgressChart } from './ProgressSection.tsx';
 import { ConfigContext } from '../context/ConfigContext.tsx';
 import MobileProgress from './MobileProgress.tsx';
 import { Toaster } from './ui/toaster';
-import { shouldRegister } from '../lib/sessionFunctions.ts';
+import useShouldRegister from "../hooks/useShouldRegister.ts";
 
 export const expanded = signal(false);
 
@@ -45,11 +45,11 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   const { state: configState } = useContext(ConfigContext);
   const { initConfig } = configState;
 
-  useEffect(() => {
-    if (shouldRegister()) {
+  useShouldRegister((shouldRegister_: boolean) => {
+    if (shouldRegister_) {
       setDisplayRegistrationMessage(true);
     }
-  }, []);
+  })
 
   return (
     <section className="flex flex-col">

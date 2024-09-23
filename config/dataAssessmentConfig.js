@@ -7,6 +7,7 @@ const protocol = 'http';
 const websocketProtocol = 'ws';
 const port = 8083;
 const server = 'localhost';
+const tokenValidationUrl = `https://d-well.onepointltd.ai/validate_jwt_token`;
 
 const dataAssessmentConfig = {
   streaming: false,
@@ -32,4 +33,5 @@ const dataAssessmentConfig = {
   barchartProgressUrl: `${protocol}://${server}:${port}/barchart`,
   defaultQuestionsPrompt: '',
   exampleQuestions: [],
+  tokenValidationUrl
 };

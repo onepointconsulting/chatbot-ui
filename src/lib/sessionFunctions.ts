@@ -22,8 +22,3 @@ export function getSession(): Session | null {
   }
   return null;
 }
-
-export function shouldRegister(): boolean {
-  return false;
-  // return getSessionHistory().length > 0 && !extractIdParam();
-}

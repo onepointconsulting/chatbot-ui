@@ -16,7 +16,7 @@ import { Message } from '../model/message.ts';
 import ConfigScreen from './config/ConfigScreen.tsx';
 import TopicTabs from './TopicTabs.tsx';
 import RestartDialogue from './dialogs/RestartDialogue.tsx';
-import useShouldRegister from "../hooks/useShouldRegister.ts";
+import useShouldRegister from '../hooks/useShouldRegister.ts';
 
 export function scrollToBottom(scrollBehavior: string = 'auto') {
   const chatContainer = document.querySelector('.chat-container');
@@ -94,7 +94,7 @@ export default function MainChat() {
       const messages = loadHistory(historySize);
       dispatch({ type: 'bulkLoad', messages });
     }
-  })
+  });
 
   useEffect(() => {
     debouncedScrollToBottom();

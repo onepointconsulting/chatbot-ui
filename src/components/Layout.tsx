@@ -7,7 +7,7 @@ import ProgressSection, { showProgressChart } from './ProgressSection.tsx';
 import { ConfigContext } from '../context/ConfigContext.tsx';
 import MobileProgress from './MobileProgress.tsx';
 import { Toaster } from './ui/toaster';
-import useShouldRegister from "../hooks/useShouldRegister.ts";
+import useShouldRegister from '../hooks/useShouldRegister.ts';
 
 export const expanded = signal(false);
 
@@ -49,7 +49,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
     if (shouldRegister_) {
       setDisplayRegistrationMessage(true);
     }
-  })
+  });
 
   return (
     <section className="flex flex-col">

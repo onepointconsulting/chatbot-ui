@@ -33,5 +33,5 @@ const dataAssessmentConfig = {
   barchartProgressUrl: `${protocol}://${server}:${port}/barchart`,
   defaultQuestionsPrompt: '',
   exampleQuestions: [],
-  tokenValidationUrl
+  tokenValidationUrl,
 };

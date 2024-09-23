@@ -1,13 +1,13 @@
 import Header from './header/Header.tsx';
-import {useContext, useEffect} from 'react';
-import {ChatContext} from '../context/ChatContext.tsx';
+import { useContext, useEffect } from 'react';
+import { ChatContext } from '../context/ChatContext.tsx';
 import SideMenu from './SideMenu.tsx';
-import {signal} from '@preact/signals-react';
-import ProgressSection, {showProgressChart} from './ProgressSection.tsx';
-import {ConfigContext} from '../context/ConfigContext.tsx';
+import { signal } from '@preact/signals-react';
+import ProgressSection, { showProgressChart } from './ProgressSection.tsx';
+import { ConfigContext } from '../context/ConfigContext.tsx';
 import MobileProgress from './MobileProgress.tsx';
-import {Toaster} from './ui/toaster';
-import {shouldRegister} from "../lib/sessionFunctions.ts";
+import { Toaster } from './ui/toaster';
+import { shouldRegister } from '../lib/sessionFunctions.ts';
 
 export const expanded = signal(false);
 

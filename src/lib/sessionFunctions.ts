@@ -1,4 +1,4 @@
-import {Session} from '../model/session.ts';
+import { Session } from '../model/session.ts';
 
 export const SESSION_KEY = 'session';
 export function saveSession(session: Session) {

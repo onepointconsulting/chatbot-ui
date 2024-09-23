@@ -1,22 +1,22 @@
-import { useContext, useEffect } from 'react';
-import { Socket } from 'socket.io-client';
-import { ChatContext } from '../context/ChatContext.tsx';
-import { Action, MessageContext } from '../context/MessageContext.tsx';
-import { useWebsocket } from '../hooks/useWebsocket.ts';
+import {useContext, useEffect} from 'react';
+import {Socket} from 'socket.io-client';
+import {ChatContext} from '../context/ChatContext.tsx';
+import {Action, MessageContext} from '../context/MessageContext.tsx';
+import {useWebsocket} from '../hooks/useWebsocket.ts';
 import AppInfo from './AppInfo.tsx';
 import Messages from './ChatMessages.tsx';
 import ErrorMessage from './ErrorMessage.tsx';
 import ChatInput from './ChatInput.tsx';
 import Spinner from './Spinner.tsx';
-import loadHistory, { getSessionHistory } from '../lib/history.ts';
-import { debounce } from 'lodash';
+import loadHistory from '../lib/history.ts';
+import {debounce} from 'lodash';
 import SuggestedResponsePanel from './SuggestedResponsePanel.tsx';
-import { ConfigContext } from '../context/ConfigContext.tsx';
-import { Message } from '../model/message.ts';
+import {ConfigContext} from '../context/ConfigContext.tsx';
+import {Message} from '../model/message.ts';
 import ConfigScreen from './config/ConfigScreen.tsx';
 import TopicTabs from './TopicTabs.tsx';
 import RestartDialogue from './dialogs/RestartDialogue.tsx';
-import { extractIdParam } from '../lib/urlParamExtraction.ts';
+import {shouldRegister} from "../lib/sessionFunctions.ts";
 
 export function scrollToBottom(scrollBehavior: string = 'auto') {
   const chatContainer = document.querySelector('.chat-container');
@@ -90,8 +90,8 @@ export default function MainChat() {
   const debouncedScrollToBottom = debounce(scrollToBottom, 500);
 
   useEffect(() => {
-    const shouldRegister = getSessionHistory().length > 0 && !extractIdParam();
-    if (!shouldRegister) {
+    const shouldRegister_ = shouldRegister();
+    if (!shouldRegister_) {
       const messages = loadHistory(historySize);
       dispatch({ type: 'bulkLoad', messages });
     }

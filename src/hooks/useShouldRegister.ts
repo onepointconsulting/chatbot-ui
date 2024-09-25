@@ -11,6 +11,7 @@ export default function useShouldRegister(func: (b: boolean) => void) {
       const idParam = extractIdParam();
       if (!idParam) {
         // No id. Should register
+        console.info('No id param found. Should register');
         func(true);
       } else {
         fetch(tokenValidationUrl, {
